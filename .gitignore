@@ -1,0 +1,6 @@
+node_modules
+# build/*.js
+npm-debug.log
+.DS_Store
+deprecated
+.env
