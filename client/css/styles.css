@@ -1,0 +1,151 @@
+/* .body{
+  text-align: center;
+  
+}
+.body ul {
+  list-style-type: none;
+} */
+
+
+
+
+
+
+* {
+  box-sizing: border-box;
+  color: #333;
+}
+
+body {
+  background-color: #ffffff;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.pinpad_container {
+  margin: 0 auto;
+  border: 4px solid rgb(10, 75, 10);
+  width: 70%;
+  margin-bottom: 30px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pinpad {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 30px;
+  width: 50%;
+}
+
+.pin-display {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  border: 1px solid black;
+  margin-top: 25px;
+  padding: 5px;
+  width: 140px;
+  border-radius: 10px;
+  height: 55px;
+}
+
+.num_button {
+  width: 100%;
+  height: 100px;
+  background-color: rgb(200, 229, 255);
+  border-radius: 15px;
+  font-size: 3rem;
+}
+
+.num_button:hover {
+  background-color: rgb(198, 252, 234);
+}
+
+.back_button{
+  width: 100%;
+  height: 100px;
+  background-color: rgb(255, 122, 117);
+  border-radius: 15px;
+
+}
+
+.submit_button{
+  width: 100%;
+  height: 100px;
+  background-color: rgb(148, 255, 136);
+  border-radius: 15px;
+}
+
+header {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 200px;
+  margin: 0 auto;
+  padding: 20px 0px 0px 0px;
+}
+
+img {
+  width: 200px;
+  height: 300px;
+}
+
+.clock {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 35%;
+  margin: auto;
+}
+
+.button {
+  padding: 6px;
+  margin: 6px;
+}
+.clock_in_portal {
+  border: 3px solid rgb(0, 138, 5);
+  display: grid;
+  grid-template-rows: 1fr;
+  justify-content: space-around;
+}
+
+.clock_out_portal {
+  border: 2px solid rgb(125, 0, 0);
+  display: grid;
+  grid-template-rows: 1fr;
+  justify-content: space-around;
+}
+
+.add_employee {
+  display: block;
+  border: 1px solid black;
+  margin: 5px;
+  width: 40%;
+  border-radius: 10px;
+}
+
+.add_form {
+ border: 1px solid red; 
+
+}
+
+.timesheet-grid{
+  border: 4px solid green;
+  margin: 6%;
+}
+
+.update_employee {
+  width: 70%;
+  display: block;
+  border: 1px solid black;
+  margin: 5px;
+}
+
+.admin_validation h3 {
+  border: 3px solid green;
+  color:rgb(0, 138, 5);
+  padding: 10px;
+}
