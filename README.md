@@ -1,4 +1,4 @@
-# timecroc2
+# timecroc
 
 1. `npm install`
 2. add secrets to `.env`
