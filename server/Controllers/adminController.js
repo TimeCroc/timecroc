@@ -8,6 +8,7 @@ adminController.getAllAdmins =  async (req, res, next) => {
   try {
     const admins = await db.query('SELECT * FROM admin');
     res.locals.admins = admins.rows;
+    console.log('admins', res.locals.admins);
     return next();
   }
   catch(err){
@@ -15,32 +16,33 @@ adminController.getAllAdmins =  async (req, res, next) => {
   };
 };
 
-//using admin_password as a proxy for pin
-adminController.getOneAdmin = async (req, res, next) => {
-  const { admin_password } = req.params;  
+//using _id as a proxy for pin
+adminController.getAdminById = async (req, res, next) => {
+  const { _id } = req.params;  
   try {
     const input = [];
     let adminQuery = 'SELECT * FROM admin';
-    if(admin_password){
-      adminQuery += `WHERE admin_password = $1`;
-      input.push(admin_password);
+    if(_id){
+      adminQuery += `WHERE _id = $1`;
+      input.push(_id);
     }
     const target = await db.query(adminQuery, input)
     res.locals.targetAdmin = target.rows[0];
-    
+    console.log('targetAdmin', res.locals.targetAdmin);
     //not sure why this doesn't throw and error automatically?
     if (res.locals.targetAdmin === undefined) {
       return next({
-        log: 'no admin found with that password',
-        message: {err: 'no admin found with that password'}
+        log: 'no admin found with that id',
+        message: {err: 'no admin found with that id'}
       });
     }
+    console.log('targetAdmin', res.locals.targetAdmin);
     return next();
     }
     catch(err) {
       return next({
-        log: 'adminController.getOneAdmin: ERROR',
-        message: {err: 'Error occurred in adminController.getOneAdmin'}
+        log: 'adminController.getAdminById: ERROR',
+        message: {err: 'Error occurred in adminController.getAdminById'}
       });
     }
 }
@@ -59,7 +61,7 @@ adminController.createAdmin = async (req, res, next) => {
     const newAdmin = await db.query(newAdminQuery, input);
     res.locals.newAdmin = newAdmin.rows[0];
     // console.log to check if newAdmin is being created
-    console.log('newAdmin', res.locals.newAdmin);
+    console.log('Created newAdmin', res.locals.newAdmin);
     return next();
   }
   catch(err){
@@ -71,18 +73,21 @@ adminController.createAdmin = async (req, res, next) => {
 };
 
 adminController.updateAdmin = async (req, res, next) => {
-  const { _id } = res.locals.targetAdmin;
+  const { id: _id } = req.params;
   const { first_name, last_name, email, admin_password } = req.body;
-
+	
   try {
     const input = [_id, first_name, last_name, email, admin_password];
+		console.log('input', input)
+	
     let adminQuery = 'UPDATE admin SET \
      email = $2, admin_password = $3, first_name = $4, last_name = $5';
     if(_id){
       adminQuery += `WHERE _id = $1 RETURNING * `;
     }
     const updated = await db.query(adminQuery, input);
-    res.locals.updatedeAdmin = updated.rows[0];
+    res.locals.updatedAdmin = updated.rows[0];
+    console.log('updatedAdmin', res.locals.updatedAdmin);
     return next();
   }
   catch(err) {
@@ -95,16 +100,17 @@ adminController.updateAdmin = async (req, res, next) => {
 
 
 adminController.deleteAdmin= async (req, res, next) => {
-  const { _id } = res.locals.targetAdmin;
+  const { id: _id } = req.params;
   try {
     const input = [];
     let adminQuery = 'DELETE FROM admin ';
    if(_id){
-     adminQuery += `WHERE _id = $1 RETURNING * `;
+     adminQuery += ` WHERE _id = $1 RETURNING * `;
      input.push(_id);
    }
     const deleted = await db.query(adminQuery, input);
-    res.locals.deleted = deleted.rows[0];
+    res.locals.deletedAdmin = deleted.rows[0];
+    console.log('deletedAdmin', res.locals.deletedAdmin);
     return next();
   }
   catch(err){
