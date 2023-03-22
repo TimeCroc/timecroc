@@ -17,6 +17,7 @@
   "author": "Mark Yencheske",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
