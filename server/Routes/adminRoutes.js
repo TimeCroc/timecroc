@@ -1,16 +1,17 @@
 const express = require('express');
 const adminRouter = express.Router();
 
-const adminController = require('../controllers/adminController');
+const adminController = require('../Controllers/adminController');
+const sessionController = require('../Controllers/sessionController');
 
-adminRouter.get('/', adminController.getAllAdmins, (req, res) => { return res.status(200).json(res.locals.admins); });
+adminRouter.get('/', sessionController.verifyAdmin, adminController.getAllAdmins, (req, res) => { return res.status(200).json(res.locals.admins); });
 
-adminRouter.get('/:id', adminController.getAdminById, (req, res) => { return res.status(200).json(res.locals.targetAdmin); });
+adminRouter.get('/:id', sessionController.verifyAdmin, adminController.getAdminById, (req, res) => { return res.status(200).json(res.locals.targetAdmin); });
 
-adminRouter.post('/', adminController.createAdmin, (req, res) => { return res.status(200).json(res.locals.newAdmin); });
+adminRouter.post('/', sessionController.verifyAdmin, adminController.createAdmin, (req, res) => { return res.status(200).json(res.locals.newAdmin); });
 
-adminRouter.put('/:id', adminController.updateAdmin, (req, res) => { return res.status(200).json(res.locals.updatedAdmin); });
+adminRouter.put('/:id', sessionController.verifyAdmin, adminController.updateAdmin, (req, res) => { return res.status(200).json(res.locals.updatedAdmin); });
 
-adminRouter.delete('/:id', adminController.deleteAdmin, (req, res) => { return res.status(200).json(res.locals.deletedAdmin); });
+adminRouter.delete('/:id', sessionController.verifyAdmin, adminController.deleteAdmin, (req, res) => { return res.status(200).json(res.locals.deletedAdmin); });
 
 module.exports = adminRouter;
