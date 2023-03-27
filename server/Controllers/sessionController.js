@@ -1,117 +1,43 @@
-// const bcrypt = require("bcrypt");
-// const path = require('path');
-// const db = require(path.resolve(__dirname, '../models/adminModel'));
-// const jwt = require("jsonwebtoken");
-
-// const sessionController = {};
-
-// sessionController.verifyAdmin = async (req, res) => {
-//   const { email, admin_password } = req.body;
-//   console.log("email: ", email, "password: ", admin_password);
-//   try {
-//     const data = await db.query(`SELECT * FROM admin WHERE email= $1;`, [email]);
-//     const admin = data.rows;
-//     if (admin.length === 0) {
-//       res.status(400).json({error: "Admin is not registered."});
-//     }
-//     else {
-//       bcrypt.compare(admin_password, admin[0].admin_password, (err, result) => {
-//         if (err) {
-//           res.status(500).json({error: "Server error."});
-//         }
-//         else if (result === true) {
-//           const token = jwt.sign({email: email}, process.env.SECRET_KEY);
-//           res.status(200).json({message: "Admin signed in!", token: token});
-//         }
-//         else {
-//           if (result !== true) {
-//             res.status(400).json({error: "Enter correct password."})
-//           }
-//         }
-//       })
-//     }
-//   }
-//   catch (err) {
-//     console.log(err);
-//     res.status(500).json({error: "Database error occurred while signing in"});
-//   }
-// }
-
-// module.exports = sessionController;
-
-// second attempt
-// const bcrypt = require("bcrypt");
-// const path = require('path');
-// const db = require(path.resolve(__dirname, '../models/adminModel'));
-// const jwt = require("jsonwebtoken");
-
-// const sessionController = {};
-// const secretKey = process.env.SECRET_KEY;
-
-// sessionController.verifyAdmin = async (req, res, next) => {
-//   const token = req.headers.authorization?.split(' ')[1]; // get JWT token from request headers
-//   console.log(token)
-//   if (!token) {
-//     return res.status(401).json({ error: 'No token provided.' });
-//   }
-
-//   try {
-//     const decoded = jwt.verify(token, secretKey); // decode JWT token
-//     const { email } = decoded;
-
-//     const data = await db.query(`SELECT * FROM admin WHERE email= $1;`, [email]);
-//     const admin = data.rows;
-//     if (admin.length === 0) {
-//       return res.status(400).json({ error: "Admin is not registered." });
-//     }
-
-//     // add admin object to request for use in other middleware
-//     req.admin = admin[0];
-
-//     next(); // proceed to next middleware
-//   } catch (err) {
-//     console.log(err);
-//     res.status(401).json({ error: 'Invalid token.' });
-//   }
-// };
-
-// module.exports = sessionController;
-
-// third attempt
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
 const saltRounds = 10;
 const path = require("path");
 const db = require(path.resolve(__dirname, "../models/adminModel")); // assuming you have a Admin model defined
 
 const sessionController = {};
 
-sessionController.createSession = async (req, res) => {
+sessionController.createSession = async (req, res, next) => {
   const { email, admin_password } = req.body;
-
   // find user by email
   const admin = await db.query("SELECT * FROM admin WHERE email = $1", [email]);
   console.log("admin", admin);
   if (!admin.rows[0]) {
     return res.status(401).json({ message: "Invalid email" });
   }
-
-  const inputPassword = await admin.rows[0].admin_password;
-  console.log("inputPassword", inputPassword);
-  console.log('admin_password', admin_password)
+  // Next line - still not sure we need await here
+  // const inputPassword = await admin.rows[0].admin_password;
+  // console.log("inputPassword", inputPassword);
+  // console.log('admin_password', admin_password)
   // check password
   // note: bcrypt.compare returns a promise, and it requires three arguments, the third of which is a callback function that will be called when the promise is resolved
-  bcrypt.hash(admin_password, saltRounds, function(err, hash) {
-    // Store hash in your password DB
-  });
+    // let statement = 'UPDATE admin SET admin_password = $1 WHERE email = $2'
+  
+    // hash the password
+    const hashedPassword = await bcrypt.hash(admin_password, saltRounds);
 
-  const validPassword = await bcrypt.compare(admin_password, inputPassword);
-  console.log(validPassword, 'validPassword');
-  if (!validPassword) {
-    return res.status(401).json({ message: "Invalid password" });
-  }
+    // update the password in the database
+    const statement = 'UPDATE admin SET admin_password = $1 WHERE email = $2';
+    const values = [hashedPassword, email];
+    try {
+      await db.query(statement, values);
+      console.log("hashed password updated!");
+    } catch (err) {
+      console.log("error in updating password", err);
+      throw err;
+    }
 
-  // create JWT
+  // create JWT 
   const token = jwt.sign(
     { email: admin.rows[0].email },
     process.env.JWT_SECRET
@@ -132,12 +58,37 @@ sessionController.createSession = async (req, res) => {
 
   // set cookie
   res.cookie("session_id", token, cookieOptions);
-
-  res.json({ message: "Session created" });
+  console.log("Session created");
+  next();
 };
 
 sessionController.verifySession = async (req, res, next) => {
-  const token = req.cookies.token; //replace token with session_id
+  const { email, admin_password } = req.body;
+  function hasAccess(result) {
+    if (result) {
+      console.log("Access granted!")
+    }
+    else {
+      console.log("Access denied!")
+    }
+  }
+  
+  db.query('SELECT admin_password FROM admin WHERE email = $1', [email], function(err, res) {
+    if (err) {
+      console.log("error in db query of admin's password", err);
+      throw err;
+    }
+    else {
+      let hash = res.rows[0].admin_password;
+      //compare hash and password
+      bcrypt.compare(admin_password, hash, function(err, result) {
+        hasAccess(result);
+      })
+    }
+  });
+
+  const token = req.cookies.session_id; // get the token from the cookie
+  
   if (!token) {
     return res.status(401).json({ message: "Token not valid" });
   }
@@ -152,25 +103,19 @@ sessionController.verifySession = async (req, res, next) => {
     }
 
     req.admin = admin;
+    
     next();
   } catch (err) {
     return res.status(401).json({ message: "Unexpected error" });
   }
 };
 
+sessionController.endSession = (req, res, next) => {
+  res.clearCookie("session_id");
+  console.log("Session ended");
+  next();
+};
+
+
+
 module.exports = sessionController;
-
-
-/* 
-const validPassword = await bcrypt.compare(admin_password, admin.rows[0].admin_password, (err, res) => {
-  if (err) {
-    throw err;
-  }
-  return res;
-});
-
-if (!validPassword) {
-  return res.status(401).json({ message: "Invalid password" });
-}
-
-*/
