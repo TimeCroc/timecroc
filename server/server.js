@@ -3,8 +3,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cors = require('cors');
+const cookieParser = require("cookie-parser");
 const employeeRouter = require('./Routes/employeeRoutes');
-const shiftRouter = require('./Routes/shiftRoutes')
+const shiftRouter = require('./Routes/shiftRoutes');
+const adminRouter = require('./Routes/adminRoutes');
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,6 +18,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 app.use(express.json());
 
 
@@ -37,6 +40,8 @@ if(process.env.NODE_ENV === 'production'){
 app.use('/api/employees', employeeRouter);
 
 app.use('/api/shifts', shiftRouter);
+
+app.use('/api/admin', adminRouter);
 
 app.use('*', (req, res) => {
  return res.status(404).send('Page Not Found');
