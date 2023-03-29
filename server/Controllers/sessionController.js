@@ -1,28 +1,23 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const cookieParser = require("cookie-parser");
 const saltRounds = 10;
 const path = require("path");
-const db = require(path.resolve(__dirname, "../models/adminModel")); // assuming you have a Admin model defined
+const db = require(path.resolve(__dirname, "../models/adminModel"));
 
 const sessionController = {};
 
+// middleware for logging in an admin
 sessionController.createSession = async (req, res, next) => {
   const { email, admin_password } = req.body;
   // find user by email
   const admin = await db.query("SELECT * FROM admin WHERE email = $1", [email]);
   console.log("admin", admin);
+  console.log(email, "is logged in")
   if (!admin.rows[0]) {
     return res.status(401).json({ message: "Invalid email" });
   }
-  // Next line - still not sure we need await here
-  // const inputPassword = await admin.rows[0].admin_password;
-  // console.log("inputPassword", inputPassword);
-  // console.log('admin_password', admin_password)
-  // check password
-  // note: bcrypt.compare returns a promise, and it requires three arguments, the third of which is a callback function that will be called when the promise is resolved
-    // let statement = 'UPDATE admin SET admin_password = $1 WHERE email = $2'
-  
+    // check password
+    // note: bcrypt.compare returns a promise, and it requires three arguments, the third of which is a callback function that will be called when the promise is resolved
     // hash the password
     const hashedPassword = await bcrypt.hash(admin_password, saltRounds);
 
@@ -62,6 +57,7 @@ sessionController.createSession = async (req, res, next) => {
   next();
 };
 
+// middleware for verifying an admin's credentials
 sessionController.verifySession = async (req, res, next) => {
   const { email, admin_password } = req.body;
   function hasAccess(result) {
@@ -110,6 +106,7 @@ sessionController.verifySession = async (req, res, next) => {
   }
 };
 
+// middleware for logging out admin
 sessionController.endSession = (req, res, next) => {
   res.clearCookie("session_id");
   console.log("Session ended");

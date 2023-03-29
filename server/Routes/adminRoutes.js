@@ -18,38 +18,3 @@ adminRouter.delete('/:id', sessionController.createSession, sessionController.ve
 
 module.exports = adminRouter;
 
-// middleware function to check if user has a valid session
-// const checkSession = (req, res, next) => {
-//   if (!req.session || !req.session.adminId) {
-//     return res.status(401).json({ error: "Unauthorized access" });
-//   }
-//   next();
-// };
-
-// // route to get admin information
-// adminRouter.get("/", checkSession, async (req, res) => {
-//   try {
-//     const adminId = req.session.adminId;
-//     const query = 'SELECT * FROM admin WHERE id = $1';
-//     const { rows } = await db.query(query, [adminId]);
-
-//     if (rows.length === 0) {
-//       return res.status(404).json({ error: "Admin not found" });
-//     }
-//     return res.json(rows[0]);
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(500).json({ error: "Server error" });
-//   }
-// });
-
-// // route to log out the admin
-// adminRouter.post("/logout", checkSession, (req, res) => {
-//   req.session.destroy((err) => {
-//     if (err) {
-//       console.log(err);
-//       return res.status(500).json({ error: "Server error" });
-//     }
-//     return res.json({ message: "Logged out successfully" });
-//   });
-// });
