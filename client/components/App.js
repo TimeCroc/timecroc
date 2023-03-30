@@ -9,6 +9,9 @@ import EmployeePortal from './EmployeePortal';
 import Timesheet from './Timesheet';
 import Validation from './Validation';
 import NumberPad from './pinpad/NumberPad';
+// when we refactor App.js, we should clean up imports
+import AdminLogIn from './admin/AdminLogIn';
+
 const App = () => {
   //------------state for each new employee session
 
@@ -22,6 +25,16 @@ const App = () => {
   const [extrasView, setExtrasView] = useState('unset');
   const [tips, setTips] = useState(0);
   const [extrasBody, setExtrasBody] = useState({tips: 0, tours: 0, reimbursements: 0, DOC: 0})
+  // state for admin logged in
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+
+  // IMPLEMENTING ADMIN LOG IN
+    // created AdminLogIn component
+    // created state (boolean) for holding whether admin is logged in
+    // created a .get in adminRoutes for creating the session
+    // workin on .post in adminRoutes for verifyin the session
+    // need a async function with a fetch request in the frontend (App.js) which posts the credentials to the backend, and then
+      // need logic for conditionally rendering admin versus admin/login
 
 
   function getStart(num){
@@ -41,7 +54,13 @@ const App = () => {
     return (
       <div className='body'>
         <div>
-          <Link to="admin">Admin Log in</Link>
+          <Link to="admin/login">Admin Log in</Link>
+          {/* <AdminLogIn setIsAdminLoggedIn={setIsAdminLoggedIn} />
+          {isAdminLoggedIn ? (
+            <Route path="/AdminLogIn" component={AdminLogIn} />
+          ) : (
+            <Route to="/" />
+          )} */}
           <h1>TimeCroc</h1>
           <Clock />
         </div>
@@ -54,6 +73,7 @@ const App = () => {
             />} 
           />
           <Route path="admin" element={<AdminDashboard />} />
+          <Route path="admin/login" element={<AdminLogIn />} />
           <Route path="admin/add" element={<AddEmployee />} />
           <Route path="admin/list" element={<EmployeeList />} />
           <Route path="employeeportal" 
