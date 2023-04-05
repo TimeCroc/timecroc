@@ -28,15 +28,6 @@ const App = () => {
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
-  // IMPLEMENTING ADMIN LOG IN
-    // created AdminLogIn component
-    // created state (boolean) for holding whether admin is logged in
-    // created a .get in adminRoutes for creating the session
-    // workin on .post in adminRoutes for verifyin the session
-    // need a async function with a fetch request in the frontend (App.js) which posts the credentials to the backend, and then
-      // need logic for conditionally rendering admin versus admin/login
-
-
   function getStart(num){
     let start = parseInt(num);
     let shiftStart = new Date(start);
@@ -51,19 +42,14 @@ const App = () => {
     setEndTime(string);
   };
 
-    return (
+  return (
       <div className='body'>
         <div>
           <Link to="admin/login">Admin Log in</Link>
-          {/* <AdminLogIn setIsAdminLoggedIn={setIsAdminLoggedIn} />
-          {isAdminLoggedIn ? (
-            <Route path="/AdminLogIn" component={AdminLogIn} />
-          ) : (
-            <Route to="/" />
-          )} */}
           <h1>TimeCroc</h1>
           <Clock />
         </div>
+        
         <Routes>
           <Route path="/" 
             element={<PinPad 
@@ -72,8 +58,12 @@ const App = () => {
             setCurrentShift={setCurrentShift}
             />} 
           />
-          <Route path="admin" element={<AdminDashboard />} />
-          <Route path="admin/login" element={<AdminLogIn />} />
+          
+          <Route path="admin" element={isAdminLoggedIn ? <AdminDashboard isAdminLoggedIn={isAdminLoggedIn} /> : <AdminLogIn />} />
+          <Route path="admin/login" element={<AdminLogIn 
+            isAdminLoggedIn={isAdminLoggedIn}
+            setIsAdminLoggedIn={setIsAdminLoggedIn}
+            />} />
           <Route path="admin/add" element={<AddEmployee />} />
           <Route path="admin/list" element={<EmployeeList />} />
           <Route path="employeeportal" 

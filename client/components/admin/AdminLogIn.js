@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-
-const AdminLogIn = () => {
+const AdminLogIn = ({ isAdminLoggedIn, setIsAdminLoggedIn }) => {
 	const [email, setEmail] = useState('');
   const [admin_password, setPassword] = useState('');
+	
+	const nav = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,8 +21,11 @@ const AdminLogIn = () => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       // do something with the response data
+      console.log(data);
+      // set setIsAdminLoggedIn to true
+      setIsAdminLoggedIn(true);
+			nav('/admin')
     })
     .catch(error => {
       console.log(error);
@@ -37,7 +42,7 @@ const AdminLogIn = () => {
 					</label>
 					<label>
 						Password:
-					<input type='text' value={admin_password} placeholder='password' onChange={(e) => setPassword(e.target.value)} required/>
+					<input type='password' value={admin_password} placeholder='password' onChange={(e) => setPassword(e.target.value)} required/>
 					</label>
 				</div>
 			<div>
