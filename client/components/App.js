@@ -9,6 +9,9 @@ import EmployeePortal from './EmployeePortal';
 import Timesheet from './Timesheet';
 import Validation from './Validation';
 import NumberPad from './pinpad/NumberPad';
+// when we refactor App.js, we should clean up imports
+import AdminLogIn from './admin/AdminLogIn';
+
 const App = () => {
   //------------state for each new employee session
 
@@ -22,7 +25,8 @@ const App = () => {
   const [extrasView, setExtrasView] = useState('unset');
   const [tips, setTips] = useState(0);
   const [extrasBody, setExtrasBody] = useState({tips: 0, tours: 0, reimbursements: 0, DOC: 0})
-
+  // state for admin logged in
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
   function getStart(num){
     let start = parseInt(num);
@@ -38,13 +42,14 @@ const App = () => {
     setEndTime(string);
   };
 
-    return (
+  return (
       <div className='body'>
         <div>
-          <Link to="admin">Admin Log in</Link>
+          <Link to="admin/login">Admin Log in</Link>
           <h1>TimeCroc</h1>
           <Clock />
         </div>
+        
         <Routes>
           <Route path="/" 
             element={<PinPad 
@@ -53,7 +58,12 @@ const App = () => {
             setCurrentShift={setCurrentShift}
             />} 
           />
-          <Route path="admin" element={<AdminDashboard />} />
+          
+          <Route path="admin" element={isAdminLoggedIn ? <AdminDashboard isAdminLoggedIn={isAdminLoggedIn} /> : <AdminLogIn />} />
+          <Route path="admin/login" element={<AdminLogIn 
+            isAdminLoggedIn={isAdminLoggedIn}
+            setIsAdminLoggedIn={setIsAdminLoggedIn}
+            />} />
           <Route path="admin/add" element={<AddEmployee />} />
           <Route path="admin/list" element={<EmployeeList />} />
           <Route path="employeeportal" 
