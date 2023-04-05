@@ -1,0 +1,94 @@
+.form-container{
+	flex-direction: row;
+	/* Entire page width */
+	width:100%;
+	/* Entire page height */
+	height:100vh;
+	/* Responsive layout */
+	display:flex;
+	/* Display vertically at the center */
+	justify-content: center;
+	/* Display horizontally at the center */ 
+	align-items: center;
+	/* Background image from unsplash */
+	/* background-image:url('https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'); */
+	background-image:url('../../../TimeCroc.png');
+	/* To cover the entire screen */
+	background-size:contain;
+	/* Image position */
+	background-position:left;
+	/* To not repeat the image beyond its scale */
+	background-repeat:no-repeat;
+}
+
+.form{
+	/** Sizeable width for the form **/
+	width:400px;
+	/** Sizeable height for the form **/
+	height:400px;
+	/** Black color with opacity **/
+	background-color:rgba(0,0,0,0.5);
+	/** Responsive layout **/
+	display:flex;
+	/** One element on top of the other **/
+	flex-direction:column;
+	/** Vertically at the center **/
+	justify-content: center;
+	/** Smooth corners **/
+	border-radius:10px;
+	/** Top, bottom, right, and left spacing between form and its content **/
+	padding:20px; 
+	background: rgba(62, 62, 61, 0.7);
+	box-shadow: 0 8px 32px 0 rgba(25, 132, 75, 0.47);
+	backdrop-filter: blur( 2px );
+	-webkit-backdrop-filter: blur( 40px );
+	border-radius: 10px;
+	border: 1px solid rgba(11, 144, 44, 0.18);
+
+}
+
+.form-group{
+	/* Bottom space between one form-group and the other*/
+	margin-bottom:20px;
+	/* Responsive layout */
+	display: flex;
+	/* One element on top of the other */
+	flex-direction: column;
+}
+
+.form-group label{
+	/** Medium font size **/
+	font-size:16px;
+	/** Visible color **/
+	color:white;
+	/** Bottom space between it and the input form **/
+	margin-bottom:5px; 
+}
+
+.form-group input[type="email"],input[type="admin_password"]{
+	/** Size-able width of the input **/
+	width:90%; 
+	/** Size-able height of the input **/
+	height:40px;
+	/** Smooth corners on all edges **/
+	border-radius:5px;
+	/** No line surrounding the input **/
+	border:none;
+	/** Top, right, bottom, right spacing to where content starts **/
+	padding:10px; 
+	/** Medium font **/
+	font-size:16px;
+	/** Visible color **/
+	color:rgb(29, 28, 28);
+	/** Dark background with some opacity **/
+	background-color:rgba(0,0,0,0.5); 
+}
+
+.form-group h2 {
+	color: rgb(247, 242, 242);
+}
+
+.button-style {
+	border-radius: 5px;
+}
+

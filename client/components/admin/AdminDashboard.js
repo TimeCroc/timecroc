@@ -8,6 +8,7 @@ const AdminDashboard = ({ isAdminLoggedIn }) => {
 
   return (
     <div>
+      
       <h2>Admin Dashboard</h2>
       <ul>
       {isAdminLoggedIn && (
