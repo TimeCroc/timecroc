@@ -38,13 +38,12 @@
 	border-radius:10px;
 	/** Top, bottom, right, and left spacing between form and its content **/
 	padding:20px; 
-	background: rgba(62, 62, 61, 0.7);
-	box-shadow: 0 8px 32px 0 rgba(25, 132, 75, 0.47);
+	background: rgba(15, 15, 15, 0.695);
+	box-shadow: 0 8px 32px 0 rgba(15, 15, 15, 0.695);
 	backdrop-filter: blur( 2px );
 	-webkit-backdrop-filter: blur( 40px );
 	border-radius: 10px;
-	border: 1px solid rgba(11, 144, 44, 0.18);
-
+	border: 1px solid rgba(15, 15, 15, 0.369);
 }
 
 .form-group{
@@ -81,7 +80,7 @@
 	/** Visible color **/
 	color:rgb(29, 28, 28);
 	/** Dark background with some opacity **/
-	background-color:rgba(0,0,0,0.5); 
+	background-color: rgba(0,0,0,0.5); 
 }
 
 .form-group h2 {
