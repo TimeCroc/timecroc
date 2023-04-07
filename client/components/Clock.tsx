@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 
-class Clock extends Component {
-  constructor(props){
+type ClockState = {
+  time: string
+  date: string
+}
+
+class Clock extends Component<{}, ClockState> {
+  //  intervalID will need a type other than any
+  //  private intervalID: ReturnType<typeof setInterval> | null = null;
+  //  private intervalID: NodeJS.Timeout;
+  intervalID: any;
+
+  constructor(props: {}){
     super(props);
 
     this.state ={

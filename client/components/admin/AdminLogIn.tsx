@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const AdminLogIn = ({ isAdminLoggedIn, setIsAdminLoggedIn }) => {
+type Props = {
+  isAdminLoggedIn: boolean
+  setIsAdminLoggedIn: (value: boolean) => void
+}
+
+const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) => {
 	const [email, setEmail] = useState('');
   const [admin_password, setPassword] = useState('');
 	
