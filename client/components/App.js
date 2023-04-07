@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { Routes, Route, Outlet, Link, useLocation } from "react-router-dom";
 import Clock from './Clock';
 import PinPad from './pinpad/PinPad';
 import EmployeeList from './admin/EmployeeList';
@@ -42,14 +42,25 @@ const App = () => {
     setEndTime(string);
   };
 
+ // useLocation hook to get the current pathname
+ const location = useLocation();
+ const isAdminPage = location.pathname.startsWith('/admin');
+
   return (
-      <div className='body'>
-        <div>
-          <Link to="admin/login">Admin Log in</Link>
-          <h1>TimeCroc</h1>
-          <Clock />
-        </div>
-        
+    <div className='body'>
+      <div>
+      {/* Render login button only if not on an admin page */}
+        {!isAdminPage && (
+         <Link to="admin/login"><button className='login-btn'>Admin Log in</button></Link>
+        )}
+      {/* Render sign out button only if admin is logged in */}
+        {isAdminLoggedIn ? (
+          <button className='sign-out-btn' onClick={() => setIsAdminLoggedIn(false)}>Sign Out</button>
+        ) : null}
+        <h1>TimeCroc</h1>
+        <Clock />
+      </div>
+   
         <Routes>
           <Route path="/" 
             element={<PinPad 
@@ -59,7 +70,13 @@ const App = () => {
             />} 
           />
           
-          <Route path="admin" element={isAdminLoggedIn ? <AdminDashboard isAdminLoggedIn={isAdminLoggedIn} /> : <AdminLogIn />} />
+          {/* <Route path="admin" element={isAdminLoggedIn ? <AdminDashboard isAdminLoggedIn={isAdminLoggedIn} /> : <AdminLogIn />} /> */}
+          {isAdminLoggedIn ? <Route path="admin" element={<AdminDashboard isAdminLoggedIn={isAdminLoggedIn} />} /> : null}
+              {/* conditional render statement
+                // if the admin is logged in,
+                  // check if the route path is /admin, if so, render the dashboard and sign out button
+                  // if the route path is NOT /admin (e.g. /), 
+               */}
           <Route path="admin/login" element={<AdminLogIn 
             isAdminLoggedIn={isAdminLoggedIn}
             setIsAdminLoggedIn={setIsAdminLoggedIn}
@@ -125,3 +142,6 @@ const App = () => {
 }
 
 export default App;
+
+
+

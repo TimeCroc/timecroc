@@ -8,6 +8,7 @@ const AdminDashboard = ({ isAdminLoggedIn }) => {
 
   return (
     <div>
+      
       <h2>Admin Dashboard</h2>
       <ul>
       {isAdminLoggedIn && (
@@ -20,9 +21,6 @@ const AdminDashboard = ({ isAdminLoggedIn }) => {
           </li>
         </Fragment>
         )}
-        <li>
-        <Link to='/'> Log Out </Link>
-        </li>
       </ul>
     </div>
   )

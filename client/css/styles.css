@@ -13,7 +13,9 @@
 
 * {
   box-sizing: border-box;
-  color: #333;
+  /* color: #333; */
+  /* The color below matches the color of the admin log in container */
+  color: rgba(15, 15, 15, 0.811);
 }
 
 body {
@@ -148,4 +150,31 @@ img {
   border: 3px solid green;
   color:rgb(0, 138, 5);
   padding: 10px;
+}
+
+.btn-container {
+  position: relative;
+}
+
+.login-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(25, 24, 24, 0.806);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+
+}
+
+.sign-out-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 5px;
+  background-color: rgba(25, 24, 24, 0.806);
+  color: white;
+  padding: 10px 20px;
+
+
 }
