@@ -21,9 +21,6 @@ const AdminDashboard = ({ isAdminLoggedIn }) => {
           </li>
         </Fragment>
         )}
-        <li>
-        <Link to='/'> Log Out </Link>
-        </li>
       </ul>
     </div>
   )
