@@ -5,17 +5,28 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const UpdateEmployee = (props) => {
-  const { pin, first_name, last_name, phone, email, hourly_rate } = props.list;
+interface EmployeeProps {
+  list: {
+    pin: string
+    first_name: string
+    last_name: string
+    phone: string
+    email: string
+    hourly_rate: string
+  }
+}
 
-  const [updatedPin, setUpdatedPin] = useState(pin);
-  const [firstName, setFirstName] = useState(first_name);
-  const [lastName, setLastName] = useState(last_name);
-  const [updatedPhone, setPhone] = useState(phone);
-  const [updatedEmail, setUpdatedEmail] = useState(email);
-  const [hourlyRate, setHourlyRate] = useState(hourly_rate);
-  const [clicked, setClicked] = useState(false);
-  const [validated, setValidated] = useState(false);
+const UpdateEmployee: React.FC<EmployeeProps> = ({ list }: EmployeeProps) => {
+  const { pin, first_name, last_name, phone, email, hourly_rate } = list;
+
+  const [updatedPin, setUpdatedPin] = useState<string>(pin);
+  const [firstName, setFirstName] = useState<string>(first_name);
+  const [lastName, setLastName] = useState<string>(last_name);
+  const [updatedPhone, setPhone] = useState<string>(phone);
+  const [updatedEmail, setUpdatedEmail] = useState<string>(email);
+  const [hourlyRate, setHourlyRate] = useState<string>(hourly_rate);
+  const [clicked, setClicked] = useState<boolean>(false);
+  const [validated, setValidated] = useState<boolean>(false);
 
   const body = {
     pin: updatedPin,
