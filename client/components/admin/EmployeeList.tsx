@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DeleteEmployee from './DeleteEmployee';
 import UpdateEmployee from './UpdateEmployee';
+// import { Employee } from '../../types';
 
 interface Employee {
   _id: string;
