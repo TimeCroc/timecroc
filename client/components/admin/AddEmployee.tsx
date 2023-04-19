@@ -34,22 +34,22 @@ const AddEmployee: React.FC = () => {
     hourly_rate: hourly_rate
   };
 
-  const handleSubmit2 = (event: React.FormEvent<HTMLFormElement>) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+  // const handleSubmit2 = (event: React.FormEvent<HTMLFormElement>) => {
+  //   const form = event.currentTarget;
+  //   if (form.checkValidity() === false) {
+  //     event.preventDefault();
+  //     event.stopPropagation();
+  //   }
+
+    // This syntax, replacing the above, prevented an error from occurring in employeeController middleware.  
+    const handleSubmit2 = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       event.stopPropagation();
-    }
-
-    // Alternative syntax for the above.  There are scenarios where the below syntax would be preferred.
-    // const handleSubmit2 = (event: React.FormEvent<HTMLFormElement>) => {
-    //   event.preventDefault();
-    //   event.stopPropagation();
     
-    //   const form = event.currentTarget;
-    //   if (form.checkValidity() === false) {
-    //     return;
-    //   }
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        return;
+      }
 
     fetch('/api/employees', {
       method: 'POST',
