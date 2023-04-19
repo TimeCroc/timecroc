@@ -3,7 +3,7 @@ import React from 'react';
 type Props = {
   val: string
 }
-const PinDisplay = ({ val }) => {
+const PinDisplay: React.FC<Props> = ({ val }) => {
 
   return (
     <div className='pin-display'>
