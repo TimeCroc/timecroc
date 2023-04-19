@@ -2,13 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
-const DeleteEmployee = (props) => {
+type Props = {
+  list: {
+    pin: string | number
+    first_name: string
+  }
+}
 
-  const [clicked, updateClicked] = useState(false);
-  const [validated, setValidated] = useState(false);
+const DeleteEmployee: React.FC<Props> = ({ list }) => {
 
-  const pin = props.list.pin;
-  const { first_name } = props.list;
+  const [clicked, updateClicked] = useState<boolean>(false);
+  const [validated, setValidated] = useState<boolean>(false);
+
+  // const pin = props.list.pin;
+  // const { first_name } = props.list;
+  const { pin, first_name } = list;
 
   function handleClick (){
     fetch(`/api/employees/${pin}`, {
