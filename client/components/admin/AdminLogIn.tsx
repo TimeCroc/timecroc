@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminStyles/AdminLogIn.css'
-import TimeCroc from '../../TimeCroc.png'
+// .png is commented out right now to avoid errors
+// import TimeCroc from '../../TimeCroc.png';
+import { PNG } from 'pngjs';
+
+
+
+
+
+
 
 type Props = {
   isAdminLoggedIn: boolean
@@ -51,8 +59,10 @@ const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) =>
     borderColor : '#000000'
 }}/>
   </div>
+  {/* below is the styles for the .png (which is commented out) */}
+  {/* <div className='form-container' style={{backgroundImage: `url(${TimeCroc})`}}> */}
     
-    <div className='form-container' style={{backgroundImage: `url(${TimeCroc})`}}>
+    <div className='form-container'>
       <div className='form'>
         <form onSubmit={handleSubmit}>
           <div className='form-group'>

@@ -10,6 +10,7 @@
     "allowJs": true,
     "strict": true,
     "esModuleInterop": true,
+    "outDir": "./dist",
     "paths": {
       "@/*": ["./client/*"]
     }
