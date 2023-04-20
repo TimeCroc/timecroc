@@ -12,6 +12,7 @@ const AdminDashboard: React.FC<Props> = ({ isAdminLoggedIn }) => {
 
   return (
     <div>
+      
       <h2>Admin Dashboard</h2>
       <ul>
       {isAdminLoggedIn && (
@@ -24,9 +25,6 @@ const AdminDashboard: React.FC<Props> = ({ isAdminLoggedIn }) => {
           </li>
         </Fragment>
         )}
-        <li>
-        <Link to='/'> Log Out </Link>
-        </li>
       </ul>
     </div>
   )

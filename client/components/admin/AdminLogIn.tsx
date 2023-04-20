@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './AdminStyles/AdminLogIn.css'
+import TimeCroc from '../../TimeCroc.png'
 
 type Props = {
   isAdminLoggedIn: boolean
@@ -37,24 +39,40 @@ const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) =>
       // handle error
     });
   };
+
+
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
-				<div>
-					<label>
-						Email:
-					<input type='text' value={email} placeholder='email' onChange={(e) => setEmail(e.target.value)} required />
-					</label>
-					<label>
-						Password:
-					<input type='password' value={admin_password} placeholder='password' onChange={(e) => setPassword(e.target.value)} required/>
-					</label>
-				</div>
-			<div>
-				<button type='submit'>Log in</button>
-				</div>
-			</form>
+    <>
+    <div> 
+      <hr  style={{
+    color: '#000000',
+    backgroundColor: '#000000',
+    height: .5,
+    borderColor : '#000000'
+}}/>
+  </div>
+    
+    <div className='form-container' style={{backgroundImage: `url(${TimeCroc})`}}>
+      <div className='form'>
+        <form onSubmit={handleSubmit}>
+          <div className='form-group'>
+            <h2>Administrator Log In</h2>
+            <label>
+              Email:
+            <input className='form-control' type='text' value={email} placeholder='Email' onChange={(e) => setEmail(e.target.value)} required />
+            </label>
+            <label>
+              Password:
+            <input className='form-control' type='password' value={admin_password} placeholder='Password' onChange={(e) => setPassword(e.target.value)} required/>
+            </label>
+          </div>
+        <div>
+          <button className='button-style' type='submit'>Log in</button>
+          </div>
+        </form>
+      </div>
 		</div>
+    </>
 	)
 }
 
