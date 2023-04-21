@@ -1,10 +1,13 @@
 import React from 'react';
 
-const PinDisplay = (props) => {
+type Props = {
+  val: string
+}
+const PinDisplay: React.FC<Props> = ({ val }) => {
 
   return (
     <div className='pin-display'>
-      <h1>{props.val}</h1>
+      <h1>{val}</h1>
     </div>
   )
 

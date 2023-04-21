@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import EmployeeList from './EmployeeList'
 import AddEmployee from './AddEmployee';
 
-const AdminDashboard = ({ isAdminLoggedIn }) => {
+type Props= {
+  isAdminLoggedIn: boolean
+}
+
+const AdminDashboard: React.FC<Props> = ({ isAdminLoggedIn }) => {
 
 
   return (

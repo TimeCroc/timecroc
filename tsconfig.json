@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "jsx": "react-jsx",
+    "target": "esnext",
+    "module": "esnext",
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./client/*"]
+    }
+  },
+  "include": ["./client/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

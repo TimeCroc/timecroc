@@ -4,6 +4,12 @@ import Card from 'react-bootstrap/Card';
 import logo from '../logo.jpg';
 import { useNavigate } from 'react-router-dom';
 
+// type Props = {
+//   first_name: string,
+//   viewTimesheet: () => void,
+//   handleClockOut: () => void,
+// }
+
 const ClockOutPortal = (props) => {
   const navigate = useNavigate();
   const { first_name, viewTimesheet, handleClockOut, startTime, setExtrasView } = props;

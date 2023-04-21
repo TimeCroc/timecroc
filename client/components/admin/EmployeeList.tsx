@@ -2,14 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DeleteEmployee from './DeleteEmployee';
 import UpdateEmployee from './UpdateEmployee';
+// import { Employee } from '../../types';
 
-const EmployeeList = () => {
-  const [employees, setEmployees] = useState([]);
+interface Employee {
+  _id: string;
+  pin: string
+  first_name: string
+  last_name: string
+  phone: string
+  email: string
+  hourly_rate: string
+}
+
+const EmployeeList: React.FC = () => {
+  const [employees, setEmployees] = useState<Employee[]>([]);
  
   useEffect(() => {
     fetch('/api/employees')
     .then(response => response.json())
-    .then(data => {
+    .then((data: Employee[]) => {
       setEmployees(data)
     })
     .catch(err => console.log('error:', err));
