@@ -37,6 +37,22 @@ sessionController.createSession = async (req, res, next) => {
     { email: admin.rows[0].email },
     process.env.JWT_SECRET
   );
+  console.log(token, 'token')
+
+  const decoded = jwt.decode(token);
+
+  // Check the expiration time ("exp" field)
+  if (decoded && decoded.exp) {
+    const expirationTime = new Date(decoded.exp * 1000); // Convert from seconds to milliseconds
+    const currentTime = new Date();
+    if (expirationTime > currentTime) {
+      console.log('Token is still valid. Expiration time:', expirationTime);
+    } else {
+      console.log('Token has expired. Expiration time:', expirationTime);
+    }
+  } else {
+    console.log('Failed to decode token or "exp" field is missing.');
+  }
 
   // specify cookie options for production versus development
   const cookieOptions = {
