@@ -30,18 +30,19 @@ const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) =>
     })
     .then(response => response.json())
     .then(data => {
-      // do something with the response data
-      console.log(data);
-      // set setIsAdminLoggedIn to true
-      setIsAdminLoggedIn(true);
-			nav('/admin')
+      if (data.authenticated) { // check if the login was successful
+        setIsAdminLoggedIn(true);
+        nav('/admin')
+      } else {
+        // display an error message to the user
+        alert('Incorrect email or password');
+      }
     })
     .catch(error => {
       console.log(error);
       // handle error
     });
   };
-
 
 	return (
     <>
