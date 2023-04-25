@@ -85,4 +85,3 @@ const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) =>
 // button to submit
 
 export default AdminLogIn;
-

@@ -85,13 +85,13 @@ sessionController.verifySession = async (req, res, next) => {
     }
   }
   
-  db.query('SELECT admin_password FROM admin WHERE email = $1', [email], function(err, res) {
+  db.query('SELECT admin_password FROM admin WHERE email = $1', [email], function(err, rez) {
     if (err) {
       console.log("error in db query of admin's password", err);
       throw err;
     }
     else {
-      let hash = res.rows[0].admin_password;
+      let hash = rez.rows[0].admin_password;
       //compare hash and password
       bcrypt.compare(admin_password, hash, function(err, result) {
         hasAccess(result);
@@ -100,6 +100,7 @@ sessionController.verifySession = async (req, res, next) => {
   });
 
   const token = req.cookies.session_id; // get the token from the cookie
+  console.log("verifySession token", token)
   
   if (!token) {
     return res.status(401).json({ message: "Token not valid" });
