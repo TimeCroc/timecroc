@@ -11,8 +11,8 @@ sessionController.createSession = async (req, res, next) => {
   const { email, admin_password } = req.body;
   // find user by email
   const admin = await db.query("SELECT * FROM admin WHERE email = $1", [email]);
-  console.log("admin", admin);
-  console.log(email, "is logged in")
+  // console.log("admin", admin);
+  // console.log(email, "is logged in")
   if (!admin.rows[0]) {
     return res.status(401).json({ message: "Invalid email" });
   }
@@ -37,22 +37,7 @@ sessionController.createSession = async (req, res, next) => {
     { email: admin.rows[0].email },
     process.env.JWT_SECRET
   );
-  console.log(token, 'token')
-
-  const decoded = jwt.decode(token);
-
-  // Check the expiration time ("exp" field)
-  if (decoded && decoded.exp) {
-    const expirationTime = new Date(decoded.exp * 1000); // Convert from seconds to milliseconds
-    const currentTime = new Date();
-    if (expirationTime > currentTime) {
-      console.log('Token is still valid. Expiration time:', expirationTime);
-    } else {
-      console.log('Token has expired. Expiration time:', expirationTime);
-    }
-  } else {
-    console.log('Failed to decode token or "exp" field is missing.');
-  }
+  console.log('createSession token', token)
 
   // specify cookie options for production versus development
   const cookieOptions = {
