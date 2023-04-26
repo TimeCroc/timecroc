@@ -10,12 +10,6 @@ const EmployeePortal = (props) => {
   const body = {
     shift_id: currentShift._id,
   };
-
-  // const [extrasView, setExtrasView] = useState(false);
-  //  const [tips, setTips] = useState(0);
-  // const [reimbursements, setReimbursements] = useState(0);
-  // const [tours, setTours] = useState(0);
-  // const [doc, setDoc] = useState(0);
   
   const extrasBody = {
     shift_id: currentShift._id,
@@ -25,9 +19,13 @@ const EmployeePortal = (props) => {
     doc: DOC
   };
 
-  //console.log(extrasBody, 'in EmployeePortal')
 
   function handleClockIn () {
+    setTips(0);
+    setTours(0);
+    setReimbursements(0);
+    setDOC(0);
+
     fetch(`/api/shifts/${pin}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
@@ -69,7 +67,6 @@ const EmployeePortal = (props) => {
       //console.log('extras body data', data);
     })
     .catch(err => console.log('error:', err));
-    //setExtrasView(false);
     setTips(0);
     setTours(0);
     setReimbursements(0);

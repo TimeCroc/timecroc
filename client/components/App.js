@@ -25,15 +25,14 @@ const App = () => {
 
   //state for clockout
   const [extrasView, setExtrasView] = useState('unset');
-  const [tips, setTips] = useState(0);
+  const [tips, setTips] = useState(currentShift.tips);
   const [tours, setTours] = useState(0);
   const [reimbursements, setReimbursements] = useState(0);
   const [DOC, setDOC] = useState(0);
-  const [extrasBody, setExtrasBody] = useState({tips: 0, tours: 0, reimbursements: 0, DOC: 0}) //needed?
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
-
+console.log(currentShift, 'shift');
   
   function getStart(num){
     let start = parseInt(num);
@@ -129,8 +128,6 @@ const App = () => {
             element={<NumberPad 
               view={extrasView}
               setExtrasView={setExtrasView}
-              extrasBody={extrasBody}
-              setExtrasBody={setExtrasBody}
               number={tips}
               setNumber={setTips}
             />}
@@ -139,8 +136,6 @@ const App = () => {
             element={<NumberPad 
               view={extrasView}
               setExtrasView={setExtrasView}
-              extrasBody={extrasBody}
-              setExtrasBody={setExtrasBody}
               number={reimbursements}
               setNumber={setReimbursements}
             />}
@@ -149,8 +144,6 @@ const App = () => {
             element={<NumberPad 
               view={extrasView}
               setExtrasView={setExtrasView}
-              extrasBody={extrasBody}
-              setExtrasBody={setExtrasBody}
               number={tours}
               setNumber={setTours}
             />}
@@ -159,8 +152,6 @@ const App = () => {
             element={<NumberPad 
               view={extrasView}
               setExtrasView={setExtrasView}
-              extrasBody={extrasBody}
-              setExtrasBody={setExtrasBody}
               number={DOC}
               setNumber={setDOC}
             />}

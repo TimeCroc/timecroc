@@ -4,11 +4,7 @@ import Card from 'react-bootstrap/Card';
 import logo from '../logo.jpg';
 import { useNavigate } from 'react-router-dom';
 
-// type Props = {
-//   first_name: string,
-//   viewTimesheet: () => void,
-//   handleClockOut: () => void,
-// }
+
 
 const ClockOutPortal = (props) => {
   const navigate = useNavigate();
@@ -20,7 +16,6 @@ const ClockOutPortal = (props) => {
         <Card.Body>
           <Card.Title>Welcome back {first_name}</Card.Title>
           <Card.Text> You've been clocked in since {startTime}. Are you ready to clock out? </Card.Text> 
-            {/* <Button className='button' variant="secondary"onClick={() => setExtrasView(true)}> Add tips or Misc.</Button> */}
             <Button className='button' variant="secondary" onClick={() => handleClockOut()}>Clock Out</Button>
             <Button className='button' variant="secondary" onClick={viewTimesheet}>View Timesheet</Button>
             <Button className='button' variant="secondary" onClick={() => navigate('/')}>Back</Button>  
