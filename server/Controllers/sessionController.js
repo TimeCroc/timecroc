@@ -11,8 +11,8 @@ sessionController.createSession = async (req, res, next) => {
   const { email, admin_password } = req.body;
   // find user by email
   const admin = await db.query("SELECT * FROM admin WHERE email = $1", [email]);
-  console.log("admin", admin);
-  console.log(email, "is logged in")
+  // console.log("admin", admin);
+  // console.log(email, "is logged in")
   if (!admin.rows[0]) {
     return res.status(401).json({ message: "Invalid email" });
   }
@@ -37,6 +37,7 @@ sessionController.createSession = async (req, res, next) => {
     { email: admin.rows[0].email },
     process.env.JWT_SECRET
   );
+  console.log('createSession token', token)
 
   // specify cookie options for production versus development
   const cookieOptions = {
@@ -69,13 +70,13 @@ sessionController.verifySession = async (req, res, next) => {
     }
   }
   
-  db.query('SELECT admin_password FROM admin WHERE email = $1', [email], function(err, res) {
+  db.query('SELECT admin_password FROM admin WHERE email = $1', [email], function(err, rez) {
     if (err) {
       console.log("error in db query of admin's password", err);
       throw err;
     }
     else {
-      let hash = res.rows[0].admin_password;
+      let hash = rez.rows[0].admin_password;
       //compare hash and password
       bcrypt.compare(admin_password, hash, function(err, result) {
         hasAccess(result);
@@ -84,6 +85,7 @@ sessionController.verifySession = async (req, res, next) => {
   });
 
   const token = req.cookies.session_id; // get the token from the cookie
+  console.log("verifySession token", token)
   
   if (!token) {
     return res.status(401).json({ message: "Token not valid" });
