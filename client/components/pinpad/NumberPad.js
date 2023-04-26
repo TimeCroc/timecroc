@@ -13,15 +13,14 @@ import { useNavigate } from 'react-router-dom';
 
 const NumberPad = (props) => {
   const navigate = useNavigate();
-  const { tips, setTips, extrasBody, setExtrasBody } = props;
-    const displayView = props.view;
-    const { setExtrasView } = props;
+  const { extrasBody, setExtrasBody, setExtrasView, view, number, setNumber } = props;
+    const displayView = view;
+    //const { setExtrasView } = props;
     const [pin, setPin] = useState('');
-    const [employee, setEmployee] = useState({});
-    const [shift, setShift] = useState({});
-    const [view, setView] = useState(false);
+   // const [view, setView] = useState(false);
+   const [tips, setTips] = useState(0);
 
-    //console.log('extras body from NumberPad', extrasBody);
+    // console.log('extras body from NumberPad', extrasBody);
     // console.log('view', displayView)
     // console.log(extrasBody[displayView]);
   
@@ -29,8 +28,11 @@ const NumberPad = (props) => {
       setView(bool);
     };
     
+    let inputPin = pin;
+    //let inputPin = '';
+
     const updatePin = (val) => {
-      let inputPin = pin;
+      
       const nums = new Set(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
       if (val === '<'){
         inputPin = inputPin.slice(0, -1);
@@ -40,6 +42,8 @@ const NumberPad = (props) => {
         inputPin += val;
         setPin(inputPin);
       } 
+      //console.log('pin in updatePin', pin)
+      //console.log('inputPin in updatePin', inputPin)
     }
   
     const submitClicked = (val) =>{
@@ -66,11 +70,22 @@ const NumberPad = (props) => {
 
       //Here is where to assign the tips to the extrasBody in EmployeePortal
 
-     //setExtrasBody(extrasBody.displayView = pin);
+     //setExtrasBody(extrasBody[view] = inputPin);
         //setTips(pin);
-        setPin('');
-        //console.log(extrasBody);
+        setPin(inputPin);
+        //console.log('extrasBody in submitClicked', extrasBody);
+        //console.log(pin, 'pin in submitClicked')
       // }
+
+      setNumber(inputPin)
+      //setPin('');
+      resetPin();
+      //console.log(pin, 'pin in submitClicked 2')
+      inputPin = 0;
+    }
+
+    const resetPin = () => {
+      setPin('');
     }
   
     const pinpad = [];
@@ -84,10 +99,10 @@ const NumberPad = (props) => {
     return (
       <div className='number-pad'>
         <div>
-          <h3>Add your {displayView}:</h3>
-          <PinDisplay val={pin} />
+          <h3>Update your {displayView}:</h3>
+          <PinDisplay val={inputPin} />
           <h3>{displayView} you've entered:</h3>
-          <PinDisplay val={tips} />
+          <PinDisplay val={number} />
         </div>
   
         <div className='pinpad'>
@@ -106,7 +121,11 @@ const NumberPad = (props) => {
           }} pin={pin}/>
         </div>
 
-
+        <Button className='button' variant="secondary" 
+          onClick={() => {
+            setExtrasView('tips');
+            navigate('/employeeportal/addtips')
+          }}>Add Tips</Button> 
         <Button className='button' variant="secondary" 
           onClick={() => {
             setExtrasView('tours');
@@ -117,6 +136,11 @@ const NumberPad = (props) => {
             setExtrasView('reimbursements')
             navigate('/employeeportal/addreimbursements')
           }}>Add Reimbursements</Button> 
+        <Button className='button' variant="secondary" 
+          onClick={() => {
+            setExtrasView('DOC')
+            navigate('/employeeportal/adddoc')
+          }}>Add DOC</Button> 
         <Button className='button' variant="primary" onClick={() => navigate('/employeeportal')}>Back to Clock Out</Button> 
 
       </div>
