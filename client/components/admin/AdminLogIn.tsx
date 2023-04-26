@@ -3,13 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './AdminStyles/AdminLogIn.css'
 // .png is commented out right now to avoid errors
 // import TimeCroc from '../../TimeCroc.png';
-import { PNG } from 'pngjs';
-
-
-
-
-
-
+// import { PNG } from 'pngjs';
 
 type Props = {
   isAdminLoggedIn: boolean
@@ -17,12 +11,12 @@ type Props = {
 }
 
 const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) => {
-	const [email, setEmail] = useState('');
-  const [admin_password, setPassword] = useState('');
+	const [email, setEmail] = useState<string>('');
+  const [admin_password, setPassword] = useState<string>('');
 	
 	const nav = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     fetch('/api/admin/login', {
       method: 'POST',
@@ -36,18 +30,19 @@ const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) =>
     })
     .then(response => response.json())
     .then(data => {
-      // do something with the response data
-      console.log(data);
-      // set setIsAdminLoggedIn to true
-      setIsAdminLoggedIn(true);
-			nav('/admin')
+      if (data.authenticated) { // check if the login was successful
+        setIsAdminLoggedIn(true);
+        nav('/admin')
+      } else {
+        // display an error message to the user
+        alert('Incorrect email or password');
+      }
     })
     .catch(error => {
       console.log(error);
       // handle error
     });
   };
-
 
 	return (
     <>
@@ -90,4 +85,3 @@ const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) =>
 // button to submit
 
 export default AdminLogIn;
-

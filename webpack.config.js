@@ -52,7 +52,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      publicPath: "/",
+      publicPath: "dist",
       directory: path.resolve(__dirname, "dist"),
     },
     proxy: {
