@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const PinPad = (props) => {
   const [pin, setPin] = useState('');
-  const { setEmployeePin, setCurrentEmployee, setCurrentShift } = props;
+  const { setEmployeePin, setCurrentEmployee, setCurrentShift, setTips, setTours, setReimbursements, setDOC } = props;
   const navigate = useNavigate();
   
   const updatePin = (val) => {
@@ -44,6 +44,11 @@ const PinPad = (props) => {
       .catch(err => console.log('error:', err));
       setPin('');
     }
+    //resets all the persisting 'extras' on each entry into a new employee portal
+    setTips(0);
+    setTours(0);
+    setReimbursements(0);
+    setDOC(0);
   }
 
   const pinpad = [];

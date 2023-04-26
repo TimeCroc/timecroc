@@ -29,10 +29,10 @@ const App = () => {
   const [tours, setTours] = useState(0);
   const [reimbursements, setReimbursements] = useState(0);
   const [DOC, setDOC] = useState(0);
+  
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
-console.log(currentShift, 'shift');
   
   function getStart(num){
     let start = parseInt(num);
@@ -73,6 +73,10 @@ console.log(currentShift, 'shift');
             setEmployeePin={setEmployeePin} 
             setCurrentEmployee={setCurrentEmployee}
             setCurrentShift={setCurrentShift}
+            setTips={setTips}
+            setTours={setTours}
+            setReimbursements={setReimbursements}
+            setDOC={setDOC}
             />} 
           />
           
