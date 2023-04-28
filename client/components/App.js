@@ -22,12 +22,18 @@ const App = () => {
   const [validationMessage, setValidationMessage] = useState('');
   const [endTime, setEndTime] = useState(null);
   const [startTime, setStartTime] = useState('vanilla');
+
+  //state for clockout
   const [extrasView, setExtrasView] = useState('unset');
-  const [tips, setTips] = useState(0);
-  const [extrasBody, setExtrasBody] = useState({tips: 0, tours: 0, reimbursements: 0, DOC: 0})
+  const [tips, setTips] = useState(currentShift.tips);
+  const [tours, setTours] = useState(0);
+  const [reimbursements, setReimbursements] = useState(0);
+  const [DOC, setDOC] = useState(0);
+  
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
+  
   function getStart(num){
     let start = parseInt(num);
     let shiftStart = new Date(start);
@@ -67,6 +73,10 @@ const App = () => {
             setEmployeePin={setEmployeePin} 
             setCurrentEmployee={setCurrentEmployee}
             setCurrentShift={setCurrentShift}
+            setTips={setTips}
+            setTours={setTours}
+            setReimbursements={setReimbursements}
+            setDOC={setDOC}
             />} 
           />
           
@@ -83,6 +93,8 @@ const App = () => {
             />} />
           <Route path="admin/add" element={<AddEmployee />} />
           <Route path="admin/list" element={<EmployeeList />} />
+
+
           <Route path="employeeportal" 
             element={<EmployeePortal 
               currentEmployee={currentEmployee} 
@@ -96,10 +108,16 @@ const App = () => {
               setStartTime={setStartTime}
               getStart={getStart}
               getEnd={getEnd}
-              extrasView={extrasView}
-              setExtrasView={setExtrasView}
+              extrasView={extrasView} //needed?
+              setExtrasView={setExtrasView} //needed?
               tips={tips}
               setTips={setTips}
+              tours={tours}
+              setTours={setTours}
+              reimbursements={reimbursements}
+              setReimbursements={setReimbursements}
+              DOC={DOC}
+              setDOC={setDOC}
             />} 
           />
           <Route path="employeeportal/timesheet" element={<Timesheet timesheet={timesheet}/>}/>  
@@ -114,26 +132,32 @@ const App = () => {
             element={<NumberPad 
               view={extrasView}
               setExtrasView={setExtrasView}
-              extrasBody={extrasBody}
-              setExtrasBody={setExtrasBody}
-              tips={tips}
-              setTips={setTips}
+              number={tips}
+              setNumber={setTips}
             />}
           />
           <Route path="employeeportal/addreimbursements" 
             element={<NumberPad 
               view={extrasView}
               setExtrasView={setExtrasView}
-              extrasBody={extrasBody}
-              setExtrasBody={setExtrasBody}
+              number={reimbursements}
+              setNumber={setReimbursements}
             />}
           />
           <Route path="employeeportal/addtours" 
             element={<NumberPad 
               view={extrasView}
               setExtrasView={setExtrasView}
-              extrasBody={extrasBody}
-              setExtrasBody={setExtrasBody}
+              number={tours}
+              setNumber={setTours}
+            />}
+          />
+          <Route path="employeeportal/adddoc" 
+            element={<NumberPad 
+              view={extrasView}
+              setExtrasView={setExtrasView}
+              number={DOC}
+              setNumber={setDOC}
             />}
           />
         </Routes>  

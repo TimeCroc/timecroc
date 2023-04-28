@@ -6,26 +6,26 @@ import { useNavigate } from 'react-router-dom';
 const EmployeePortal = (props) => {
   const navigate = useNavigate();
   const { pin, first_name } = props.currentEmployee;
-  const { currentShift, setTimesheet, setValidationMessage, endTime, setEndTime, startTime, setStartTime, getStart, getEnd, setExtrasView, extrasView, setTips, tips } = props;
+  const { currentShift, setTimesheet, setValidationMessage, endTime, setEndTime, startTime, setStartTime, getStart, getEnd, setExtrasView, extrasView, setTips, tips, tours, setTours, reimbursements, setReimbursements, DOC, setDOC } = props;
   const body = {
     shift_id: currentShift._id,
   };
-
-  // const [extrasView, setExtrasView] = useState(false);
-  //  const [tips, setTips] = useState(0);
-  // const [reimbursements, setReimbursements] = useState(0);
-  // const [tours, setTours] = useState(0);
-  // const [doc, setDoc] = useState(0);
   
-  // const extrasBody = {
-  //   shift_id: shiftId,
-  //   tips: tips,
-  //   reimbursements: reimbursements,
-  //   tours: tours,
-  //   doc: doc
-  // };
+  const extrasBody = {
+    shift_id: currentShift._id,
+    tips: tips,
+    reimbursements: reimbursements,
+    tours: tours,
+    doc: DOC
+  };
+
 
   function handleClockIn () {
+    setTips(0);
+    setTours(0);
+    setReimbursements(0);
+    setDOC(0);
+
     fetch(`/api/shifts/${pin}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
@@ -41,6 +41,7 @@ const EmployeePortal = (props) => {
   }
 
   function handleClockOut () {
+    handleAddExtras();
     fetch(`/api/shifts/${pin}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -66,7 +67,10 @@ const EmployeePortal = (props) => {
       //console.log('extras body data', data);
     })
     .catch(err => console.log('error:', err));
-    //setExtrasView(false);
+    setTips(0);
+    setTours(0);
+    setReimbursements(0);
+    setDOC(0);
   }
 
   function viewTimesheet (){
