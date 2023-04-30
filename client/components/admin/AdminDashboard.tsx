@@ -14,9 +14,15 @@ const AdminDashboard: React.FC<Props> = ({ isAdminLoggedIn }) => {
     <div>
       
       <h2>Admin Dashboard</h2>
-      <ul>
+      <ul className='admin-dashboard'>
       {isAdminLoggedIn && (
         <Fragment>
+          <li>
+            <Link to="currentPayPeriod">Current Pay Period</Link>
+          </li>
+          <li>
+            <Link to="previousPayPeriods">Previos Pay Periods</Link>
+          </li>
           <li>
             <Link to="add">Add Employee</Link>
           </li>

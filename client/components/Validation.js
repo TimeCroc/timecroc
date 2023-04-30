@@ -6,17 +6,17 @@ const Validation = (props) => {
 
   if(endTime){
     return (
-      <div>
+      <div className='validation'>
         <h3>{validationMessage}{endTime}</h3>
-        <Link to='/'>Back</Link>
+        <Link to='/'>Exit</Link>
       </div>
     )
   }
 
   return (
-    <div>
+    <div className='validation'>
       <h3>{validationMessage}{startTime}</h3>
-      <Link to='/'>Back</Link>
+      <Link to='/'>Exit</Link>
     </div>
   )
 

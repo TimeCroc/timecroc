@@ -15,6 +15,7 @@ const Timesheet = (props) => {
   
   const displayTimesheet = timesheet.map(item => {
     
+    
     totalTips += item.tips;
     totalReimbursements += item.reimbursements;
     totalTours += item.tours;
@@ -60,7 +61,7 @@ const Timesheet = (props) => {
 
   return (
     <div>
-      <h3>Timesheet</h3>
+      <Button variant="secondary"  onClick={() => navigate('/employeeportal')}>Back</Button>
       <div className='timesheet-grid'>
         <Table striped bordered hover>
           <thead>
@@ -91,7 +92,7 @@ const Timesheet = (props) => {
           </tr>
           </thead>
         </Table>
-        <Button variant="secondary"  onClick={() => navigate('/employeeportal')}>Back</Button>
+ 
       </div>
     </div>
   )

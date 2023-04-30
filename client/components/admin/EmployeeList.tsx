@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DeleteEmployee from './DeleteEmployee';
 import UpdateEmployee from './UpdateEmployee';
+import AddEmployee from './AddEmployee';
 // import { Employee } from '../../types';
 
 interface Employee {
@@ -38,6 +39,8 @@ const EmployeeList: React.FC = () => {
 return (
   <div>
     <Link to='/admin'>Back</Link>
+    <br></br>
+    <Link to="admin/add">Add Employee</Link>
     <h2>Employee List: </h2>
     <ul>
       {display}

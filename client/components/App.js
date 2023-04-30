@@ -9,6 +9,9 @@ import EmployeePortal from './EmployeePortal';
 import Timesheet from './Timesheet';
 import Validation from './Validation';
 import NumberPad from './pinpad/NumberPad';
+import logo from '../Rectangle Logo.png';
+
+
 // when we refactor App.js, we should clean up imports
 import AdminLogIn from './admin/AdminLogIn';
 
@@ -16,7 +19,7 @@ const App = () => {
   //------------state for each new employee session
 
   const [employeePin, setEmployeePin] = useState('');
-  const [currentEmployee, setCurrentEmployee] = useState({});
+  const [currentEmployee, setCurrentEmployee] = useState(null);
   const [currentShift, setCurrentShift] = useState({});
   const [timesheet, setTimesheet] = useState([]);
   const [validationMessage, setValidationMessage] = useState('');
@@ -32,7 +35,6 @@ const App = () => {
   
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
-
   
   function getStart(num){
     let start = parseInt(num);
@@ -54,7 +56,8 @@ const App = () => {
 
   return (
     <div className='body'>
-      <div>
+      {/* NOTE FOR MARK, CLARE, OR KAT -if currentEmployee is true don't render the admin buttons */}
+      <div className="app-display">
       {/* Render login button only if not on an admin page */}
         {!isAdminPage && (
          <Link to="admin/login"><button className='login-btn'>Admin Log in</button></Link>
@@ -63,7 +66,7 @@ const App = () => {
         {isAdminLoggedIn ? (
           <button className='sign-out-btn' onClick={() => setIsAdminLoggedIn(false)}>Sign Out</button>
         ) : null}
-        <h1>TimeCroc</h1>
+        <img src={logo} />
         <Clock />
       </div>
    
@@ -91,6 +94,8 @@ const App = () => {
             isAdminLoggedIn={isAdminLoggedIn}
             setIsAdminLoggedIn={setIsAdminLoggedIn}
             />} />
+          <Route path="admin/currentPayPeriod" element={<AddEmployee />} />
+          <Route path="admin/previousPayPeriods" element={<EmployeeList />} />
           <Route path="admin/add" element={<AddEmployee />} />
           <Route path="admin/list" element={<EmployeeList />} />
 
