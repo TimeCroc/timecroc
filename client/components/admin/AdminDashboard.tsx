@@ -21,7 +21,7 @@ const AdminDashboard: React.FC<Props> = ({ isAdminLoggedIn }) => {
             <Link to="currentPayPeriod">Current Pay Period</Link>
           </li>
           <li>
-            <Link to="previousPayPeriods">Previos Pay Periods</Link>
+            <Link to="previousPayPeriods">Previous Pay Periods</Link>
           </li>
           <li>
             <Link to="add">Add Employee</Link>
