@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from 'react-router-dom';
@@ -7,13 +7,30 @@ const Timesheet = (props) => {
   const navigate = useNavigate();
   const { timesheet } = props;
 
+  const startDate = new Date('2023-04-23T04:00:00');
+  const endDate = new Date('2023-05-07T03:59:59');
+
+  const [timesheetData, setTimesheetData] = useState([]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const filteredData = timesheet.filter(item => {
+        const shiftDate = new Date(parseInt(item.start_time)).toDateString();
+        return new Date(shiftDate) >= startDate && new Date(shiftDate) <= endDate;
+      });
+      setTimesheetData(filteredData);
+    }, 0);
+
+    return () => clearInterval(interval);
+  }, [timesheet, startDate, endDate]);
+
   let totalHours = 0;
   let totalTips = 0;
   let totalReimbursements = 0;
   let totalTours = 0;
   let totalDOC = 0;
   
-  const displayTimesheet = timesheet.map(item => {
+  const displayTimesheet = timesheetData.map(item => {
     
     
     totalTips += item.tips;
