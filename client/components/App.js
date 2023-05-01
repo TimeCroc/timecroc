@@ -54,6 +54,11 @@ const App = () => {
  const location = useLocation();
  const isAdminPage = location.pathname.startsWith('/admin');
 
+ const adminLogOut = () => {
+  setIsAdminLoggedIn(false)
+  //send request to API here
+ }
+
   return (
     <div className='body'>
       {/* NOTE FOR MARK, CLARE, OR KAT -if currentEmployee is true don't render the admin buttons */}
@@ -64,7 +69,7 @@ const App = () => {
         )}
       {/* Render sign out button only if admin is logged in */}
         {isAdminLoggedIn ? (
-          <button className='sign-out-btn' onClick={() => setIsAdminLoggedIn(false)}>Sign Out</button>
+          <Link to="/"><button className='sign-out-btn' onClick={adminLogOut }>Sign Out</button></Link>
         ) : null}
         <img src={logo} />
         <Clock />
