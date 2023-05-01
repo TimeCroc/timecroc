@@ -8,20 +8,19 @@ const Timesheet = (props) => {
   const { timesheet } = props;
 
   let totalHours = 0;
+  // added value for totalMinutes
+  let totalMinutes = 0;
   let totalTips = 0;
   let totalReimbursements = 0;
   let totalTours = 0;
   let totalDOC = 0;
-  
+
   const displayTimesheet = timesheet.map(item => {
-    
-    
     totalTips += item.tips;
     totalReimbursements += item.reimbursements;
     totalTours += item.tours;
     totalDOC += item.doc;
 
-    //let date = item.shift_date.slice(0, 9);
     let start = parseInt(item.start_time);
     let end = parseInt(item.end_time);
 
@@ -36,33 +35,56 @@ const Timesheet = (props) => {
     let shiftStartMinute = shiftStart.getMinutes();
     let shiftEndMinute = shiftEnd.getMinutes();
 
-    let shiftStartTime = `${shiftStartHour}:${shiftStartMinute}`;
-    let shiftEndTime = `${shiftEndHour}:${shiftEndMinute}`;
-    
-    let shiftMinutes = shiftEndMinute - shiftStartMinute;
+    // Round up or down seconds to the nearest minute
+    let shiftMinutes = Math.round((shiftEndMinute - shiftStartMinute + (shiftEnd.getSeconds() - shiftStart.getSeconds()) / 60));
+
+    // logic for handling the seconds 
+    let shiftSeconds = shiftEnd.getSeconds() - shiftStart.getSeconds();
+    if (shiftSeconds < 0) {
+      shiftSeconds += 60;
+      shiftEndMinute--;
+    }
+
+    // logic for properly handling minutes to avoid the negative values
+    if (shiftMinutes < 0) {
+      shiftMinutes += 60;
+      shiftEndHour--;
+    }
+
+    // logic for properly handling hours to avoid the negative values
     let shiftHours = shiftEndHour - shiftStartHour;
-    let totalShiftHours = `${shiftHours}:${shiftMinutes}`;
+    if (shiftHours < 0) {
+      shiftHours += 24;
+    }
+
+    // add leading zero to shiftMinutes if it is less than 10
+    let totalShiftHours = `${shiftHours}:${shiftMinutes < 10 ? '0' : ''}${shiftMinutes}`;
 
     totalHours += shiftHours;
-  
+    totalMinutes += shiftMinutes;
 
     return <tr key={item.start_time}> 
             <td>{shiftDate}</td>
-            <td>{shiftStartTime}</td>
-            <td>{shiftEndTime}</td>
-            <td>{totalShiftHours}</td>
+            {/* ensuring proper formatting of times */}
+            <td>{shiftStart.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+            <td>{shiftEnd.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+            <td>{totalShiftHours.toLowerCase([], {hour: '2-digit', minute:'2-digit'})}</td>
             <td>{item.tips}</td>
             <td>{item.reimbursements}</td>
             <td>{item.tours}</td>
             <td>{item.doc}</td>
           </tr>
-          
   })
+
+  totalHours += Math.floor(totalMinutes / 60);
+  totalMinutes = totalMinutes % 60;
 
   return (
     <div>
-      <Button variant="secondary"  onClick={() => navigate('/employeeportal')}>Back</Button>
-      <div className='timesheet-grid'>
+      <Button variant="secondary" onClick={() => navigate('/employeeportal')}>
+        Back
+      </Button>
+      <div className="timesheet-grid">
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -76,26 +98,23 @@ const Timesheet = (props) => {
               <th>DOC</th>
             </tr>
           </thead>
-          <tbody>
-            {displayTimesheet}
-          </tbody>
+          <tbody>{displayTimesheet}</tbody>
           <thead>
-          <tr>
-            <th>Totals:</th>
-            <th></th>
-            <th></th>
-            <th>Hours: {totalHours}</th>
-            <th>Tips: {totalTips}</th>
-            <th>Reimbursements: {totalReimbursements}</th>
-            <th>Tours: {totalTours}</th>
-            <th>DOC:{totalDOC}</th>
-          </tr>
+            <tr>
+              <th>Totals:</th>
+              <th></th>
+              <th></th>
+              <th>{`${totalHours}:${(totalHours * 60 + totalMinutes) % 60 < 10 ? '0' : ''}${(totalHours * 60 + totalMinutes) % 60}`}</th>
+              <th>{totalTips}</th>
+              <th>{totalReimbursements}</th>
+              <th>{totalTours}</th>
+              <th>{totalDOC}</th>
+            </tr>
           </thead>
         </Table>
- 
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Timesheet;
