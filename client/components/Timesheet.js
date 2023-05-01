@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Timesheet = (props) => {
   const navigate = useNavigate();
-  const { timesheet } = props;
+  const { timesheet, currentEmployee } = props;
 
   const startDate = new Date('2023-04-23T04:00:00');
   const endDate = new Date('2023-05-07T03:59:59');
@@ -30,9 +30,7 @@ const Timesheet = (props) => {
   let totalTours = 0;
   let totalDOC = 0;
   
-  const displayTimesheet = timesheetData.map(item => {
-    
-    
+  const displayTimesheet = timesheetData.sort((a, b) => a.start_time - b.start_time).map(item => {
     totalTips += item.tips;
     totalReimbursements += item.reimbursements;
     totalTours += item.tours;
@@ -80,6 +78,7 @@ const Timesheet = (props) => {
     <div>
       <Button variant="secondary"  onClick={() => navigate('/employeeportal')}>Back</Button>
       <div className='timesheet-grid'>
+      <h3>{currentEmployee.first_name}'s Timesheet</h3>
         <Table striped bordered hover>
           <thead>
             <tr>
