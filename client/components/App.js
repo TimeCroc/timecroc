@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Outlet, Link, useLocation } from "react-router-dom";
+import { Routes, Route, Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import Clock from './Clock';
 import PinPad from './pinpad/PinPad';
 import EmployeeList from './admin/EmployeeList';
@@ -53,10 +53,29 @@ const App = () => {
  // useLocation hook to get the current pathname
  const location = useLocation();
  const isAdminPage = location.pathname.startsWith('/admin');
+ const nav = useNavigate();
 
- const adminLogOut = () => {
+ const adminLogOut = (event) => {
+  event.preventDefault();
+  //send request to API here - make new card for authentication/remove hardcoded body
+  fetch('/api/admin/logout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({email: 'markyencheske@gmail.com', password: 'password'}
+    )
+  })
+  .then(response => response.json())
+  .then(data => {
+    //console.log('logout data', data)
+    nav('/');
+  })
+  .catch(error => {
+    console.log(error);
+    // handle error
+  });
   setIsAdminLoggedIn(false)
-  //send request to API here
  }
 
   return (
@@ -65,7 +84,7 @@ const App = () => {
       <div className="app-display">
       {/* Render login button only if not on an admin page */}
         {!isAdminPage && (
-         <Link to="admin/login"><button className='login-btn'>Admin Log in</button></Link>
+          <Link to="admin/login"><button className='login-btn'>Admin Log in</button></Link>
         )}
       {/* Render sign out button only if admin is logged in */}
         {isAdminLoggedIn ? (
