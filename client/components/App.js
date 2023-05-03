@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  Outlet,
-  Link,
-  useLocation,
-  useMatches,
-} from 'react-router-dom';
+import { Routes, Route, Outlet, Link, useLocation } from 'react-router-dom';
 import Clock from './Clock';
 import PinPad from './pinpad/PinPad';
 import EmployeeList from './admin/EmployeeList';
@@ -39,7 +32,6 @@ const App = () => {
   const [reimbursements, setReimbursements] = useState(0);
   const [DOC, setDOC] = useState(0);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
-  const isLoggedIn = currentEmployee !== null;
 
   function getStart(num) {
     let start = parseInt(num);
@@ -58,7 +50,6 @@ const App = () => {
   // useLocation hook to get the current pathname
   const location = useLocation();
   const isAdminPage = location.pathname.startsWith('/admin');
-  
 
   return (
     <div className='body'>
@@ -70,16 +61,16 @@ const App = () => {
           </Link>
         )}
 
-         {!isAdminLoggedIn && location.pathname === '/' && (
-        <Link to='admin/login'>
-          <button className='login-btn'>Admin Log in</button>
-        </Link>
-      )}
+        {!isAdminLoggedIn && location.pathname === '/' && (
+          <Link to='admin/login'>
+            <button className='login-btn'>Admin Log in</button>
+          </Link>
+        )}
 
         <img src={logo} />
         <Clock />
       </div>
-     
+
       {/* Render login button only if not on an admin page and not logged in as admin */}
       {!isAdminPage && !isAdminLoggedIn && currentEmployee === null && (
         <Link to='admin/login'>
@@ -101,8 +92,6 @@ const App = () => {
             />
           }
         />
-        
-
         {isAdminLoggedIn ? (
           <Route
             path='admin'
