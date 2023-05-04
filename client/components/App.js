@@ -36,7 +36,6 @@ const App = () => {
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
-  console.log('currentEmployee is', currentEmployee)
   
   function getStart(num){
     let start = parseInt(num);
@@ -85,7 +84,7 @@ const App = () => {
       {/* NOTE FOR MARK, CLARE, OR KAT -if currentEmployee is true don't render the admin buttons */}
       <div className="app-display">
       {/* Render login button only if not on an admin page */}
-        {!isAdminPage && (
+        {!isAdminPage && !currentEmployee &&(
           <Link to="admin/login"><button className='login-btn'>Admin Log in</button></Link>
         )}
       {/* Render sign out button only if admin is logged in */}
