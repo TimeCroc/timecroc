@@ -35,6 +35,8 @@ const App = () => {
   
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+
+  console.log('currentEmployee is', currentEmployee)
   
   function getStart(num){
     let start = parseInt(num);
@@ -127,6 +129,7 @@ const App = () => {
           <Route path="employeeportal" 
             element={<EmployeePortal 
               currentEmployee={currentEmployee} 
+              setCurrentEmployee={setCurrentEmployee}
               currentShift={currentShift}
               employeePin={employeePin}
               endTime={currentShift.end_time}
@@ -151,7 +154,8 @@ const App = () => {
           />
           <Route path="employeeportal/timesheet" element={<Timesheet timesheet={timesheet}/>}/>  
           <Route path="employeeportal/validation" 
-            element={<Validation 
+            element={<Validation
+              setCurrentEmployee={setCurrentEmployee} 
               validationMessage={validationMessage} 
               startTime={startTime} 
               endTime={endTime}

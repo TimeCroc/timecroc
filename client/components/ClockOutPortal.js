@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ClockOutPortal = (props) => {
   const navigate = useNavigate();
-  const { first_name, viewTimesheet, handleClockOut, startTime, setExtrasView } = props;
+  const { first_name, viewTimesheet, handleClockOut, startTime, setExtrasView, setCurrentEmployee } = props;
 
   return (
       <Card style={{width: '70%', padding: '10px'}}>
@@ -15,7 +15,12 @@ const ClockOutPortal = (props) => {
           <Card.Text> You've been clocked in since {startTime}. Are you ready to clock out? </Card.Text> 
             <Button className='button' variant="secondary" onClick={() => handleClockOut()}>Clock Out</Button>
             <Button className='button' variant="secondary" onClick={viewTimesheet}>View Timesheet</Button>
-            <Button className='button' variant="warning" onClick={() => navigate('/')}>Exit</Button>  
+            <Button className='button' variant="warning" 
+              onClick={() =>{
+                setCurrentEmployee(null);
+                navigate('/');
+              } 
+            }>Exit</Button>  
             <Button className='button' variant="primary" 
               onClick={() => {
                 setExtrasView('tips')
