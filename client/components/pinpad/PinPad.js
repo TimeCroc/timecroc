@@ -4,6 +4,7 @@ import BackButton from './BackButton'
 import SubmitButton from './SubmitButton';
 import PinDisplay from './PinDisplay';
 import { useNavigate } from "react-router-dom";
+import PinpadStyles from './styles.pinpad.css'
 
 const PinPad = (props) => {
   const [pin, setPin] = useState('');

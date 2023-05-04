@@ -12,7 +12,8 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.pinpad_container {
+/* .pinpad_container {
+  border-radius: 10px;
   margin: 0 auto;
   border: 3px solid rgb(7, 67, 7);
   width: 60%;
@@ -31,10 +32,10 @@ body {
 }
 
 .pin-display {
-  /* display: flex;
+  display: flex;
   align-items: center;
-  justify-content: center; */
-  border: 1px solid black;
+  justify-content: center;
+  border: 2px solid black;
   margin-top: 25px;
   padding: 5px;
   width: 140px;
@@ -52,14 +53,14 @@ body {
 
 .num_button:hover {
   background-color: rgb(198, 252, 234);
-}
+}*/
 
 .back_button{
   width: 100%;
   height: 100px;
   background-color: rgb(255, 122, 117);
   border-radius: 15px;
-
+  font-size: 2.5rem;
 }
 
 .submit_button{
@@ -67,7 +68,8 @@ body {
   height: 100px;
   background-color: rgb(148, 255, 136);
   border-radius: 15px;
-}
+  font-size: 2.5rem;
+} 
 
 header {
   display: flex;
