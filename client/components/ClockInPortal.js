@@ -8,7 +8,7 @@ const ClockInPortal = (props) => {
   const { first_name, handleClockIn, viewTimesheet} = props;
 
   return (
-      <Card style={{width: '70%', padding: '10px'}}>
+      <Card style={{width: '70%', padding: '0px'}}>
         <Card.Body>
           <Card.Title>Welcome to work {first_name}</Card.Title>
           <Card.Text> It's time to clock in for your shift! </Card.Text> 
