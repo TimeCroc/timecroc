@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  Outlet,
-  Link,
-  useLocation,
-  useMatches,
-} from 'react-router-dom';
+import { Routes, Route, Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import Clock from './Clock';
 import PinPad from './pinpad/PinPad';
 import EmployeeList from './admin/EmployeeList';
@@ -55,27 +48,46 @@ const App = () => {
     setEndTime(string);
   }
 
-  // useLocation hook to get the current pathname
-  const location = useLocation();
-  const isAdminPage = location.pathname.startsWith('/admin');
-  
+ // useLocation hook to get the current pathname
+ const location = useLocation();
+ const isAdminPage = location.pathname.startsWith('/admin');
+ const nav = useNavigate();
+
+ const adminLogOut = (event) => {
+  event.preventDefault();
+  //send request to API here - make new card for authentication/remove hardcoded body
+  fetch('/api/admin/logout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({email: 'markyencheske@gmail.com', password: 'password'}
+    )
+  })
+  .then(response => response.json())
+  .then(data => {
+    //console.log('logout data', data)
+    nav('/');
+  })
+  .catch(error => {
+    console.log(error);
+    // handle error
+  });
+  setIsAdminLoggedIn(false)
+ }
 
   return (
     <div className='body'>
-      <div className='app-display'>
-        {/* Render sign out button only if admin is logged in */}
-        {isAdminLoggedIn && (
-          <Link to='admin/logout'>
-            <button className='login-btn'>Log Out</button>
-          </Link>
+      {/* NOTE FOR MARK, CLARE, OR KAT -if currentEmployee is true don't render the admin buttons */}
+      <div className="app-display">
+      {/* Render login button only if not on an admin page */}
+        {!isAdminPage && (
+          <Link to="admin/login"><button className='login-btn'>Admin Log in</button></Link>
         )}
-
-         {!isAdminLoggedIn && location.pathname === '/' && (
-        <Link to='admin/login'>
-          <button className='login-btn'>Admin Log in</button>
-        </Link>
-      )}
-
+      {/* Render sign out button only if admin is logged in */}
+        {isAdminLoggedIn ? (
+          <Link to="/"><button className='sign-out-btn' onClick={adminLogOut }>Sign Out</button></Link>
+        ) : null}
         <img src={logo} />
         <Clock />
       </div>
