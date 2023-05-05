@@ -36,7 +36,6 @@ const App = () => {
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
-  console.log(currentEmployee)
   function getStart(num){
     let start = parseInt(num);
     let shiftStart = new Date(start);
