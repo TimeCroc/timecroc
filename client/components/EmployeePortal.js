@@ -6,21 +6,40 @@ import { useNavigate } from 'react-router-dom';
 const EmployeePortal = (props) => {
   const navigate = useNavigate();
   const { pin, first_name } = props.currentEmployee;
-  const { currentShift, setTimesheet, setValidationMessage, endTime, setEndTime, startTime, setStartTime, getStart, getEnd, setExtrasView, extrasView, setTips, tips, tours, setTours, reimbursements, setReimbursements, DOC, setDOC } = props;
+  const {
+    currentShift,
+    setTimesheet,
+    setValidationMessage,
+    endTime,
+    setEndTime,
+    startTime,
+    setStartTime,
+    getStart,
+    getEnd,
+    setExtrasView,
+    extrasView,
+    setTips,
+    tips,
+    tours,
+    setTours,
+    reimbursements,
+    setReimbursements,
+    DOC,
+    setDOC,
+  } = props;
   const body = {
     shift_id: currentShift._id,
   };
-  
+
   const extrasBody = {
     shift_id: currentShift._id,
     tips: tips,
     reimbursements: reimbursements,
     tours: tours,
-    doc: DOC
+    doc: DOC,
   };
 
-
-  function handleClockIn () {
+  function handleClockIn() {
     setTips(0);
     setTours(0);
     setReimbursements(0);
@@ -28,75 +47,87 @@ const EmployeePortal = (props) => {
 
     fetch(`/api/shifts/${pin}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     })
-    .then(res => res.json())
-    .then(data => {
-      getStart(data.start_time);
-      setValidationMessage(`You clocked in at: `)
-      setEndTime(data.end_time);
-      navigate('/employeeportal/validation');
-    })
-    .catch(err => console.log('error:', err));
+      .then((res) => res.json())
+      .then((data) => {
+        getStart(data.start_time);
+        setValidationMessage(`You clocked in at: `);
+        setEndTime(data.end_time);
+        navigate('/employeeportal/validation');
+      })
+      .catch((err) => console.log('error:', err));
   }
 
-  function handleClockOut () {
+  function handleClockOut() {
     handleAddExtras();
     fetch(`/api/shifts/${pin}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     })
-    .then(res => res.json())
-    .then(data => {
-      getEnd(data.end_time);
-      setValidationMessage(`You clocked out at:  `)
-      navigate('/employeeportal/validation');
-    })
-    .catch(err => console.log('error:', err));
+      .then((res) => res.json())
+      .then((data) => {
+        getEnd(data.end_time);
+        setValidationMessage(`You clocked out at:  `);
+        navigate('/employeeportal/validation');
+      })
+      .catch((err) => console.log('error:', err));
   }
 
-  function handleAddExtras () {
+  function handleAddExtras() {
     fetch(`/api/shifts/extras/${pin}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(extrasBody)
+      body: JSON.stringify(extrasBody),
     })
-    .then(res => res.json())
-    .then(data => {
-      //console.log('extras body data', data);
-    })
-    .catch(err => console.log('error:', err));
+      .then((res) => res.json())
+      .then((data) => {
+        //console.log('extras body data', data);
+      })
+      .catch((err) => console.log('error:', err));
     setTips(0);
     setTours(0);
     setReimbursements(0);
     setDOC(0);
   }
 
-  function viewTimesheet (){
+  function viewTimesheet() {
     fetch(`api/shifts/timesheet/${pin}`)
-    .then(res => res.json())
-    .then(data => {
-      setTimesheet(data);
-      navigate('/employeeportal/timesheet');
+      .then((res) => res.json())
+      .then((data) => {
+        setTimesheet(data);
+        navigate('/employeeportal/timesheet');
       })
-    .catch(err => console.log('error:', err))
+      .catch((err) => console.log('error:', err));
   }
 
-  if(endTime === null){
+  if (endTime === null) {
     return (
-      <div className="clock_out_portal">
-        <ClockOutPortal first_name={first_name} handleClockOut={handleClockOut} viewTimesheet={viewTimesheet} startTime={startTime} setExtrasView={setExtrasView} tips={tips} setTips={setTips}/>
+      <div className='clock_out_portal'>
+        <ClockOutPortal
+          first_name={first_name}
+          handleClockOut={handleClockOut}
+          viewTimesheet={viewTimesheet}
+          startTime={startTime}
+          setExtrasView={setExtrasView}
+          tips={tips}
+          setTips={setTips}
+        />
       </div>
-    )
+    );
   }
-  return(
+  return (
     <div>
-      <div className="clock_in_portal">
-        <ClockInPortal first_name={first_name} handleClockIn={handleClockIn} viewTimesheet={viewTimesheet}/>
+      <div className='clock_in_portal'>
+        <ClockInPortal
+          first_name={first_name}
+          handleClockIn={handleClockIn}
+          viewTimesheet={viewTimesheet}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default EmployeePortal;
