@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Outlet, Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Outlet,
+  Link,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import Clock from './Clock';
 import PinPad from './pinpad/PinPad';
 import EmployeeList from './admin/EmployeeList';
@@ -10,7 +17,6 @@ import Timesheet from './Timesheet';
 import Validation from './Validation';
 import NumberPad from './pinpad/NumberPad';
 import logo from '../Rectangle Logo.png';
-
 
 // when we refactor App.js, we should clean up imports
 import AdminLogIn from './admin/AdminLogIn';
@@ -32,102 +38,123 @@ const App = () => {
   const [tours, setTours] = useState(0);
   const [reimbursements, setReimbursements] = useState(0);
   const [DOC, setDOC] = useState(0);
-  
+
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
-  
-  function getStart(num){
+  function getStart(num) {
     let start = parseInt(num);
     let shiftStart = new Date(start);
     let string = shiftStart.toLocaleString();
     setStartTime(string);
-  };
+  }
 
-  function getEnd(num){
+  function getEnd(num) {
     let end = parseInt(num);
     let shiftEnd = new Date(end);
     let string = shiftEnd.toLocaleString();
     setEndTime(string);
+  }
+
+  // useLocation hook to get the current pathname
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith('/admin');
+  const nav = useNavigate();
+
+  const adminLogOut = (event) => {
+    event.preventDefault();
+    //send request to API here - make new card for authentication/remove hardcoded body
+    fetch('/api/admin/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: 'markyencheske@gmail.com',
+        password: 'password',
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        //console.log('logout data', data)
+        nav('/');
+      })
+      .catch((error) => {
+        console.log(error);
+        // handle error
+      });
+    setIsAdminLoggedIn(false);
   };
-
- // useLocation hook to get the current pathname
- const location = useLocation();
- const isAdminPage = location.pathname.startsWith('/admin');
- const nav = useNavigate();
-
- const adminLogOut = (event) => {
-  event.preventDefault();
-  //send request to API here - make new card for authentication/remove hardcoded body
-  fetch('/api/admin/logout', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({email: 'markyencheske@gmail.com', password: 'password'}
-    )
-  })
-  .then(response => response.json())
-  .then(data => {
-    //console.log('logout data', data)
-    nav('/');
-  })
-  .catch(error => {
-    console.log(error);
-    // handle error
-  });
-  setIsAdminLoggedIn(false)
- }
 
   return (
     <div className='body'>
       {/* NOTE FOR MARK, CLARE, OR KAT -if currentEmployee is true don't render the admin buttons */}
-      <div className="app-display">
-      {/* Render login button only if not on an admin page */}
-        {!isAdminPage && !currentEmployee &&(
-          <Link to="admin/login"><button className='login-btn'>Admin Log in</button></Link>
+      <div className='app-display'>
+        {/* Render login button only if not on an admin page */}
+        {!isAdminPage && !currentEmployee && (
+          <Link to='admin/login'>
+            <button className='login-btn'>Admin Log in</button>
+          </Link>
         )}
-      {/* Render sign out button only if admin is logged in */}
+        {/* Render sign out button only if admin is logged in */}
         {isAdminLoggedIn ? (
-          <Link to="/"><button className='sign-out-btn' onClick={adminLogOut }>Sign Out</button></Link>
+          <Link to='/'>
+            <button className='sign-out-btn' onClick={adminLogOut}>
+              Sign Out
+            </button>
+          </Link>
         ) : null}
         <img src={logo} />
         <Clock />
       </div>
-   
-        <Routes>
-          <Route path="/" 
-            element={<PinPad 
-            setEmployeePin={setEmployeePin} 
-            setCurrentEmployee={setCurrentEmployee}
-            setCurrentShift={setCurrentShift}
-            setTips={setTips}
-            setTours={setTours}
-            setReimbursements={setReimbursements}
-            setDOC={setDOC}
-            />} 
+
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <PinPad
+              setEmployeePin={setEmployeePin}
+              setCurrentEmployee={setCurrentEmployee}
+              setCurrentShift={setCurrentShift}
+              setTips={setTips}
+              setTours={setTours}
+              setReimbursements={setReimbursements}
+              setDOC={setDOC}
+            />
+          }
+        />
+
+        {/* <Route path="admin" element={isAdminLoggedIn ? <AdminDashboard isAdminLoggedIn={isAdminLoggedIn} /> : <AdminLogIn />} /> */}
+        {isAdminLoggedIn ? (
+          <Route
+            path='admin'
+            element={<AdminDashboard isAdminLoggedIn={isAdminLoggedIn} />}
           />
-          
-          {/* <Route path="admin" element={isAdminLoggedIn ? <AdminDashboard isAdminLoggedIn={isAdminLoggedIn} /> : <AdminLogIn />} /> */}
-          {isAdminLoggedIn ? <Route path="admin" element={<AdminDashboard isAdminLoggedIn={isAdminLoggedIn} />} /> : null}
-              {/* conditional render statement
+        ) : null}
+        {/* conditional render statement
                 // if the admin is logged in,
                   // check if the route path is /admin, if so, render the dashboard and sign out button
                   // if the route path is NOT /admin (e.g. /), 
                */}
-          <Route path="admin/login" element={<AdminLogIn 
-            isAdminLoggedIn={isAdminLoggedIn}
-            setIsAdminLoggedIn={setIsAdminLoggedIn}
-            />} />
-          <Route path="admin/currentPayPeriod" element={<AddEmployee />} />
-          <Route path="admin/previousPayPeriods" element={<EmployeeList />} />
-          <Route path="admin/add" element={<AddEmployee />} />
-          <Route path="admin/list" element={<EmployeeList />} />
+        <Route
+          path='admin/login'
+          element={
+            <AdminLogIn
+              isAdminLoggedIn={isAdminLoggedIn}
+              setIsAdminLoggedIn={setIsAdminLoggedIn}
+            />
+          }
+        />
+        <Route path='admin/currentPayPeriod' element={<AddEmployee />} />
+        <Route path='admin/previousPayPeriods' element={<EmployeeList />} />
+        <Route path='admin/add' element={<AddEmployee />} />
+        <Route path='admin/list' element={<EmployeeList />} />
 
-
-          <Route path="employeeportal" 
-            element={<EmployeePortal 
-              currentEmployee={currentEmployee} 
+        <Route
+          path='employeeportal'
+          element={
+            <EmployeePortal
+              currentEmployee={currentEmployee}
               setCurrentEmployee={setCurrentEmployee}
               currentShift={currentShift}
               employeePin={employeePin}
@@ -149,55 +176,71 @@ const App = () => {
               setReimbursements={setReimbursements}
               DOC={DOC}
               setDOC={setDOC}
-            />} 
-          />
-          <Route path="employeeportal/timesheet" element={<Timesheet timesheet={timesheet}/>}/>  
-          <Route path="employeeportal/validation" 
-            element={<Validation
-              setCurrentEmployee={setCurrentEmployee} 
-              validationMessage={validationMessage} 
-              startTime={startTime} 
+            />
+          }
+        />
+        <Route
+          path='employeeportal/timesheet'
+          element={<Timesheet timesheet={timesheet} />}
+        />
+        <Route
+          path='employeeportal/validation'
+          element={
+            <Validation
+              setCurrentEmployee={setCurrentEmployee}
+              validationMessage={validationMessage}
+              startTime={startTime}
               endTime={endTime}
-            />}
-          />
-          <Route path="employeeportal/addtips" 
-            element={<NumberPad 
+            />
+          }
+        />
+        <Route
+          path='employeeportal/addtips'
+          element={
+            <NumberPad
               view={extrasView}
               setExtrasView={setExtrasView}
               number={tips}
               setNumber={setTips}
-            />}
-          />
-          <Route path="employeeportal/addreimbursements" 
-            element={<NumberPad 
+            />
+          }
+        />
+        <Route
+          path='employeeportal/addreimbursements'
+          element={
+            <NumberPad
               view={extrasView}
               setExtrasView={setExtrasView}
               number={reimbursements}
               setNumber={setReimbursements}
-            />}
-          />
-          <Route path="employeeportal/addtours" 
-            element={<NumberPad 
+            />
+          }
+        />
+        <Route
+          path='employeeportal/addtours'
+          element={
+            <NumberPad
               view={extrasView}
               setExtrasView={setExtrasView}
               number={tours}
               setNumber={setTours}
-            />}
-          />
-          <Route path="employeeportal/adddoc" 
-            element={<NumberPad 
+            />
+          }
+        />
+        <Route
+          path='employeeportal/adddoc'
+          element={
+            <NumberPad
               view={extrasView}
               setExtrasView={setExtrasView}
               number={DOC}
               setNumber={setDOC}
-            />}
-          />
-        </Routes>  
-      </div>
-    );
-}
+            />
+          }
+        />
+      </Routes>
+    </div>
+  );
+};
 
 export default App;
-
-
-
