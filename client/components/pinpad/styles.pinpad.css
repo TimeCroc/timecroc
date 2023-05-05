@@ -1,7 +1,7 @@
 .pinpad_container {
   border-radius: 10px;
   margin: 0 auto;
-  border: 5px solid rgba(7, 67, 7, 0.895);
+  border: 3px solid rgba(7, 67, 7, 0.895);
   width: 60%;
   margin-bottom: 30px;
   align-items: center;
@@ -9,8 +9,6 @@
   flex-direction: column;
   justify-content: center;	
 	box-shadow: 0 0 4px rgb(7, 67, 7);
-		
-	
 }
 
 .pinpad {
@@ -18,7 +16,6 @@
   grid-template-columns: 1fr 1fr 1fr;
   padding: 30px;
   width: 50%;
-	
 }
 
 .pin-display {
@@ -32,7 +29,6 @@
   border-radius: 10px;
   height: 55px;
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-
 }
 
 .num_button {
@@ -52,10 +48,11 @@
 .num_button:hover {
   background-color: rgb(221, 236, 248);
 }
+
 .back_button:hover {
   background-color: rgb(245, 186, 184);
-
 }
+
 .submit_button:hover {
   background-color: rgba(212, 248, 207, 0.834);
 	transition: background-color 1s;
@@ -86,4 +83,15 @@
 	-webkit-backdrop-filter: blur( 4px );
 	border-radius: 14px;
 	border: 1px solid rgb(142, 189, 231);
+}
+
+/* FontAwesome Icons */
+.fa-thin {
+  /* font-weight: 100; */
+  -webkit-text-stroke: 0.5px rgb(9, 9, 9) !important;
+}
+
+.outlined {
+  color: #fff;
+  -webkit-text-stroke: 1px #000;
 }

@@ -67,6 +67,7 @@ const PinPad = (props) => {
       </div>
  
       <div className='pinpad'>
+        
         {pinpad}
         <BackButton clicked={e => {
           e.preventDefault();
