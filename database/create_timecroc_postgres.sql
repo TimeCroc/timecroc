@@ -52,7 +52,7 @@ ALTER TABLE public.shift ADD CONSTRAINT "shift_fk0" FOREIGN KEY ("employee_id") 
 
 
 
-INSERT INTO public.employee (
+INSERT INTO .employpublicee (
 	 pin, first_name, last_name, phone, email, hourly_rate
 ) VALUES
 (8413, 'Mark', 'Yencheske', 14144038413, 'markyencheske@gmail.com', 0),

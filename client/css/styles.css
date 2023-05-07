@@ -97,14 +97,14 @@ img {
 }
 .clock_in_portal {
   margin-top: 5%;
-  /* border: 3px solid rgb(0, 138, 5); */
+  border: 3px solid rgb(0, 138, 5);
   display: grid;
   grid-template-rows: 1fr;
   justify-content: space-around;
 }
 
 .clock_out_portal {
-  /* border: 2px solid rgb(125, 0, 0); */
+  border: 2px solid rgb(125, 0, 0);
   margin-top: 5%;
   display: grid;
   grid-template-rows: 1fr;
