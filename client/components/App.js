@@ -35,7 +35,7 @@ const App = () => {
   
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
-  
+
   function getStart(num){
     let start = parseInt(num);
     let shiftStart = new Date(start);
@@ -83,7 +83,7 @@ const App = () => {
       {/* NOTE FOR MARK, CLARE, OR KAT -if currentEmployee is true don't render the admin buttons */}
       <div className="app-display">
       {/* Render login button only if not on an admin page */}
-        {!isAdminPage && (
+        {!isAdminPage && !currentEmployee &&(
           <Link to="admin/login"><button className='login-btn'>Admin Log in</button></Link>
         )}
       {/* Render sign out button only if admin is logged in */}
@@ -127,6 +127,7 @@ const App = () => {
           <Route path="employeeportal" 
             element={<EmployeePortal 
               currentEmployee={currentEmployee} 
+              setCurrentEmployee={setCurrentEmployee}
               currentShift={currentShift}
               employeePin={employeePin}
               endTime={currentShift.end_time}
@@ -151,7 +152,8 @@ const App = () => {
           />
           <Route path="employeeportal/timesheet" element={<Timesheet timesheet={timesheet}/>}/>  
           <Route path="employeeportal/validation" 
-            element={<Validation 
+            element={<Validation
+              setCurrentEmployee={setCurrentEmployee} 
               validationMessage={validationMessage} 
               startTime={startTime} 
               endTime={endTime}
