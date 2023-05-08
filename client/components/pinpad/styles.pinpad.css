@@ -24,7 +24,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(110, 105, 105, 0.774);
+  border: 2px solid rgba(7, 67, 7, 0.594);
   margin-top: 10px;
   margin-bottom: 25px;
   padding: 5px;
@@ -32,8 +32,8 @@
   border-radius: 10px;
   height: 59px;
   width: 160px;
-  padding-bottom: 40px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  /* padding-bottom: 40px; */
+  box-shadow: 0 0 4px rgba(29, 28, 28, 0.572);
 }
 
 .num_button {
