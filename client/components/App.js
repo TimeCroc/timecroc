@@ -38,6 +38,8 @@ const App = () => {
   const [tours, setTours] = useState(0);
   const [reimbursements, setReimbursements] = useState(0);
   const [DOC, setDOC] = useState(0);
+
+  // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
   function getStart(num) {
@@ -106,12 +108,6 @@ const App = () => {
         <Clock />
       </div>
 
-      {/* Render login button only if not on an admin page and not logged in as admin */}
-      {!isAdminPage && !isAdminLoggedIn && currentEmployee === null && (
-        <Link to='admin/login'>
-          <button className='login-btn'>Admin Log in</button>
-        </Link>
-      )}
       <Routes>
         <Route
           path='/'
@@ -128,12 +124,18 @@ const App = () => {
           }
         />
 
+        {/* <Route path="admin" element={isAdminLoggedIn ? <AdminDashboard isAdminLoggedIn={isAdminLoggedIn} /> : <AdminLogIn />} /> */}
         {isAdminLoggedIn ? (
           <Route
             path='admin'
             element={<AdminDashboard isAdminLoggedIn={isAdminLoggedIn} />}
           />
         ) : null}
+        {/* conditional render statement
+                // if the admin is logged in,
+                  // check if the route path is /admin, if so, render the dashboard and sign out button
+                  // if the route path is NOT /admin (e.g. /), 
+               */}
         <Route
           path='admin/login'
           element={
@@ -179,7 +181,12 @@ const App = () => {
         />
         <Route
           path='employeeportal/timesheet'
-          element={<Timesheet timesheet={timesheet} />}
+          element={
+            <Timesheet
+              timesheet={timesheet}
+              currentEmployee={currentEmployee}
+            />
+          }
         />
         <Route
           path='employeeportal/validation'
@@ -195,7 +202,45 @@ const App = () => {
         <Route
           path='employeeportal/addtips'
           element={
-            <NumberPad value={tips} setValue={setTips} buttonText='Add Tip' />
+            <NumberPad
+              view={extrasView}
+              setExtrasView={setExtrasView}
+              number={tips}
+              setNumber={setTips}
+            />
+          }
+        />
+        <Route
+          path='employeeportal/addreimbursements'
+          element={
+            <NumberPad
+              view={extrasView}
+              setExtrasView={setExtrasView}
+              number={reimbursements}
+              setNumber={setReimbursements}
+            />
+          }
+        />
+        <Route
+          path='employeeportal/addtours'
+          element={
+            <NumberPad
+              view={extrasView}
+              setExtrasView={setExtrasView}
+              number={tours}
+              setNumber={setTours}
+            />
+          }
+        />
+        <Route
+          path='employeeportal/adddoc'
+          element={
+            <NumberPad
+              view={extrasView}
+              setExtrasView={setExtrasView}
+              number={DOC}
+              setNumber={setDOC}
+            />
           }
         />
       </Routes>
