@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const EmployeePortal = (props) => {
   const navigate = useNavigate();
   const { pin, first_name } = props.currentEmployee;
+<<<<<<< HEAD
   const {
     currentShift,
     setTimesheet,
@@ -27,6 +28,9 @@ const EmployeePortal = (props) => {
     DOC,
     setDOC,
   } = props;
+=======
+  const { setCurrentEmployee, currentShift, setTimesheet, setValidationMessage, endTime, setEndTime, startTime, setStartTime, getStart, getEnd, setExtrasView, extrasView, setTips, tips, tours, setTours, reimbursements, setReimbursements, DOC, setDOC } = props;
+>>>>>>> 8f62e46e636a170e9ddb39992a01615434b72f5a
   const body = {
     shift_id: currentShift._id,
   };
@@ -104,6 +108,7 @@ const EmployeePortal = (props) => {
 
   if (endTime === null) {
     return (
+<<<<<<< HEAD
       <div className='clock_out_portal'>
         <ClockOutPortal
           first_name={first_name}
@@ -114,17 +119,26 @@ const EmployeePortal = (props) => {
           tips={tips}
           setTips={setTips}
         />
+=======
+      <div className="clock_out_portal">
+        <ClockOutPortal first_name={first_name} handleClockOut={handleClockOut} viewTimesheet={viewTimesheet} startTime={startTime} setExtrasView={setExtrasView} tips={tips} setTips={setTips} setCurrentEmployee={setCurrentEmployee}/>
+>>>>>>> 8f62e46e636a170e9ddb39992a01615434b72f5a
       </div>
     );
   }
   return (
     <div>
+<<<<<<< HEAD
       <div className='clock_in_portal'>
         <ClockInPortal
           first_name={first_name}
           handleClockIn={handleClockIn}
           viewTimesheet={viewTimesheet}
         />
+=======
+      <div className="clock_in_portal">
+        <ClockInPortal first_name={first_name} handleClockIn={handleClockIn} viewTimesheet={viewTimesheet} setCurrentEmployee={setCurrentEmployee}/>
+>>>>>>> 8f62e46e636a170e9ddb39992a01615434b72f5a
       </div>
     </div>
   );

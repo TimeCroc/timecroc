@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
 const Validation = (props) => {
-  const { validationMessage, startTime, endTime } = props;
+  const { validationMessage, startTime, endTime, setCurrentEmployee } = props;
   const navigate = useNavigate();
 
   // Definition of handleTimeout function that navigates to the home page
   const handleTimeout = () => {
+    setCurrentEmployee(null)
     navigate('/');
   };
 
@@ -23,7 +24,13 @@ const Validation = (props) => {
     <div className='validation'>
       <h3>{validationMessage} {startTime || endTime}</h3>
       {/* When the button is clicked, call navigate function and direct back to '/' */}
-      <Button className='button' onClick={() => navigate('/')}>Exit</Button>
+      <Button 
+        className='button' 
+        onClick={() => {
+          setCurrentEmployee(null)
+          navigate('/')
+        }
+      }>Exit</Button>
     </div>
   );
 }

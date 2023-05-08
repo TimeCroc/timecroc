@@ -32,9 +32,14 @@ const App = () => {
   const [reimbursements, setReimbursements] = useState(0);
   const [DOC, setDOC] = useState(0);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+<<<<<<< HEAD
   const isLoggedIn = currentEmployee !== null;
 
   function getStart(num) {
+=======
+
+  function getStart(num){
+>>>>>>> 8f62e46e636a170e9ddb39992a01615434b72f5a
     let start = parseInt(num);
     let shiftStart = new Date(start);
     let string = shiftStart.toLocaleString();
@@ -81,7 +86,7 @@ const App = () => {
       {/* NOTE FOR MARK, CLARE, OR KAT -if currentEmployee is true don't render the admin buttons */}
       <div className="app-display">
       {/* Render login button only if not on an admin page */}
-        {!isAdminPage && (
+        {!isAdminPage && !currentEmployee &&(
           <Link to="admin/login"><button className='login-btn'>Admin Log in</button></Link>
         )}
       {/* Render sign out button only if admin is logged in */}
@@ -135,11 +140,18 @@ const App = () => {
         <Route path='admin/add' element={<AddEmployee />} />
         <Route path='admin/list' element={<EmployeeList />} />
 
+<<<<<<< HEAD
         <Route
           path='employeeportal'
           element={
             <EmployeePortal
               currentEmployee={currentEmployee}
+=======
+          <Route path="employeeportal" 
+            element={<EmployeePortal 
+              currentEmployee={currentEmployee} 
+              setCurrentEmployee={setCurrentEmployee}
+>>>>>>> 8f62e46e636a170e9ddb39992a01615434b72f5a
               currentShift={currentShift}
               employeePin={employeePin}
               endTime={currentShift.end_time}
@@ -160,6 +172,7 @@ const App = () => {
               setReimbursements={setReimbursements}
               DOC={DOC}
               setDOC={setDOC}
+<<<<<<< HEAD
             />
           }
         />
@@ -173,6 +186,16 @@ const App = () => {
             <Validation
               validationMessage={validationMessage}
               startTime={startTime}
+=======
+            />} 
+          />
+          <Route path="employeeportal/timesheet" element={<Timesheet timesheet={timesheet}/>}/>  
+          <Route path="employeeportal/validation" 
+            element={<Validation
+              setCurrentEmployee={setCurrentEmployee} 
+              validationMessage={validationMessage} 
+              startTime={startTime} 
+>>>>>>> 8f62e46e636a170e9ddb39992a01615434b72f5a
               endTime={endTime}
             />
           }
