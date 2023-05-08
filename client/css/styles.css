@@ -11,23 +11,7 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.clock__date,
-.clock__time {
-  font-size: 36px;
-  display: inline-block;
-  margin:0;
-  text-shadow: 0 1px 0 #ccc, 
-               0 2px 0 #c9c9c9,
-               0 0 5px rgba(29, 163, 60, 0.1),
-               0 1px 3px rgba(0,0,0,.3),
-               0 2px 2px rgba(0,0,0,.15);
-  background-color: #05421abd;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
-}
+
 
 .back_button{
   width: 100%;
@@ -61,12 +45,30 @@ img {
 
 .clock {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  width: 35%;
+  width: 40%;
+  padding-bottom: 20px;
   margin: auto;
 }
 
+.clock__date,
+.clock__time {
+  font-size: 36px;
+  display: inline-block;
+  margin:0;
+  text-shadow: 0 1px 0 #ccc, 
+               0 2px 0 #c9c9c9,
+               0 0 5px rgba(29, 163, 60, 0.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 2px 2px rgba(0,0,0,.15);
+  background-color: #075322dc;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
+}
 .button {
   padding: 6px;
   margin: 6px;

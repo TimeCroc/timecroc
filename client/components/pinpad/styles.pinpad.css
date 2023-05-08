@@ -2,20 +2,22 @@
   border-radius: 10px;
   margin: 0 auto;
   border: 3px solid rgba(7, 67, 7, 0.895);
-  width: 60%;
+  width: 44%;
   margin-bottom: 30px;
+  padding-bottom: 30px;
+  padding-top: 30px;
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;	
-	box-shadow: 0 0 4px rgb(7, 67, 7);
+  justify-content: center;
+  box-shadow: 0 0 4px rgb(7, 67, 7);
 }
 
 .pinpad {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  padding: 30px;
-  width: 50%;
+  padding: 10px;
+  width: 70%;
 }
 
 .pin-display {
@@ -23,12 +25,15 @@
   align-items: center;
   justify-content: center;
   border: 2px solid rgba(110, 105, 105, 0.774);
-  margin-top: 25px;
+  margin-top: 10px;
+  margin-bottom: 25px;
   padding: 5px;
   width: 140px;
   border-radius: 10px;
-  height: 55px;
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  height: 59px;
+  width: 160px;
+  padding-bottom: 40px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
 .num_button {
@@ -37,12 +42,12 @@
   background-color: rgb(200, 229, 255);
   border-radius: 10px;
   font-size: 3rem;
-	background: rgb(200, 229, 255);
-	box-shadow: 0 8px 32px 0 rgba(31, 102, 135, 0.191);
-	backdrop-filter: blur( 4px );
-	-webkit-backdrop-filter: blur( 4px );
-	border-radius: 14px;
-	border: 1px solid rgb(142, 189, 231);
+  background: rgb(200, 229, 255);
+  box-shadow: 0 8px 32px 0 rgba(31, 102, 135, 0.191);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 14px;
+  border: 1px solid rgb(142, 189, 231);
 }
 
 .num_button:hover {
@@ -55,34 +60,34 @@
 
 .submit_button:hover {
   background-color: rgba(212, 248, 207, 0.834);
-	transition: background-color 1s;
+  transition: background-color 1s;
 }
 
-.back_button{
+.back_button {
   width: 100%;
   height: 100px;
   background-color: rgba(255, 122, 117, 0.793);
   border-radius: 10px;
   font-size: 2.5rem;
-	background: rgb(255, 122, 117);
-	box-shadow: 0 8px px 0 rgb(251, 145, 141);
-	backdrop-filter: blur( 4px );
-	-webkit-backdrop-filter: blur( 4px );
-	border-radius: 14px;
-	border: 1px solid rgb(142, 189, 231);
+  background: rgb(255, 122, 117);
+  box-shadow: 0 8px px 0 rgb(251, 145, 141);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 14px;
+  border: 1px solid rgb(142, 189, 231);
 }
 
-.submit_button{
+.submit_button {
   width: 100%;
   height: 100px;
-	border-radius: 15px;
+  border-radius: 15px;
   font-size: 2.5rem;
-	background: rgb(142, 243, 131);
-	box-shadow: 0 0px 20px 0 rgb(208, 237, 204);;
-	backdrop-filter: blur( 4px );
-	-webkit-backdrop-filter: blur( 4px );
-	border-radius: 14px;
-	border: 1px solid rgb(142, 189, 231);
+  background: rgb(142, 243, 131);
+  box-shadow: 0 0px 20px 0 rgb(208, 237, 204);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 14px;
+  border: 1px solid rgb(142, 189, 231);
 }
 
 /* FontAwesome Icons */
