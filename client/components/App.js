@@ -150,7 +150,7 @@ const App = () => {
               setDOC={setDOC}
             />} 
           />
-          <Route path="employeeportal/timesheet" element={<Timesheet timesheet={timesheet}/>}/>  
+          <Route path="employeeportal/timesheet" element={<Timesheet timesheet={timesheet} currentEmployee={currentEmployee}/>}/>  
           <Route path="employeeportal/validation" 
             element={<Validation
               setCurrentEmployee={setCurrentEmployee} 
@@ -197,6 +197,3 @@ const App = () => {
 }
 
 export default App;
-
-
-
