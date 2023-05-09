@@ -36,7 +36,6 @@
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.6.1",
-    "uninstall": "^0.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
