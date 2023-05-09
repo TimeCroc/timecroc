@@ -171,11 +171,9 @@ img {
   text-align: center;
 }
 
-btn-text-color {
-  color: black !important;
-}
+/* Font Awesome CSS */
 
-.icon-white {
-  color: white;
-  fill: white;
+.white-icon {
+  background-color: #007bff;
+  color: white !important;
 }

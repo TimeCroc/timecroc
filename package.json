@@ -41,6 +41,7 @@
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@svgr/webpack": "^7.0.0",
     "@types/pngjs": "^6.0.1",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",

@@ -18,6 +18,7 @@ import Validation from './Validation';
 import NumberPad from './pinpad/NumberPad';
 import logo from '../Rectangle Logo.png';
 
+
 // when we refactor App.js, we should clean up imports
 import AdminLogIn from './admin/AdminLogIn';
 
@@ -38,23 +39,31 @@ const App = () => {
   const [tours, setTours] = useState(0);
   const [reimbursements, setReimbursements] = useState(0);
   const [DOC, setDOC] = useState(0);
+<<<<<<< HEAD
 
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
   function getStart(num) {
+=======
+  
+  // state for admin logged in
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+
+  function getStart(num){
+>>>>>>> 3087f626526185e6353c3ab8c6e08b7834d6f316
     let start = parseInt(num);
     let shiftStart = new Date(start);
     let string = shiftStart.toLocaleString();
     setStartTime(string);
-  }
+  };
 
-  function getEnd(num) {
+  function getEnd(num){
     let end = parseInt(num);
     let shiftEnd = new Date(end);
     let string = shiftEnd.toLocaleString();
     setEndTime(string);
-  }
+  };
 
   // useLocation hook to get the current pathname
   const location = useLocation();
@@ -107,6 +116,7 @@ const App = () => {
         <img src={logo} />
         <Clock />
       </div>
+<<<<<<< HEAD
 
       <Routes>
         <Route
@@ -132,10 +142,30 @@ const App = () => {
           />
         ) : null}
         {/* conditional render statement
+=======
+   
+        <Routes>
+          <Route path="/" 
+            element={<PinPad 
+            setEmployeePin={setEmployeePin} 
+            setCurrentEmployee={setCurrentEmployee}
+            setCurrentShift={setCurrentShift}
+            setTips={setTips}
+            setTours={setTours}
+            setReimbursements={setReimbursements}
+            setDOC={setDOC}
+            />} 
+          />
+          
+          {/* <Route path="admin" element={isAdminLoggedIn ? <AdminDashboard isAdminLoggedIn={isAdminLoggedIn} /> : <AdminLogIn />} /> */}
+          {isAdminLoggedIn ? <Route path="admin" element={<AdminDashboard isAdminLoggedIn={isAdminLoggedIn} />} /> : null}
+              {/* conditional render statement
+>>>>>>> 3087f626526185e6353c3ab8c6e08b7834d6f316
                 // if the admin is logged in,
                   // check if the route path is /admin, if so, render the dashboard and sign out button
                   // if the route path is NOT /admin (e.g. /), 
                */}
+<<<<<<< HEAD
         <Route
           path='admin/login'
           element={
@@ -155,6 +185,21 @@ const App = () => {
           element={
             <EmployeePortal
               currentEmployee={currentEmployee}
+=======
+          <Route path="admin/login" element={<AdminLogIn 
+            isAdminLoggedIn={isAdminLoggedIn}
+            setIsAdminLoggedIn={setIsAdminLoggedIn}
+            />} />
+          <Route path="admin/currentPayPeriod" element={<AddEmployee />} />
+          <Route path="admin/previousPayPeriods" element={<EmployeeList />} />
+          <Route path="admin/add" element={<AddEmployee />} />
+          <Route path="admin/list" element={<EmployeeList />} />
+
+
+          <Route path="employeeportal" 
+            element={<EmployeePortal 
+              currentEmployee={currentEmployee} 
+>>>>>>> 3087f626526185e6353c3ab8c6e08b7834d6f316
               setCurrentEmployee={setCurrentEmployee}
               currentShift={currentShift}
               employeePin={employeePin}
@@ -176,6 +221,7 @@ const App = () => {
               setReimbursements={setReimbursements}
               DOC={DOC}
               setDOC={setDOC}
+<<<<<<< HEAD
             />
           }
         />
@@ -203,10 +249,26 @@ const App = () => {
           path='employeeportal/addtips'
           element={
             <NumberPad
+=======
+            />} 
+          />
+          <Route path="employeeportal/timesheet" element={<Timesheet timesheet={timesheet} currentEmployee={currentEmployee}/>}/>  
+          <Route path="employeeportal/validation" 
+            element={<Validation
+              setCurrentEmployee={setCurrentEmployee} 
+              validationMessage={validationMessage} 
+              startTime={startTime} 
+              endTime={endTime}
+            />}
+          />
+          <Route path="employeeportal/addtips" 
+            element={<NumberPad 
+>>>>>>> 3087f626526185e6353c3ab8c6e08b7834d6f316
               view={extrasView}
               setExtrasView={setExtrasView}
               number={tips}
               setNumber={setTips}
+<<<<<<< HEAD
             />
           }
         />
@@ -214,10 +276,17 @@ const App = () => {
           path='employeeportal/addreimbursements'
           element={
             <NumberPad
+=======
+            />}
+          />
+          <Route path="employeeportal/addreimbursements" 
+            element={<NumberPad 
+>>>>>>> 3087f626526185e6353c3ab8c6e08b7834d6f316
               view={extrasView}
               setExtrasView={setExtrasView}
               number={reimbursements}
               setNumber={setReimbursements}
+<<<<<<< HEAD
             />
           }
         />
@@ -225,10 +294,17 @@ const App = () => {
           path='employeeportal/addtours'
           element={
             <NumberPad
+=======
+            />}
+          />
+          <Route path="employeeportal/addtours" 
+            element={<NumberPad 
+>>>>>>> 3087f626526185e6353c3ab8c6e08b7834d6f316
               view={extrasView}
               setExtrasView={setExtrasView}
               number={tours}
               setNumber={setTours}
+<<<<<<< HEAD
             />
           }
         />
@@ -236,10 +312,17 @@ const App = () => {
           path='employeeportal/adddoc'
           element={
             <NumberPad
+=======
+            />}
+          />
+          <Route path="employeeportal/adddoc" 
+            element={<NumberPad 
+>>>>>>> 3087f626526185e6353c3ab8c6e08b7834d6f316
               view={extrasView}
               setExtrasView={setExtrasView}
               number={DOC}
               setNumber={setDOC}
+<<<<<<< HEAD
             />
           }
         />
@@ -247,5 +330,13 @@ const App = () => {
     </div>
   );
 };
+=======
+            />}
+          />
+        </Routes>  
+      </div>
+    );
+}
+>>>>>>> 3087f626526185e6353c3ab8c6e08b7834d6f316
 
 export default App;
