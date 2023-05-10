@@ -62,10 +62,7 @@ const PinPad = (props) => {
 
   return (
     <div className='pinpad_container'>
-      <div>
         <PinDisplay val={pin} />
-      </div>
- 
       <div className='pinpad'>
         
         {pinpad}

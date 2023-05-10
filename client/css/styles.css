@@ -4,26 +4,13 @@
   color: rgba(15, 15, 15, 0.811);
 }
 
+html,
 body {
-  background-color: #ffffff;
+  height: 100%;
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.back_button {
-  width: 100%;
-  height: 100px;
-  background-color: rgb(255, 122, 117);
-  border-radius: 15px;
-  font-size: 2.5rem;
-}
-
-.submit_button {
-  width: 100%;
-  height: 100px;
-  background-color: rgb(148, 255, 136);
-  border-radius: 15px;
-  font-size: 2.5rem;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  
 }
 
 header {
@@ -36,64 +23,15 @@ header {
 }
 
 img {
-  width: 200px;
-  height: 300px;
+  width: 25%;
+  height: auto; /* maintains the aspect ratio */
+  max-height: 70vh; /* limits the maximum height to 75% of the viewport height */
+  object-fit: contain; /* scales the image to fit within the container while maintaining its aspect ratio */
 }
-
-.clock {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 38%;
-  padding-bottom: 20px;
-  margin: auto;
-}
-
-.clock__date,
-.clock__time {
-  font-size: 36px;
-  display: inline-block;
-  margin: 0;
-  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 0 5px rgba(29, 163, 60, 0.1),
-    0 1px 3px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.15);
-  background-color: #075322dc;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: rgba(255, 255, 255, 0.5) 0px 3px 3px;
-}
+/* Gobal Btn  */
 .button {
   padding: 6px;
   margin: 6px;
-}
-.clock_in_portal {
-  margin-top: 5%;
-  border: 3px solid rgb(0, 138, 5);
-  display: grid;
-  grid-template-rows: 1fr;
-  justify-content: space-around;
-}
-
-.clock_out_portal {
-  /* border: 2px solid rgb(125, 0, 0);
-  margin-top: 5%;
-  display: grid;
-  grid-template-rows: 1fr;
-  justify-content: space-around;
-  box-shadow: 0 0 4px rgb(7, 67, 7); */
-  border-radius: 10px;
-  margin: 0 auto;
-  border: 3px solid rgba(7, 67, 7, 0.895);
-  width: 44%;
-  margin-bottom: 30px;
-  padding-bottom: 30px;
-  padding-top: 30px;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-shadow: 0 0 4px rgb(7, 67, 7);
 }
 
 .add_employee {
@@ -162,18 +100,11 @@ img {
 }
 
 .app-display img {
-  width: 450px;
+  width: 380px;
 }
 
 .validation {
   margin-top: 5%;
   align-items: center;
   text-align: center;
-}
-
-/* Font Awesome CSS */
-
-.white-icon {
-  background-color: #007bff;
-  color: white !important;
 }
