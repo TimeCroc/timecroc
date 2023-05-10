@@ -43,12 +43,12 @@ const Timesheet = (props) => {
 
   const mostRecentPayPeriod = twoWeekLoop(appStartDate, appEndDate);
   const [currentPayPeriodStart, currentPayPeriodEnd] = getCurrentPayPeriod(mostRecentPayPeriod);
-  console.log([currentPayPeriodStart, currentPayPeriodEnd])
-  const previousPayPeriodEnd = new Date(mostRecentPayPeriod.startDate.getTime() - 1);
-  const previousPayPeriodStart = new Date(previousPayPeriodEnd.getTime() - 1209600000);
-  console.log("previousPayPeriodStart", previousPayPeriodStart, "previousPayPeriodEnd", previousPayPeriodEnd)
-  const nextPayPeriod = twoWeekLoop(previousPayPeriodStart, previousPayPeriodEnd);
-  console.log("nextPayPeriod", nextPayPeriod)
+  // console.log([currentPayPeriodStart, currentPayPeriodEnd])
+  // const previousPayPeriodEnd = new Date(mostRecentPayPeriod.startDate.getTime() - 1);
+  // const previousPayPeriodStart = new Date(previousPayPeriodEnd.getTime() - 1209600000);
+  // console.log("previousPayPeriodStart", previousPayPeriodStart, "previousPayPeriodEnd", previousPayPeriodEnd)
+  // const nextPayPeriod = twoWeekLoop(previousPayPeriodStart, previousPayPeriodEnd);
+  // console.log("nextPayPeriod", nextPayPeriod)
 
 
   let totalHours = 0;
@@ -168,40 +168,3 @@ const Timesheet = (props) => {
 };
 
 export default Timesheet;
-
-// CODE GRAVEYARD
-  // const [timesheetData, setTimesheetData] = useState([]);
-
-  // const now = new Date();
-  // console.log("now", now)
-  // const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, etc.
-  // const currentStartDate = new Date(now);
-  // currentStartDate.setHours(4, 0, 0, 0); // set to Sunday at 4:00 a.m.
-  // if (currentDay !== 0) {
-  //   currentStartDate.setDate(currentStartDate.getDate() - (currentDay + 6) % 14 - 1); // set to the previous Sunday
-  // }
-  // console.log("currentStartDate", currentStartDate)
-  // const currentEndDate = new Date(currentStartDate);
-  // currentEndDate.setDate(currentEndDate.getDate() + 14); // add two weeks
-  // currentEndDate.setHours(3, 59, 59, 999); // set to Sunday at 3:59 a.m.
-  // console.log("currentEndDate", currentEndDate)
-
-  // const nextStartDate = new Date(currentEndDate);
-  // nextStartDate.setMilliseconds(nextStartDate.getMilliseconds() + 1); // start the next pay period immediately after the current one ends
-  // console.log("nextStartDate", nextStartDate)
-  // const nextEndDate = new Date(nextStartDate);
-  // nextEndDate.setDate(nextEndDate.getDate() + 14); // add two weeks
-  // nextEndDate.setHours(3, 59, 59, 999);
-  // console.log("nextEndDate", nextEndDate)
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const filteredData = timesheet.filter(item => {
-  //       const shiftDate = new Date(parseInt(item.start_time)).toDateString();
-  //       return new Date(shiftDate) >= currentStartDate && new Date(shiftDate) <= currentEndDate;
-  //     });
-  //     setTimesheetData(filteredData);
-  //   }, 0);
-
-  //   return () => clearInterval(interval);
-  // }, [timesheet, currentStartDate, currentEndDate]);
