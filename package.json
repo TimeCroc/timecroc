@@ -17,6 +17,9 @@
   "author": "Mark Yencheske",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.3",
     "cookie-parser": "^1.4.6",
@@ -38,6 +41,7 @@
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@svgr/webpack": "^7.0.0",
     "@types/pngjs": "^6.0.1",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",

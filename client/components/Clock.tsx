@@ -39,8 +39,8 @@ class Clock extends Component<{}, ClockState> {
   render() {
     return (
       <div className="clock">
-        <h2>{this.state.date}</h2>
-        <h3>{this.state.time}</h3>
+        <div className="clock__date">{this.state.date}</div>
+        <div className="clock__time">{this.state.time}</div>
       </div>
     );
   }
