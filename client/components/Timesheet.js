@@ -46,7 +46,9 @@ const Timesheet = (props) => {
   console.log([currentPayPeriodStart, currentPayPeriodEnd])
   const previousPayPeriodEnd = new Date(mostRecentPayPeriod.startDate.getTime() - 1);
   const previousPayPeriodStart = new Date(previousPayPeriodEnd.getTime() - 1209600000);
-  const previousPayPeriod = twoWeekLoop(previousPayPeriodStart, previousPayPeriodEnd);
+  console.log("previousPayPeriodStart", previousPayPeriodStart, "previousPayPeriodEnd", previousPayPeriodEnd)
+  const nextPayPeriod = twoWeekLoop(previousPayPeriodStart, previousPayPeriodEnd);
+  console.log("nextPayPeriod", nextPayPeriod)
 
 
   let totalHours = 0;
