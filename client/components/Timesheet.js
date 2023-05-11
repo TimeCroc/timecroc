@@ -1,11 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from 'react-router-dom';
 
 const Timesheet = (props) => {
   const navigate = useNavigate();
-  const { timesheet } = props;
+  const { timesheet, currentEmployee } = props;
+
+  const appStartDate = new Date('2022-12-04T04:00:00');
+  const appEndDate = new Date('2092-12-04T03:59:59');
+
+  function twoWeekLoop(startDate, endDate) {
+    const dateArray = [];
+    const payPeriodDuration = 1209600000; // 2 weeks in milliseconds
+    let interval = payPeriodDuration;
+    let intervalTime = Date.parse(startDate);
+  
+    while (intervalTime <= Date.parse(endDate)) {
+      const startDate = new Date(intervalTime);
+      const endDate = new Date(intervalTime + payPeriodDuration);
+      const displayStartDate = startDate.toDateString();
+      const displayEndDate = endDate.toDateString();
+  
+      dateArray.push({ startDate, endDate, displayStartDate, displayEndDate });
+  
+      intervalTime += interval;
+    }
+  
+    // Filter out pay periods that are entirely before the current pay period
+    const recentPayPeriods = dateArray.filter((payPeriod) => payPeriod.endDate > Date.now());
+  
+    // Find the most recent pay period that is entirely after the current pay period
+    const mostRecentPayPeriod = recentPayPeriods.find((payPeriod) => payPeriod.startDate > Date.now());
+    return mostRecentPayPeriod;
+  }
+
+  function getCurrentPayPeriod(mostRecentPayPeriod) {
+    const startOfPayPeriod = new Date(mostRecentPayPeriod.startDate.getTime() - 1209600000);
+    const endOfPayPeriod = new Date(mostRecentPayPeriod.startDate.getTime() - 1);
+    return [startOfPayPeriod, endOfPayPeriod];
+  }
+
+  const mostRecentPayPeriod = twoWeekLoop(appStartDate, appEndDate);
+  const [currentPayPeriodStart, currentPayPeriodEnd] = getCurrentPayPeriod(mostRecentPayPeriod);
+  // console.log([currentPayPeriodStart, currentPayPeriodEnd])
+  // const previousPayPeriodEnd = new Date(mostRecentPayPeriod.startDate.getTime() - 1);
+  // const previousPayPeriodStart = new Date(previousPayPeriodEnd.getTime() - 1209600000);
+  // console.log("previousPayPeriodStart", previousPayPeriodStart, "previousPayPeriodEnd", previousPayPeriodEnd)
+  // const nextPayPeriod = twoWeekLoop(previousPayPeriodStart, previousPayPeriodEnd);
+  // console.log("nextPayPeriod", nextPayPeriod)
+
 
   let totalHours = 0;
   // added value for totalMinutes
@@ -14,8 +58,15 @@ const Timesheet = (props) => {
   let totalReimbursements = 0;
   let totalTours = 0;
   let totalDOC = 0;
-
-  const displayTimesheet = timesheet.map(item => {
+  
+  const displayTimesheet = timesheet
+  .filter(item => {
+    const shiftStart = new Date(parseInt(item.start_time));
+    const shiftEnd = new Date(parseInt(item.end_time));
+    return shiftStart >= currentPayPeriodStart && shiftEnd <= currentPayPeriodEnd;
+  })
+    .sort((a, b) => a.start_time - b.start_time)
+    .map(item => {
     totalTips += item.tips;
     totalReimbursements += item.reimbursements;
     totalTours += item.tours;
@@ -81,10 +132,9 @@ const Timesheet = (props) => {
 
   return (
     <div>
-      <Button variant="secondary" onClick={() => navigate('/employeeportal')}>
-        Back
-      </Button>
-      <div className="timesheet-grid">
+      <Button variant="secondary"  onClick={() => navigate('/employeeportal')}>Back</Button>
+      <div className='timesheet-grid'>
+      <h3>{currentEmployee.first_name}'s Timesheet</h3>
         <Table striped bordered hover>
           <thead>
             <tr>
