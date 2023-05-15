@@ -10,7 +10,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  
 }
 
 header {
@@ -25,7 +24,7 @@ header {
 img {
   width: 25%;
   height: auto; /* maintains the aspect ratio */
-  max-height: 70vh; /* limits the maximum height to 75% of the viewport height */
+  max-height: 70vh; /* limits the maximum height to 7% of the viewport height */
   object-fit: contain; /* scales the image to fit within the container while maintaining its aspect ratio */
 }
 /* Gobal Btn  */
@@ -73,8 +72,10 @@ img {
   top: 0;
   right: 0;
   border-radius: 5px;
-  background-color: rgba(67, 66, 66, 0.806);
-  color: white;
+  background: rgb(42, 142, 44);
+  border: 1px solid rgb(142, 231, 163);
+  box-shadow: 0 1px 2px 0 rgba(22, 135, 24, 0.109);
+  color: black;
   padding: 10px 20px;
 }
 

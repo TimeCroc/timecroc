@@ -3,7 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
 import './styles.clock.css';
-import { faClock, faFileLines } from '@fortawesome/free-solid-svg-icons';
+import {
+  faClock,
+  faFileLines,
+  faHandHoldingDollar,
+  faArrowRightFromBracket,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ClockOutPortal = (props) => {
@@ -22,7 +27,7 @@ const ClockOutPortal = (props) => {
       <Card className='card'>
         <Card.Body className='card-body'>
           <Card.Title className='card-title'>
-            Welcome back {first_name}
+            Welcome back {first_name}!
           </Card.Title>
           <Card.Text>
             {' '}
@@ -64,16 +69,28 @@ const ClockOutPortal = (props) => {
                 navigate('/employeeportal/addtips');
               }}
             >
+              <FontAwesomeIcon
+                icon={faHandHoldingDollar}
+                size={'lg'}
+                className='icon-white'
+                style={{ marginRight: '10px' }}
+              />
               Add Tips/Extras
             </Button>
             <Button
               className='button'
-              variant='danger'
+              variant='warning'
               onClick={() => {
                 setCurrentEmployee(null);
                 navigate('/');
               }}
             >
+              <FontAwesomeIcon
+                icon={faArrowRightFromBracket}
+                size={'lg'}
+                className='icon-white'
+                style={{ marginRight: '10px' }}
+              />
               Exit
             </Button>
           </div>

@@ -2,7 +2,11 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
-import { faClock } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRightFromBracket,
+  faClock,
+  faFileLines,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './styles.clock.css';
 
@@ -15,8 +19,8 @@ const ClockInPortal = (props) => {
     <div>
       <Card className='card'>
         <Card.Body className='card-body'>
-          <Card.Title>Welcome to work {first_name}</Card.Title>
-          <Card.Text> It's time to clock in for your shift! </Card.Text>
+          <Card.Title>Welcome to work {first_name}! </Card.Title>
+          <Card.Text> It's time to clock in for your shift. </Card.Text>
           <div className='btn-container'>
             <Button
               className='button'
@@ -27,7 +31,7 @@ const ClockInPortal = (props) => {
                 icon={faClock}
                 size={'lg'}
                 className='icon-white'
-                style={{ marginRight: '10px', color: 'white' }}
+                style={{ marginRight: '10px' }}
               />
               Clock In
             </Button>
@@ -36,17 +40,28 @@ const ClockInPortal = (props) => {
               variant='secondary'
               onClick={viewTimesheet}
             >
+              <FontAwesomeIcon
+                icon={faFileLines}
+                size={'lg'}
+                className='icon-white'
+                style={{ marginRight: '10px' }}
+              />
               View Timesheet
             </Button>
             <Button
               className='button'
               variant='warning'
-              color='error'
               onClick={() => {
                 setCurrentEmployee(null);
                 navigate('/');
               }}
             >
+              <FontAwesomeIcon
+                icon={faArrowRightFromBracket}
+                size={'lg'}
+                className='icon-white'
+                style={{ marginRight: '10px' }}
+              />
               Exit
             </Button>
           </div>
