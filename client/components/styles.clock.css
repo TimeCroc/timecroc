@@ -52,6 +52,8 @@
 } 
 
 /* Font Awesome Icon color */
+  /* In order to create a different color fill with React you have to 
+    target the button then use the classname followed by the keyword "path" */
 .button .icon-white path {  
   fill: white; 
 }

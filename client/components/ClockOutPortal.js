@@ -88,7 +88,6 @@ const ClockOutPortal = (props) => {
               <FontAwesomeIcon
                 icon={faArrowRightFromBracket}
                 size={'lg'}
-                className='icon-white'
                 style={{ marginRight: '10px' }}
               />
               Exit

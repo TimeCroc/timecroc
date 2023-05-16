@@ -5,9 +5,20 @@ import NumButton from './NumButton';
 import SubmitButton from './SubmitButton';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faArrowRightFromBracket,
+  faClock,
+  faFileLines,
+  faRotateLeft,
+  faHandHoldingDollar,
+  faStreetView,
+  faMoneyCheckDollar,
+  faFilePdf,
+} from '@fortawesome/free-solid-svg-icons';
+import './styles.pinpad.css'
 
 //need to rewrite with more declarative variable names
-
 const NumberPad = (props) => {
   const navigate = useNavigate();
   const { setExtrasView, view, number, setNumber } = props;
@@ -52,8 +63,8 @@ const NumberPad = (props) => {
   }
 
   return (
-    <div className='number-pad'>
-      <div>
+    <div className='pinpad_container'>
+      <div className='number-pad'>
         <h3>Update your {displayView}:</h3>
         <PinDisplay val={inputPin} />
         <h3>{displayView} you've entered:</h3>
@@ -85,49 +96,78 @@ const NumberPad = (props) => {
 
       <Button
         className='button'
-        variant='secondary'
+        variant='primary'
         onClick={() => {
           setExtrasView('tips');
           navigate('/employeeportal/addtips');
         }}
       >
+        <FontAwesomeIcon
+          icon={faHandHoldingDollar}
+          size={'lg'}
+          className='icon-white'
+          style={{ marginRight: '10px' }}
+        />
         Add Tips
       </Button>
       <Button
         className='button'
-        variant='secondary'
+        variant='primary'
         onClick={() => {
           setExtrasView('tours');
           navigate('/employeeportal/addtours');
         }}
       >
+        <FontAwesomeIcon
+          icon={faStreetView}
+          size={'lg'}
+          className='icon-white'
+          style={{ marginRight: '10px' }}
+        />
         Add Tours
       </Button>
       <Button
         className='button'
-        variant='secondary'
+        variant='primary'
         onClick={() => {
           setExtrasView('reimbursements');
           navigate('/employeeportal/addreimbursements');
         }}
       >
+        <FontAwesomeIcon
+          icon={faMoneyCheckDollar}
+          className='icon-white'
+          size={'lg'}
+          style={{ marginRight: '10px' }}
+        />
         Add Reimbursements
       </Button>
       <Button
         className='button'
-        variant='secondary'
+        variant='primary'
         onClick={() => {
           setExtrasView('DOC');
           navigate('/employeeportal/adddoc');
         }}
       >
+        <FontAwesomeIcon
+          icon={faFilePdf}
+          className='icon-white'
+          size={'lg'}
+          style={{ marginRight: '10px' }}
+        />
         Add DOC
       </Button>
       <Button
         className='button'
-        variant='primary'
+        variant='warning'
         onClick={() => navigate('/employeeportal')}
       >
+        <FontAwesomeIcon
+          icon={faRotateLeft}
+          size={'lg'}
+          style={{ marginRight: '10px' }}
+        />
         Back to Clock Out
       </Button>
     </div>
