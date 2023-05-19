@@ -13,11 +13,16 @@ class Clock extends Component<{}, ClockState> {
 
   constructor(props: {}){
     super(props);
-
+//changed this code so that it displays with commas 
     this.state ={
       time: new Date().toLocaleTimeString(),
-      date: new Date().toDateString()
-    }
+      date: new Date().toLocaleDateString(undefined, {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+    };
   }
 
   componentDidMount() {
@@ -39,7 +44,7 @@ class Clock extends Component<{}, ClockState> {
   render() {
     return (
       <div className="clock">
-        <div className="clock__date">{this.state.date}</div>
+        <div className="clock__date">{(this.state.date)}</div>
         <div className="clock__time">{this.state.time}</div>
       </div>
     );

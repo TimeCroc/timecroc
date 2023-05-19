@@ -2,36 +2,73 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRightFromBracket,
+  faClock,
+  faFileLines,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserClock } from '@fortawesome/free-solid-svg-icons';
-import '../css/styles.css'
+import './styles.clock.css';
 
 const ClockInPortal = (props) => {
   const navigate = useNavigate();
-  const { first_name, handleClockIn, viewTimesheet, setCurrentEmployee} = props;
+  const { first_name, handleClockIn, viewTimesheet, setCurrentEmployee } =
+    props;
 
   return (
-      <Card style={{width: '70%', padding: '0px'}}>
-        <Card.Body>
-          <Card.Title>Welcome to work {first_name}</Card.Title>
-          <Card.Text> It's time to clock in for your shift! </Card.Text> 
-            <Button className='button' variant="primary" onClick={()=> handleClockIn()}><FontAwesomeIcon icon={faUserClock} className="white-icon" size="lg"/>   Clock In
+    <div>
+      <Card className='card'>
+        <Card.Body className='card-body'>
+          <Card.Title>Welcome to work {first_name}! </Card.Title>
+          <Card.Text> It's time to clock in for your shift. </Card.Text>
+          <div className='btn-container'>
+            <Button
+              className='button'
+              variant='primary'
+              onClick={() => handleClockIn()}
+            >
+              <FontAwesomeIcon
+                icon={faClock}
+                size={'lg'}
+                className='icon-white'
+                style={{ marginRight: '10px' }}
+              />
+              Clock In
             </Button>
-            <Button className='button' variant="secondary" onClick={viewTimesheet}>View Timesheet</Button>
-            <Button 
-              className='button' 
-              variant="warning" 
-              color="error" 
+            <Button
+              className='button'
+              variant='secondary'
+              onClick={viewTimesheet}
+            >
+              <FontAwesomeIcon
+                icon={faFileLines}
+                size={'lg'}
+                className='icon-white'
+                style={{ marginRight: '10px' }}
+              />
+              View Timesheet
+            </Button>
+            <Button
+              className='button'
+              variant='warning'
               onClick={() => {
                 setCurrentEmployee(null);
                 navigate('/');
-              }
-            }>Exit</Button>    
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faArrowRightFromBracket}
+                size={'lg'}
+                className='icon-white'
+                style={{ marginRight: '10px' }}
+              />
+              Exit
+            </Button>
+          </div>
         </Card.Body>
       </Card>
-  )
+    </div>
+  );
 };
 
 export default ClockInPortal;
