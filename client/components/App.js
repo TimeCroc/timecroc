@@ -31,7 +31,7 @@ const App = () => {
   const [timesheet, setTimesheet] = useState([]);
   const [validationMessage, setValidationMessage] = useState('');
   const [endTime, setEndTime] = useState(null);
-  const [startTime, setStartTime] = useState('vanilla');
+  const [startTime, setStartTime] = useState('');
 
   //state for clockout
   const [extrasView, setExtrasView] = useState('unset');
@@ -118,6 +118,7 @@ const App = () => {
               setEmployeePin={setEmployeePin}
               setCurrentEmployee={setCurrentEmployee}
               setCurrentShift={setCurrentShift}
+              getStart={getStart}
               setTips={setTips}
               setTours={setTours}
               setReimbursements={setReimbursements}

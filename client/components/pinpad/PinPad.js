@@ -8,7 +8,7 @@ import PinpadStyles from './styles.pinpad.css'
 
 const PinPad = (props) => {
   const [pin, setPin] = useState('');
-  const { setEmployeePin, setCurrentEmployee, setCurrentShift, setTips, setTours, setReimbursements, setDOC } = props;
+  const { setEmployeePin, setCurrentEmployee, getStart, setCurrentShift, setTips, setTours, setReimbursements, setDOC } = props;
   const navigate = useNavigate();
   
   const updatePin = (val) => {
@@ -36,6 +36,7 @@ const PinPad = (props) => {
         setCurrentEmployee(data.targetEmployee);
         if(data.shift){
           setCurrentShift(data.shift);
+          getStart(data.shift.start_time)
         } 
         else {
           setCurrentShift({hello: 'world'});
