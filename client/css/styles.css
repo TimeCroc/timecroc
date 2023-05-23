@@ -1,3 +1,5 @@
+/* styles that were only being used in specific components have been moved to the relevant folder and .css file - MCS */
+
 * {
   box-sizing: border-box;
   /* The color below matches the color of the admin log in container */
@@ -77,10 +79,4 @@ img {
 
 .app-display img {
   width: 380px;
-}
-
-.validation {
-  margin-top: 5%;
-  align-items: center;
-  text-align: center;
 }

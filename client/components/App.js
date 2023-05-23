@@ -14,7 +14,7 @@ import AddEmployee from './admin/AddEmployee/AddEmployee';
 import AdminDashboard from './admin/AdminDashboard/AdminDashboard';
 import EmployeePortal from './EmployeePortal';
 import Timesheet from './Timesheet';
-import Validation from './Validation';
+import Validation from './Validation/Validation';
 import NumberPad from './pinpad/NumberPad';
 import logo from '../Rectangle Logo.png';
 
