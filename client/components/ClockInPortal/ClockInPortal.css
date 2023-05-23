@@ -81,7 +81,7 @@
   text-shadow: rgba(255, 255, 255, 0.5) 0px 3px 3px;
 }
 
-.clock_in_portal {
+/* .clock_in_portal {
   margin-top: 1%;
   display: flex;
   grid-template-rows: 1fr;
@@ -93,4 +93,4 @@
   display: flex;
   grid-template-rows: 1fr;
   justify-content: space-around;
-}
+} */

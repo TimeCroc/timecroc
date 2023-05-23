@@ -8,7 +8,7 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import Clock from './Clock';
-import PinPad from './pinpad/PinPad';
+import PinPad from './pinpad/PinPad/PinPad';
 import EmployeeList from './admin/EmployeeList';
 import AddEmployee from './admin/AddEmployee';
 import AdminDashboard from './admin/AdminDashboard';

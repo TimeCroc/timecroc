@@ -1,0 +1,16 @@
+.submit_btn {
+  width: 100%;
+  height: 100px;
+  border-radius: 15px;
+  font-size: 2.5rem;
+  background: rgba(12, 143, 15, 0.947);
+  box-shadow: 0 1px 2px 0 rgba(42, 142, 44, 0.825);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 14px;
+  border: 1px solid rgb(142, 231, 163);
+}
+
+.submit_btn:hover {
+  background-color: rgba(210, 250, 205, 0.698);
+}
