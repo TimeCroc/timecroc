@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AdminStyles/AdminLogIn.css'
+import './AdminLogIn.css';
 // .png is commented out right now to avoid errors
 // import TimeCroc from '../../TimeCroc.png';
 // import { PNG } from 'pngjs';
