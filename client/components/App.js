@@ -8,19 +8,19 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import Clock from './Clock';
-import PinPad from './pinpad/PinPad';
+import PinPad from './pinpad/PinPad/PinPad';
 import EmployeeList from './admin/EmployeeList';
-import AddEmployee from './admin/AddEmployee';
-import AdminDashboard from './admin/AdminDashboard';
+import AddEmployee from './admin/AddEmployee/AddEmployee';
+import AdminDashboard from './admin/AdminDashboard/AdminDashboard';
 import EmployeePortal from './EmployeePortal';
 import Timesheet from './Timesheet';
-import Validation from './Validation';
+import Validation from './Validation/Validation';
 import NumberPad from './pinpad/NumberPad';
 import logo from '../Rectangle Logo.png';
 
 
 // when we refactor App.js, we should clean up imports
-import AdminLogIn from './admin/AdminLogIn';
+import AdminLogIn from './admin/AdminLogIn/AdminLogIn';
 
 const App = () => {
   //------------state for each new employee session

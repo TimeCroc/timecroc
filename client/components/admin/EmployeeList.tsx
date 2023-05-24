@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import DeleteEmployee from './DeleteEmployee';
-import UpdateEmployee from './UpdateEmployee';
-import AddEmployee from './AddEmployee';
+import DeleteEmployee from './DeleteEmployee/DeleteEmployee';
+import UpdateEmployee from './UpdateEmployee/UpdateEmployee';
+import AddEmployee from './AddEmployee/AddEmployee';
 // import { Employee } from '../../types';
 
 interface Employee {

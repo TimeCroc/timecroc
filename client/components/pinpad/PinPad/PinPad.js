@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import NumButton from './NumButton';
-import BackButton from './BackButton'
-import SubmitButton from './SubmitButton';
-import PinDisplay from './PinDisplay';
+import NumButton from '../NumButton/NumButton';
+import BackButton from '../BackButton/BackButton'
+import SubmitButton from '../SubmitButton/SubmitButton';
+import PinDisplay from '../PinDisplay/PinDisplay';
 import { useNavigate } from "react-router-dom";
-import PinpadStyles from './styles.pinpad.css'
+import './PinPad.css';
 
 const PinPad = (props) => {
   const [pin, setPin] = useState('');

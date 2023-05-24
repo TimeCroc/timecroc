@@ -2,30 +2,43 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
+import './ClockOutPortal.css';
 import {
-  faArrowRightFromBracket,
   faClock,
   faFileLines,
+  faHandHoldingDollar,
+  faArrowRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './styles.clock.css';
 
-const ClockInPortal = (props) => {
+const ClockOutPortal = (props) => {
   const navigate = useNavigate();
-  const { first_name, handleClockIn, viewTimesheet, setCurrentEmployee } =
-    props;
+  const {
+    first_name,
+    viewTimesheet,
+    handleClockOut,
+    startTime,
+    setExtrasView,
+    setCurrentEmployee,
+  } = props;
 
   return (
     <div>
       <Card className='card'>
         <Card.Body className='card-body'>
-          <Card.Title>Welcome to work {first_name}! </Card.Title>
-          <Card.Text> It's time to clock in for your shift. </Card.Text>
+          <Card.Title className='card-title'>
+            Welcome back {first_name}!
+          </Card.Title>
+          <Card.Text>
+            {' '}
+            You've been clocked in since {startTime}. Are you ready to clock
+            out?{' '}
+          </Card.Text>
           <div className='btn-container'>
             <Button
               className='button'
               variant='primary'
-              onClick={() => handleClockIn()}
+              onClick={() => handleClockOut()}
             >
               <FontAwesomeIcon
                 icon={faClock}
@@ -33,11 +46,11 @@ const ClockInPortal = (props) => {
                 className='icon-white'
                 style={{ marginRight: '10px' }}
               />
-              Clock In
+              Clock Out
             </Button>
             <Button
               className='button'
-              variant='secondary'
+              variant='primary'
               onClick={viewTimesheet}
             >
               <FontAwesomeIcon
@@ -47,6 +60,22 @@ const ClockInPortal = (props) => {
                 style={{ marginRight: '10px' }}
               />
               View Timesheet
+            </Button>
+            <Button
+              className='button'
+              variant='primary'
+              onClick={() => {
+                setExtrasView('tips');
+                navigate('/employeeportal/addtips');
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faHandHoldingDollar}
+                size={'lg'}
+                className='icon-white'
+                style={{ marginRight: '10px' }}
+              />
+              Add Tips/Extras
             </Button>
             <Button
               className='button'
@@ -71,4 +100,4 @@ const ClockInPortal = (props) => {
   );
 };
 
-export default ClockInPortal;
+export default ClockOutPortal;

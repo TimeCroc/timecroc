@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import PinDisplay from './PinDisplay';
-import BackButton from './BackButton';
-import NumButton from './NumButton';
-import SubmitButton from './SubmitButton';
+import PinDisplay from './PinDisplay/PinDisplay';
+import BackButton from './BackButton/BackButton';
+import NumButton from './NumButton/NumButton';
+import SubmitButton from './SubmitButton/SubmitButton';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 
