@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PayPeriodContext from '../../../context/PayPeriodContext';
 import './CurrentPayPeriod.css';
 
 type Props = {
   // where does this data come from? - the database
   // do we just want to display data for employees who had hours in the current pay period?
-  currentStartDate: string,
-  currentEndDate: string,
+  // currentStartDate: string,
+  // currentEndDate: string,
   employeeName: string,
   totalHours: number,
   totalTips: number,
@@ -15,7 +16,10 @@ type Props = {
   totalPay: number
 }
 
-const CurrentPayPeriod: React.FC<Props> = ({ currentStartDate, currentEndDate, employeeName, totalHours, totalTips, totalReimbursements, totalTours, totalDOC, totalPay }) => {
+const CurrentPayPeriod: React.FC<Props> = ({ employeeName, totalHours, totalTips, totalReimbursements, totalTours, totalDOC, totalPay }) => {
+
+  const formattedCurrentPayPeriod = useContext(PayPeriodContext);
+  console.log("formattedCurrentPayPeriod", formattedCurrentPayPeriod)
 
   return (
     <div>
@@ -26,7 +30,7 @@ const CurrentPayPeriod: React.FC<Props> = ({ currentStartDate, currentEndDate, e
         {/* how do we determine how many rows to display total? */}
         <thead>
           <tr>
-            <th>{currentStartDate} - {currentEndDate}</th>
+            <th>{formattedCurrentPayPeriod}</th>
             <th>Total Hours</th>
             <th>Total Tips</th>
             <th>Total Reimbursements</th>

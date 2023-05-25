@@ -18,7 +18,7 @@ import Validation from './Validation/Validation';
 import NumberPad from './pinpad/NumberPad';
 import CurrentPayPeriod from './admin/CurrentPayPeriod/CurrentPayPeriod';
 import logo from '../Rectangle Logo.png';
-
+import { PayPeriodContextProvider } from '../context/PayPeriodContext';
 
 // when we refactor App.js, we should clean up imports
 import AdminLogIn from './admin/AdminLogIn/AdminLogIn';
@@ -151,7 +151,7 @@ const App = () => {
         />
         {/* route for currentPayPeriod currently uses AddEmployee as element - will need to change */}
         {/* create a currentPayPeriod and previousPayPeriod(s) component */}
-        <Route path='admin/currentPayPeriod' element={<CurrentPayPeriod />} />
+        <Route path='admin/currentPayPeriod' element={<PayPeriodContextProvider><CurrentPayPeriod /></PayPeriodContextProvider>} />
         <Route path='admin/previousPayPeriods' element={<EmployeeList />} />
         <Route path='admin/add' element={<AddEmployee />} />
         <Route path='admin/list' element={<EmployeeList />} />
