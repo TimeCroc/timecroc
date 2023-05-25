@@ -16,6 +16,7 @@ import EmployeePortal from './EmployeePortal';
 import Timesheet from './Timesheet';
 import Validation from './Validation/Validation';
 import NumberPad from './pinpad/NumberPad';
+import CurrentPayPeriod from './admin/CurrentPayPeriod/CurrentPayPeriod';
 import logo from '../Rectangle Logo.png';
 
 
@@ -148,7 +149,9 @@ const App = () => {
             />
           }
         />
-        <Route path='admin/currentPayPeriod' element={<AddEmployee />} />
+        {/* route for currentPayPeriod currently uses AddEmployee as element - will need to change */}
+        {/* create a currentPayPeriod and previousPayPeriod(s) component */}
+        <Route path='admin/currentPayPeriod' element={<CurrentPayPeriod />} />
         <Route path='admin/previousPayPeriods' element={<EmployeeList />} />
         <Route path='admin/add' element={<AddEmployee />} />
         <Route path='admin/list' element={<EmployeeList />} />
