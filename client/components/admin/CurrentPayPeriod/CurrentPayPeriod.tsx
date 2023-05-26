@@ -1,57 +1,71 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PayPeriodContext from '../../../context/PayPeriodContext';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
 import './CurrentPayPeriod.css';
 
 type Props = {
-  // where does this data come from? - the database
-  // do we just want to display data for employees who had hours in the current pay period?
-  // currentStartDate: string,
-  // currentEndDate: string,
-  employeeName: string,
-  totalHours: number,
-  totalTips: number,
-  totalReimbursements: number,
-  totalTours: number,
-  totalDOC: number,
-  totalPay: number
+  payPeriod: [],
+  setPayPeriod: (payPeriod: []) => void,
 }
 
-const CurrentPayPeriod: React.FC<Props> = ({ employeeName, totalHours, totalTips, totalReimbursements, totalTours, totalDOC, totalPay }) => {
+interface Item {
+  _id: number,
+  pin: string,
+  first_name: string,
+  last_name: string,
+  phone: string,
+  email: string,
+  hourly_rate: number,
+  employee_id: string,
+  shift_date: string,
+  start_time: string,
+  end_time: string,
+  tips: number,
+  reimbursements: number,
+  tours: number,
+  doc: number,
+}
 
-  const formattedCurrentPayPeriod = useContext(PayPeriodContext);
-  console.log("formattedCurrentPayPeriod", formattedCurrentPayPeriod)
+const CurrentPayPeriod: React.FC<Props> = ({ payPeriod, setPayPeriod }) => {
+  const contextObject = useContext(PayPeriodContext);
+  // console.log("contextObject", contextObject);
+  // console.log("payPeriod", payPeriod);
+
+  // filter by the current pay period
+  const displayCurrentPayPeriod = payPeriod
+    .filter((item: Item) => {
+      const shiftDate = new Date(item.shift_date);
+      return shiftDate >= contextObject.currentPayPeriodStart && shiftDate <= contextObject.currentPayPeriodEnd;
+    })
+  //   .map((payPeriod) => {
+  //     return (
+  //       <tr>
+  //         {/* what is this property called if not employeeName? */}
+  //         <td>{payPeriod.employee_id}</td>
+  //       </tr>
+  //     );
+  //   })
+
+  console.log(displayCurrentPayPeriod, "displayCurrentPayPeriod")
 
   return (
     <div>
-     {/* <h2>Current Pay Period</h2> */}
      {/* onClick functionality needs to be added */}
-     <button>EDIT</button>
-      <table>
+     <Button variant="secondary">EDIT</Button>
+      <Table striped bordered hover>
         {/* how do we determine how many rows to display total? */}
         <thead>
           <tr>
-            <th>{formattedCurrentPayPeriod}</th>
-            <th>Total Hours</th>
-            <th>Total Tips</th>
-            <th>Total Reimbursements</th>
-            <th>Total Tours</th>
-            <th>Total DOC</th>
-            <th>Total Pay</th>
+            <th>{contextObject.formattedCurrentPayPeriod}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            {/* how are we going to get the employee name? */}
-            <td>{employeeName}</td>
-            <td>{totalHours}</td>
-            <td>{totalTips}</td>
-            <td>{totalReimbursements}</td>
-            <td>{totalTours}</td>
-            <td>{totalDOC}</td>
-            <td>{totalPay}</td>
+            {/* <td>{displayCurrentPayPeriod}</td> */}
           </tr>
         </tbody>
-      </table>
+      </Table>
     </div>
   )
 }

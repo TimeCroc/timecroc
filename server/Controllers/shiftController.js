@@ -4,6 +4,17 @@ const db = require(path.resolve(__dirname, '../models/employeeModel'));
 
 const shiftController = {};
 
+shiftController.getAllEmployeeShifts = async (req, res,  next ) => {
+  try {
+    const shifts = await db.query('SELECT e.*, s.* FROM public.employee e LEFT JOIN public.shift s ON e."_id" = s."employee_id";');
+    res.locals.allShifts = shifts.rows;
+    return next();
+  }
+  catch(err){
+    return next('Error in shiftController.getAllEmployeeShifts:' + JSON.stringify(err));
+  };
+}
+
 shiftController.getAllshifts = async (req, res,  next ) => {
   const { _id } = res.locals.targetEmployee;
   const input = [_id];

@@ -49,12 +49,16 @@ export const PayPeriodContextProvider = ({ children }) => {
       const year = date.getFullYear().toString().slice(-2);
       return `${month}/${day}/${year}`;
     });
-    const result = formattedDates.join(' - ');
+    const result = {
+      formattedCurrentPayPeriod: formattedDates.join(' - '),
+      currentPayPeriodStart: currentPayPeriodStart,
+      currentPayPeriodEnd: currentPayPeriodEnd
+    };
     return result;
   }
 
-  const formattedCurrentPayPeriod = currentPayPeriodCalculator(currentPayPeriodStart, currentPayPeriodEnd);
-  return <PayPeriodContext.Provider value={formattedCurrentPayPeriod}>{children}</PayPeriodContext.Provider>;
+  const contextObject = currentPayPeriodCalculator(currentPayPeriodStart, currentPayPeriodEnd);
+  return <PayPeriodContext.Provider value={contextObject}>{children}</PayPeriodContext.Provider>;
 };
 
 export default PayPeriodContext;

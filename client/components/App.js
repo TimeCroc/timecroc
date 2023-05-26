@@ -44,6 +44,9 @@ const App = () => {
   // state for admin logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
+  // state for a given pay period - to be used in CurrentPayPeriod.tsx
+  const [payPeriod, setPayPeriod] = useState([]);
+
   function getStart(num){
     let start = parseInt(num);
     let shiftStart = new Date(start);
@@ -132,7 +135,7 @@ const App = () => {
         {isAdminLoggedIn ? (
           <Route
             path='admin'
-            element={<AdminDashboard isAdminLoggedIn={isAdminLoggedIn} />}
+            element={<AdminDashboard isAdminLoggedIn={isAdminLoggedIn} payPeriod={payPeriod} setPayPeriod={setPayPeriod} />}
           />
         ) : null}
         {/* conditional render statement
@@ -149,9 +152,15 @@ const App = () => {
             />
           }
         />
-        {/* route for currentPayPeriod currently uses AddEmployee as element - will need to change */}
+        {/* route for currentPayPeriod was using AddEmployee as component - will need to change */}
         {/* create a currentPayPeriod and previousPayPeriod(s) component */}
-        <Route path='admin/currentPayPeriod' element={<PayPeriodContextProvider><CurrentPayPeriod /></PayPeriodContextProvider>} />
+        <Route path='admin/currentPayPeriod' element={<PayPeriodContextProvider>
+          <CurrentPayPeriod
+            payPeriod={payPeriod}
+            setPayPeriod={setPayPeriod}
+          />
+          </PayPeriodContextProvider>} />
+          {/* route for previousPayPeriods currenlt has EmployeeList component */}
         <Route path='admin/previousPayPeriods' element={<EmployeeList />} />
         <Route path='admin/add' element={<AddEmployee />} />
         <Route path='admin/list' element={<EmployeeList />} />

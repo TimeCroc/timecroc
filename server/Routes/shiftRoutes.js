@@ -3,6 +3,11 @@ const shiftRouter = express.Router();
 const shiftController = require('../Controllers/shiftController');
 const employeeController = require('../Controllers/employeeController');
 
+//get route to display employee shift info for the admin dashboard
+shiftRouter.get('/currentpayperiod', shiftController.getAllEmployeeShifts, (req, res) => {
+  return res.status(200).json(res.locals.allShifts);
+})
+
 //get route displays shift info
 shiftRouter.get('/timesheet/:pin', employeeController.getOneEmployee, shiftController.getAllshifts, (req, res) => {
   return res.status(200).json(res.locals.shifts);
