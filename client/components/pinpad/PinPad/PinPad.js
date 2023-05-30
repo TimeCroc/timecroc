@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
-import NumButton from './NumButton';
-import BackButton from './BackButton';
-import SubmitButton from './SubmitButton';
-import PinDisplay from './PinDisplay';
-import { useNavigate } from 'react-router-dom';
-import PinpadStyles from './styles.pinpad.css';
+import React, { useState } from "react";
+import NumButton from '../NumButton/NumButton';
+import BackButton from '../BackButton/BackButton'
+import SubmitButton from '../SubmitButton/SubmitButton';
+import PinDisplay from '../PinDisplay/PinDisplay';
+import { useNavigate } from "react-router-dom";
+import './PinPad.css';
 
 const PinPad = (props) => {
   const [pin, setPin] = useState('');
-  const {
-    setEmployeePin,
-    setCurrentEmployee,
-    setCurrentShift,
-    setTips,
-    setTours,
-    setReimbursements,
-    setDOC,
-  } = props;
+  const { setEmployeePin, setCurrentEmployee, getStart, setCurrentShift, setTips, setTours, setReimbursements, setDOC } = props;
   const navigate = useNavigate();
 
   const updatePin = (val) => {
@@ -35,21 +27,23 @@ const PinPad = (props) => {
   const submitClicked = (val) => {
     let inputPin = pin;
     if (val === '>' && inputPin.length === 4) {
-      setEmployeePin(pin);
-      fetch(`/api/shifts/${pin}`)
-        .then((res) => res.json())
-        .then((data) => {
-          //not sure why this doesn't throw an error automatically?
-          if (data.err) return;
-          setCurrentEmployee(data.targetEmployee);
-          if (data.shift) {
-            setCurrentShift(data.shift);
-          } else {
-            setCurrentShift({ hello: 'world' });
-          }
-          navigate('/employeeportal');
-        })
-        .catch((err) => console.log('error:', err));
+    setEmployeePin(pin);
+    fetch(`/api/shifts/${pin}`)
+      .then(res => res.json())
+      .then(data => {
+        //not sure why this doesn't throw an error automatically?
+        if(data.err) return;
+        setCurrentEmployee(data.targetEmployee);
+        if(data.shift){
+          setCurrentShift(data.shift);
+          getStart(data.shift.start_time)
+        } 
+        else {
+          setCurrentShift({hello: 'world'});
+        }
+        navigate('/employeeportal');
+      })
+      .catch(err => console.log('error:', err));
       setPin('');
     }
     //resets all the persisting 'extras' on each entry into a new employee portal

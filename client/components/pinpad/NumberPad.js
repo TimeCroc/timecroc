@@ -133,6 +133,7 @@ const NumberPad = (props) => {
           />
           Add Tours
         </Button>
+        <div className="reimbursements">
         <Button
           className='button'
           variant='primary'
@@ -149,6 +150,7 @@ const NumberPad = (props) => {
           />
           Add Reimbursements
         </Button>
+        </div>
         <Button
           className='button'
           variant='primary'
