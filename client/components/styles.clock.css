@@ -52,6 +52,8 @@
 } 
 
 /* Font Awesome Icon color */
+  /* In order to create a different color fill with React you have to 
+    target the button then use the classname followed by the keyword "path" */
 .button .icon-white path {  
   fill: white; 
 }
@@ -81,7 +83,7 @@
   text-shadow: rgba(255, 255, 255, 0.5) 0px 3px 3px;
 }
 
-/* .clock_in_portal {
+.clock_in_portal {
   margin-top: 1%;
   display: flex;
   grid-template-rows: 1fr;
@@ -93,4 +95,4 @@
   display: flex;
   grid-template-rows: 1fr;
   justify-content: space-around;
-} */
+}

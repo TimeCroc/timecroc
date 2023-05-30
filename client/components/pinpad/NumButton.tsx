@@ -1,5 +1,4 @@
 import React from 'react';
-import './NumButton.css';
 
 type Props = {
   clicked: () => void

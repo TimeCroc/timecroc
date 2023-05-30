@@ -8,7 +8,7 @@ import {
   faFileLines,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './ClockInPortal.css'; 
+import './styles.clock.css';
 
 const ClockInPortal = (props) => {
   const navigate = useNavigate();
@@ -19,8 +19,7 @@ const ClockInPortal = (props) => {
     <div>
       <Card className='card'>
         <Card.Body className='card-body'>
-          {/* className was not present for 'card-title' - corresponding className does exist in ClockOutPortal.js - added below */}
-          <Card.Title className='card-title'>Welcome to work {first_name}! </Card.Title>
+          <Card.Title>Welcome to work {first_name}! </Card.Title>
           <Card.Text> It's time to clock in for your shift. </Card.Text>
           <div className='btn-container'>
             <Button

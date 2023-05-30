@@ -1,5 +1,3 @@
-/* styles that were only being used in specific components have been moved to the relevant folder and .css file - MCS */
-
 * {
   box-sizing: border-box;
   /* The color below matches the color of the admin log in container */
@@ -36,6 +34,14 @@ img {
   margin: 6px;
 }
 
+.add_employee {
+  display: block;
+  border: 1px solid black;
+  margin: 5px;
+  width: 40%;
+  border-radius: 10px;
+}
+
 .add_form {
   border: 1px solid red;
 }
@@ -43,6 +49,19 @@ img {
 .timesheet-grid {
   border: 3px solid rgb(7, 67, 7);
   margin: 6%;
+}
+
+.update_employee {
+  width: 70%;
+  display: block;
+  border: 1px solid black;
+  margin: 5px;
+}
+
+.admin_validation h3 {
+  border: 3px solid rgb(7, 67, 7);
+  color: rgb(7, 67, 7);
+  padding: 10px;
 }
 
 .btn-container {
@@ -71,6 +90,10 @@ img {
   padding: 10px 20px;
 }
 
+.admin-dashboard {
+  border: 3px solid rgb(7, 67, 7);
+}
+
 .app-display {
   display: flex;
   align-items: center;
@@ -80,4 +103,10 @@ img {
 
 .app-display img {
   width: 380px;
+}
+
+.validation {
+  margin-top: 5%;
+  align-items: center;
+  text-align: center;
 }

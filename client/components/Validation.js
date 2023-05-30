@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 // added imports for useNavigate and Button
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import './Validation.css';
 
 const Validation = (props) => {
   const { validationMessage, startTime, endTime, setCurrentEmployee } = props;

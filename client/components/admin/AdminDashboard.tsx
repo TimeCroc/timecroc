@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-// These next two imports appear to not be needed.  Commenting them out to see if anything breaks.
-// import EmployeeList from '../EmployeeList'
-// import AddEmployee from '../AddEmployee/AddEmployee';
-import './AdminDashboard.css';
+import EmployeeList from './EmployeeList'
+import AddEmployee from './AddEmployee';
 
 type Props= {
   isAdminLoggedIn: boolean
