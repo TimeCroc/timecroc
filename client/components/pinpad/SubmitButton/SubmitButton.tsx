@@ -1,5 +1,5 @@
 import React from 'react';
-import "./styles.pinpad.css"
+import './SubmitButton.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,8 +7,7 @@ type Props = {
   clicked: () => void
 }
 
-const SubmitButton = ({ clicked }) => {
-
+const SubmitButton: React.FC<Props> = ({ clicked }) => {
   return (
     <div>
       <button className='submit_btn' onClick={clicked}> 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import './DeleteEmployee.css';
 
 type Props = {
   list: {
