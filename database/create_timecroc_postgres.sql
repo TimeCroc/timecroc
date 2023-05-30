@@ -47,9 +47,38 @@ CREATE TABLE public.admin (
 	OIDS=FALSE
 );
 
+-- // Table for all shifts
+-- // fields: _id, pay_period, employee_id, employee_name, total_hours, total_tips, total_reimbursements, total_tours, total_doc
+
+-- on shift logout, check in the payperiods table for:
+-- for the current payperiod, if a current employee is already exists in the table
+-- 	if so, update the fields for that employee's total_hours, total_tips, etc
+-- 	if not, create a new row with the current employee's info
+
+	-- other important piece is Timesheet.js
+		-- this is where the variables are that we need for total_hours, total_tips, etc
+
+CREATE TABLE public.payperiods (
+	"_id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	"pay_period" VARCHAR ( 255 ) NOT NULL,
+	"employee_id" bigint NOT NULL,
+	"first_name" VARCHAR ( 255 ) NOT NULL,
+	"last_name" VARCHAR ( 255 ) NOT NULL,
+	"total_hours" int,
+	"total_minutes" int,
+	"total_tips" int,
+	"total_reimbursements" int,
+	"total_tours" int,
+	"total_doc" int
+) WITH (
+	OIDS=FALSE
+);
+
+ALTER TABLE public.payperiods ADD CONSTRAINT "payperiods_fk0" FOREIGN KEY ("employee_id") REFERENCES  public.employee("_id");
+
+
 
 ALTER TABLE public.shift ADD CONSTRAINT "shift_fk0" FOREIGN KEY ("employee_id") REFERENCES  public.employee("_id");
-
 
 
 INSERT INTO public.employee (

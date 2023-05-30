@@ -27,6 +27,21 @@ interface Item {
   doc: number,
 }
 
+// revised interface for when we are ready to implement
+// interface Item {
+//   _id: number,
+//   pay_period: string,
+//   employee_id: string,
+//   first_name: string,
+//   last_name: string,
+//   total_hours: number,
+//   total_minutes: number,
+//   total_tips: number,
+//   total_reimbursements: number,
+//   total_tours: number,
+//   total_doc: number,
+// }
+
 const CurrentPayPeriod: React.FC<Props> = ({ payPeriod, setPayPeriod }) => {
   const contextObject = useContext(PayPeriodContext);
   // console.log("contextObject", contextObject);

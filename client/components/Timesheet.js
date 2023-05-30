@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import PayPeriodContext from '../context/PayPeriodContext';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from 'react-router-dom';
@@ -7,52 +8,9 @@ const Timesheet = (props) => {
   const navigate = useNavigate();
   const { timesheet, currentEmployee } = props;
 
-  const appStartDate = new Date('2022-12-04T04:00:00');
-  const appEndDate = new Date('2092-12-04T03:59:59');
-
-  function twoWeekLoop(startDate, endDate) {
-    const dateArray = [];
-    const payPeriodDuration = 1209600000; // 2 weeks in milliseconds
-    let interval = payPeriodDuration;
-    let intervalTime = Date.parse(startDate);
+  const { currentPayPeriodStart, currentPayPeriodEnd, formattedCurrentPayPeriod } = useContext(PayPeriodContext);
   
-    while (intervalTime <= Date.parse(endDate)) {
-      const startDate = new Date(intervalTime);
-      const endDate = new Date(intervalTime + payPeriodDuration);
-      const displayStartDate = startDate.toDateString();
-      const displayEndDate = endDate.toDateString();
-  
-      dateArray.push({ startDate, endDate, displayStartDate, displayEndDate });
-  
-      intervalTime += interval;
-    }
-  
-    // Filter out pay periods that are entirely before the current pay period
-    const recentPayPeriods = dateArray.filter((payPeriod) => payPeriod.endDate > Date.now());
-  
-    // Find the most recent pay period that is entirely after the current pay period
-    const mostRecentPayPeriod = recentPayPeriods.find((payPeriod) => payPeriod.startDate > Date.now());
-    return mostRecentPayPeriod;
-  }
-
-  function getCurrentPayPeriod(mostRecentPayPeriod) {
-    const startOfPayPeriod = new Date(mostRecentPayPeriod.startDate.getTime() - 1209600000);
-    const endOfPayPeriod = new Date(mostRecentPayPeriod.startDate.getTime() - 1);
-    return [startOfPayPeriod, endOfPayPeriod];
-  }
-
-  const mostRecentPayPeriod = twoWeekLoop(appStartDate, appEndDate);
-  const [currentPayPeriodStart, currentPayPeriodEnd] = getCurrentPayPeriod(mostRecentPayPeriod);
-  // console.log([currentPayPeriodStart, currentPayPeriodEnd])
-  // const previousPayPeriodEnd = new Date(mostRecentPayPeriod.startDate.getTime() - 1);
-  // const previousPayPeriodStart = new Date(previousPayPeriodEnd.getTime() - 1209600000);
-  // console.log("previousPayPeriodStart", previousPayPeriodStart, "previousPayPeriodEnd", previousPayPeriodEnd)
-  // const nextPayPeriod = twoWeekLoop(previousPayPeriodStart, previousPayPeriodEnd);
-  // console.log("nextPayPeriod", nextPayPeriod)
-
-
   let totalHours = 0;
-  // added value for totalMinutes
   let totalMinutes = 0;
   let totalTips = 0;
   let totalReimbursements = 0;
@@ -129,6 +87,28 @@ const Timesheet = (props) => {
 
   totalHours += Math.floor(totalMinutes / 60);
   totalMinutes = totalMinutes % 60;
+
+  // call function to handle sending the totals to the database
+  // const handleTotals = () => {
+  //   const { _id } = currentEmployee;
+  //   const { tips, reimbursements, tours, doc } = totals;
+  //   const input = [_id, tips, reimbursements, tours, doc];
+  //   fetch(`/api/shift/extras/${_id}`, {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(input)
+  //   })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     console.log('Success:', data);
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error:', error);
+  //   });
+  // }
+
 
   return (
     <div>

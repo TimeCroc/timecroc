@@ -197,10 +197,12 @@ const App = () => {
         <Route
           path='employeeportal/timesheet'
           element={
+            <PayPeriodContextProvider>
             <Timesheet
               timesheet={timesheet}
               currentEmployee={currentEmployee}
             />
+            </PayPeriodContextProvider>
           }
         />
         <Route
