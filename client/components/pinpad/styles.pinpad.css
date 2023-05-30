@@ -97,7 +97,6 @@
   display: flex;
   justify-content: space-evenly;
   align-content: flex-row;
-  /* font-size: 16px; */
 }
 
 .pin-display2 {
@@ -119,8 +118,6 @@
 
 .pinpad2 {
   display: flex;
-  /* justify-content: center; */
-  /* padding-right: 20px; */
   align-items: center;
   align-content: space-between;
   padding: 10px;
@@ -146,7 +143,6 @@
   border: 2px solid rgba(6, 121, 6, 0.497);
   box-shadow: 0 0 6px rgb(47, 112, 47);
   width: 44%;
-  /* margin-bottom: 30px; */
   padding-bottom: 30px;
   padding-top: 30px;
   align-items: center;
@@ -170,13 +166,8 @@
 }
 
 .pinpad_info > :first-child  {
-  margin-right: 20px; /* Add space between labels */
-  font-size: 28px;
-  /* margin-left: 20px; Add space between labels */
-  /* padding-right: 20px; */
+  margin-right: 20px;
+  margin-bottom: 40px;
+  font-size: 22px;
   justify-items: auto;
 }  
-
-.reimbursements {
-  font-size: 24px;
-}

@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import PinDisplay from './PinDisplay';
-import PinDisplay2 from './PinDisplay2';
-import BackButton from './BackButton';
-import NumButton from './NumButton';
-import SubmitButton from './SubmitButton';
+import PinDisplay2 from './PinDisplay/PinDisplay2';
+import PinDisplay from './PinDisplay/PinDisplay';
+import BackButton from './BackButton/BackButton';
+import NumButton from './NumButton/NumButton';
+import SubmitButton from './SubmitButton/SubmitButton';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faArrowRightFromBracket,
-  faClock,
-  faFileLines,
   faRotateLeft,
   faHandHoldingDollar,
   faStreetView,
@@ -133,7 +130,7 @@ const NumberPad = (props) => {
           />
           Add Tours
         </Button>
-        <div className="reimbursements">
+        {/* <div className="reimbursements"> */}
         <Button
           className='button'
           variant='primary'
@@ -142,6 +139,7 @@ const NumberPad = (props) => {
             navigate('/employeeportal/addreimbursements');
           }}
         >
+
           <FontAwesomeIcon
             icon={faMoneyCheckDollar}
             className='icon-white'
@@ -150,7 +148,7 @@ const NumberPad = (props) => {
           />
           Add Reimbursements
         </Button>
-        </div>
+        {/* </div> */}
         <Button
           className='button'
           variant='primary'
