@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ClockInPortal from './ClockInPortal';
-import ClockOutPortal from './ClockOutPortal';
+import ClockInPortal from './ClockInPortal/ClockInPortal';
+import ClockOutPortal from './ClockOutPortal/ClockOutPortal';
 import { useNavigate } from 'react-router-dom';
 
 const EmployeePortal = (props) => {

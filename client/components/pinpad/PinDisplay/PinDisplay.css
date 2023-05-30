@@ -1,0 +1,15 @@
+.pin-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(7, 67, 7, 0.594);
+  box-shadow: 0 0 4px rgb(4, 4, 4);
+  box-shadow: 0 0 4px rgb(47, 112, 47);
+  margin-top: 10px;
+  margin-bottom: 25px;
+  padding: 5px;
+  width: 140px;
+  border-radius: 10px;
+  height: 59px;
+  width: 160px;
+}
