@@ -89,25 +89,32 @@ const Timesheet = (props) => {
   totalMinutes = totalMinutes % 60;
 
   // call function to handle sending the totals to the database
-  // const handleTotals = () => {
-  //   const { _id } = currentEmployee;
-  //   const { tips, reimbursements, tours, doc } = totals;
-  //   const input = [_id, tips, reimbursements, tours, doc];
-  //   fetch(`/api/shift/extras/${_id}`, {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(input)
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     console.log('Success:', data);
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error:', error);
-  //   });
-  // }
+  const handleTotals = () => {
+    const { _id } = currentEmployee;
+    const input = {
+      employeeId: _id,
+      hours: totalHours,
+      minutes: totalMinutes,
+      tips: totalTips,
+      reimbursements: totalReimbursements,
+      tours: totalTours,
+      doc: totalDOC,
+    };
+    fetch('/api/payperiod/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(input),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
 
 
   return (
