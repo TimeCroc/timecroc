@@ -3,7 +3,7 @@
   margin: 0 auto;
   border: 2px solid rgba(6, 121, 6, 0.497);
   box-shadow: 0 0 6px rgb(47, 112, 47);
-  width: 44%;
+  /* width: 44%; */
   /* margin-bottom: 30px; */
   padding-bottom: 30px;
   padding-top: 30px;
@@ -20,21 +20,44 @@
   padding-left: 10px;
 }
 .pinpad_info {
-  display: inline-block;
-  justify-content: space-between;
+  /* display: inline-block; */
+  /* justify-content: space-between; */
   display: flex;
   justify-content: row;
   align-items: space-evenly;
 }
+.pinpad_header {
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: row;
+  align-items: center;
+}
 
-.pinpad_info > :first-child  {
-  margin-right: 20px; /* Add space between labels */
+/* .pinpad_info > :first-child {
+  margin-right: 20px; 
   font-size: 28px;
-  /* margin-left: 20px; Add space between labels */
-  /* padding-right: 20px; */
+  margin-left: 20px;
+  padding-right: 20px;
   justify-items: auto;
-}  
+} */
 
 .reimbursements {
   font-size: 24px;
+}
+
+/* Media Queries */
+
+@media (max-width: 900px) {
+  .pinpad_container2 {
+    max-width: 500px;
+  }
+  /* .pinpad_info > * {
+    flex: 0 1 100%;
+  } */
+}
+
+@media (max-width: 1900px) {
+  .pinpad_container2 {
+    max-width: 800px;
+  }
 }

@@ -62,9 +62,9 @@ const NumberPad = (props) => {
 
   return (
     <div className='pinpad_container2'>
-      <div className='pinpad_info'>
-        <div>Update {displayView}:</div>
+      <div className='pinpad_header'>
         <div className='pinpad_info'>
+        <div>Update {displayView}:</div>
           <PinDisplay2 val={inputPin} className='pin-display2' />
         </div>
         <div className='pinpad_info'>
