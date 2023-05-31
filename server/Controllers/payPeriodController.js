@@ -46,18 +46,44 @@ payPeriodController.getOneFromPayPeriodTable = async (req, res, next) => {
 } 
 
 payPeriodController.updatePayPeriodTable = async (req, res, next) => {
-  const { _id } = req.params;
-  const { payPeriod, employeeId, hours, minutes, tips, reimbursements, tours, doc } = req.body;
+  // const { _id } = req.params;
+  const { employeeId, payPeriod, hours, minutes, tips, reimbursements, tours, doc } = req.body;
+  // console.logs for debugging
+  // console.log('req.params', req.params, 'from payPeriodController.js')
+  // console.log('req.body', req.body, 'from payPeriodController.js')
 
   try {
-    if (_id) {
-      const input = [employeeId, hours, minutes, tips, reimbursements, tours, doc, _id];
+    // need to change the conditional logic to be employee_id?
+    if (await checkEmployeeExists(employeeId)) {
+      const input = [hours, minutes, tips, reimbursements, tours, doc, employeeId];
+      console.log('input', input, 'from payPeriodController.js')
       const query = 'UPDATE payperiods SET \
-        employee_id = $1, total_hours = $2, total_minutes = $3, \
-        total_tips = $4, total_reimbursements = $5, total_tours = $6, total_doc = $7 \
-        WHERE _id = $8';
+      total_hours = total_hours + $1, \
+      total_minutes = total_minutes + $2, \
+      total_tips = total_tips + $3, \
+      total_tours = total_tours + $4, \
+      total_reimbursements = total_reimbursements + $5, \
+      total_doc = total_doc + $6 \
+      WHERE employee_id = $7';
       const updated = await db.query(query, input);
-      res.locals.updatedPayPeriod = updated.rows[0];
+      // console.logging 'updated' to see what it returns
+      console.log('updated', updated, 'from payPeriodController.js')
+      // res.locals.updatedPayPeriod = updated.rows[0];
+      // console.log('res.locals.updatedPayPeriod', res.locals.updatedPayPeriod, 'from payPeriodController.js')
+      const updatedRowCount = updated.rowCount;
+      if (updatedRowCount > 0) {
+        res.locals.updatedPayPeriod = {
+          payPeriod,
+          employeeId,
+          hours,
+          minutes,
+          tips,
+          reimbursements,
+          tours,
+          doc
+        };
+        console.log('res.locals.updatedPayPeriod', res.locals.updatedPayPeriod, 'from payPeriodController.js')
+      }
       return next();
     } else {
       const employeeQuery = 'SELECT _id, first_name, last_name FROM employee WHERE _id = $1';
@@ -93,6 +119,14 @@ payPeriodController.updatePayPeriodTable = async (req, res, next) => {
     });
   }
 };
+
+async function checkEmployeeExists(employeeId) {
+  const checkEmployeeQuery = 'SELECT COUNT(*) FROM payperiods WHERE employee_id = $1';
+  const employeeCountResult = await db.query(checkEmployeeQuery, [employeeId]);
+  const employeeCount = employeeCountResult.rows[0].count;
+  // console.log('employeeCount', employeeCount, 'from payPeriodController.js')
+  return employeeCount > 0;
+}
 
 payPeriodController.deletePayPeriod = async (req, res, next) => {
   const { _id } = res.locals.targetPayPeriod;
