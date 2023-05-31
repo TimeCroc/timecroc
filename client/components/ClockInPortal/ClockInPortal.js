@@ -38,7 +38,7 @@ const ClockInPortal = (props) => {
             </Button>
             <Button
               className='button'
-              variant='secondary'
+              variant='primary'
               onClick={viewTimesheet}
             >
               <FontAwesomeIcon
@@ -60,7 +60,6 @@ const ClockInPortal = (props) => {
               <FontAwesomeIcon
                 icon={faArrowRightFromBracket}
                 size={'lg'}
-                className='icon-white'
                 style={{ marginRight: '10px' }}
               />
               Exit

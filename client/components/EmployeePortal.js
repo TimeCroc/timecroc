@@ -85,7 +85,6 @@ const EmployeePortal = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        //console.log('extras body data', data);
       })
       .catch((err) => console.log('error:', err));
     setTips(0);
