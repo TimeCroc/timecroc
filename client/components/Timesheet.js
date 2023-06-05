@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from 'react-router-dom';
+import '../css/styles.css'
 
 const Timesheet = (props) => {
   const navigate = useNavigate();

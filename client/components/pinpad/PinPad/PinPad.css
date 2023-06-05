@@ -1,18 +1,22 @@
 .pinpad_container {
+  display: flex;
+  justify-content: center;
   border-radius: 10px;
   margin: 0 auto;
   border: 2px solid rgba(6, 121, 6, 0.497);
   box-shadow: 0 0 6px rgb(47, 112, 47);
-  width: 44%;
+  width: 100%;
   margin-bottom: 30px;
   padding-bottom: 30px;
   padding-top: 30px;
-  align-items: center;
-  display: flex;
+  align-items: row;
   flex-direction: column;
-  justify-content: center;
   filter: drop-shadow(0 0 15px #9ea7a951);
 }
+/* .column {
+  flex: 1;
+  padding: 0 10px;
+} */
 
 .pinpad {
   display: grid;

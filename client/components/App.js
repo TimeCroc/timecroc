@@ -17,6 +17,10 @@ import Timesheet from './Timesheet';
 import Validation from './Validation/Validation';
 import NumberPad from './pinpad/NumberPad';
 import logo from '../Rectangle Logo.png';
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 
 // when we refactor App.js, we should clean up imports
