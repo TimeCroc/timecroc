@@ -1,33 +1,27 @@
 .card {
   display: flex;
-  flex-direction: column;
-  height: 90%;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 400px;
-  /* filter: drop-shadow(0 0 12px #08622778); */
+  max-width: 100%;
+  /* Include padding and border in width and height calculations */
+  box-sizing: border-box;
   box-shadow: 0 0 6px rgb(47, 112, 47);
   border-radius: 10px;
-  margin: 0 auto;
+  margin: 0 90px;
   border: 2px solid rgba(7, 67, 7, 0.497);
-  width: 65vh;
-  padding-top: 50px;
-}
-
-.card-body {
-  flex-grow: 1;
 }
 
 .card-title {
   font-size: 1.5rem;
   font-weight: bold;
+  margin-top: 20px;
   margin-bottom: 1rem;
 }
 
 .card-text {
   margin-bottom: 1rem;
-  padding-bottom: 50px;
-  font-size: 20px;;
+  font-size: 20px;
 }
 
 .card-buttons {
@@ -35,7 +29,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 .card-buttons button {
@@ -47,23 +41,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 18%;
-  padding: 20px 0
-} 
-
-/* Font Awesome Icon color */
-.button .icon-white path {  
-  fill: white; 
+  margin-top: 10%;
+  padding: 20px 0;
 }
 
+
+
 .clock {
-  display: flex;
-  justify-content: space-around;
+  display: inline-flex;
+  justify-content: space-evenly;
   align-items: center;
-  width: 42%;
   padding-bottom: 20px;
   margin: auto;
-  object-fit: contain;
+  /* object-fit: contain; */
 }
 
 .clock__date,
@@ -81,16 +71,11 @@
   text-shadow: rgba(255, 255, 255, 0.5) 0px 3px 3px;
 }
 
-/* .clock_in_portal {
-  margin-top: 1%;
-  display: flex;
-  grid-template-rows: 1fr;
-  justify-content: space-around;
-}
+/* Media Query for iPad Air */
 
-.clock_out_portal {
-  margin-top: 1%;
-  display: flex;
-  grid-template-rows: 1fr;
-  justify-content: space-around;
-} */
+@media screen and (max-width: 768px) {
+  .card {
+    max-width: 90vw;
+    padding: 30px;
+  }
+}

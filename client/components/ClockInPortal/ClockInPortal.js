@@ -16,13 +16,14 @@ const ClockInPortal = (props) => {
     props;
 
   return (
-    <div>
-      <Card className='card'>
+    <div className='container'>
+      
+      <Card className='clock-in-card'>
         <Card.Body className='card-body'>
           {/* className was not present for 'card-title' - corresponding className does exist in ClockOutPortal.js - added below */}
           <Card.Title className='card-title'>Welcome to work {first_name}! </Card.Title>
           <Card.Text> It's time to clock in for your shift. </Card.Text>
-          <div className='btn-container'>
+          <div className='btn-container btn-sm'>
             <Button
               className='button'
               variant='primary'
@@ -37,10 +38,11 @@ const ClockInPortal = (props) => {
               Clock In
             </Button>
             <Button
-              className='button'
+              className='button btn-sm'
               variant='primary'
               onClick={viewTimesheet}
             >
+
               <FontAwesomeIcon
                 icon={faFileLines}
                 size={'lg'}
@@ -48,6 +50,7 @@ const ClockInPortal = (props) => {
                 style={{ marginRight: '10px' }}
               />
               View Timesheet
+             
             </Button>
             <Button
               className='button'

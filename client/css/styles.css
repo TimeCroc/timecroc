@@ -6,12 +6,15 @@
   color: rgba(15, 15, 15, 0.811);
 }
 
+
+
 html,
 body {
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+  /* overflow: hidden; */
 }
 
 header {
@@ -58,15 +61,17 @@ img {
   border: 1px solid rgb(142, 231, 163);
   box-shadow: 0 1px 2px 0 rgba(22, 135, 24, 0.109);
   color: black;
+  margin: 5px;
   padding: 10px 20px;
 }
 
 .sign-out-btn {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5;
+  right: 10;
   border-radius: 5px;
-  background-color: rgba(67, 66, 66, 0.806);
+  background-color: #075322dc;
+  border: 1px solid rgb(142, 231, 163);
   color: white;
   padding: 10px 20px;
 }
@@ -76,8 +81,26 @@ img {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  /* position: fixed; */
 }
 
 .app-display img {
   width: 380px;
 }
+
+.pin-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(7, 67, 7, 0.594);
+  box-shadow: 0 0 4px rgb(4, 4, 4);
+  box-shadow: 0 0 4px rgb(47, 112, 47);
+  margin-top: 10px;
+  margin-bottom: 25px;
+  padding: 5px;
+  width: 140px;
+  border-radius: 10px;
+  height: 59px;
+  width: 160px;
+}
+

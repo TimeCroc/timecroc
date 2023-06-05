@@ -1,0 +1,55 @@
+.back-btn {
+  position: fixed;
+  top: 5;
+  left: 10;
+  border-radius: 5px;
+  background-color: #075322dc;
+  border: 1px solid rgb(142, 231, 163);
+  color: white;
+  padding: 10px 20px;
+}
+
+.button {
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.add-employee {
+  text-decoration: none;
+}
+
+.btn-container {
+  display: flex;
+  gap: 4px;
+}
+
+.button-column {
+  vertical-align: middle;
+  margin-top: 40px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  /* gap: 4px;  */
+  align-items: flex-end;
+  margin: 0 40px 20px;
+  white-space: nowrap;
+}
+
+.table {
+  overflow: auto !important;
+  height: 100%;
+}
+
+.table-container {
+  overflow: auto;
+  max-height: 900px;
+}
+
+.table thead {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
+}
