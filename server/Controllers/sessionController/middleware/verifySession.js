@@ -4,14 +4,14 @@
  * @module sessionController.verifySession
  *
  * @description
- * Verify a session.
+ * Verifies an admins login credentials.
  *
  * **************************************************
  */
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
+// const saltRounds = 10;
 const path = require("path");
 const db = require(path.resolve(__dirname, "../../../models/adminModel"));
 
