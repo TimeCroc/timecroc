@@ -1,0 +1,12 @@
+/* style me */
+.page-container{
+ display: flex;
+ flex-direction: row;
+}
+
+.previous-pay-period-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

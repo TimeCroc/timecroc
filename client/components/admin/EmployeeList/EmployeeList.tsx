@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import DeleteEmployee from './DeleteEmployee/DeleteEmployee';
-import UpdateEmployee from './UpdateEmployee/UpdateEmployee';
-import AddEmployee from './AddEmployee/AddEmployee';
+import DeleteEmployee from '../DeleteEmployee/DeleteEmployee';
+import UpdateEmployee from '../UpdateEmployee/UpdateEmployee';
+import AddEmployee from '../AddEmployee/AddEmployee';
 // import { Employee } from '../../types';
+import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import './EmployeeList.css'
 
 interface Employee {
   _id: string;
@@ -15,8 +17,13 @@ interface Employee {
   hourly_rate: string
 }
 
-const EmployeeList: React.FC = () => {
+type EmployeeListProps = {
+  isAdminLoggedIn: boolean
+}
+
+const EmployeeList = (props: EmployeeListProps) => {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [addEmployee, setAddEmployee] = useState(false)
  
   useEffect(() => {
     fetch('/api/employees')
@@ -37,10 +44,13 @@ const EmployeeList: React.FC = () => {
     });
 
 return (
-  <div>
-    <Link to='/admin'>Back</Link>
+  <div className="page-container">
+    <AdminDashboard isAdminLoggedIn={props.isAdminLoggedIn}/>
     <br></br>
-    <Link to="admin/add">Add Employee</Link>
+    <button className='add-employee-btn'onClick={()=> setAddEmployee(true)}>Add Employee</button>
+    {addEmployee && (
+      <AddEmployee />
+    )}
     <h2>Employee List: </h2>
     <ul>
       {display}

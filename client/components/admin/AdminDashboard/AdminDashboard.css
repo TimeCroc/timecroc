@@ -1,3 +1,7 @@
 .admin-dashboard {
   border: 3px solid rgb(7, 67, 7);
+  width: 200px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

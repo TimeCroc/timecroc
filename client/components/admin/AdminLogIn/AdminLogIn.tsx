@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import { useNavigate, Link } from 'react-router-dom';
 import './AdminLogIn.css';
 // .png is commented out right now to avoid errors
 // import TimeCroc from '../../TimeCroc.png';
@@ -71,8 +72,9 @@ const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) =>
             <input className='form-control' type='password' value={admin_password} placeholder='Password' onChange={(e) => setPassword(e.target.value)} required/>
             </label>
           </div>
-        <div>
-          <button className='button-style' type='submit'>Log in</button>
+          <div>
+            <button className='button-style' type='submit'><Link to='/'>Cancel</Link></button>
+            <button className='button-style' type='submit'>Log in</button>
           </div>
         </form>
       </div>
@@ -80,8 +82,5 @@ const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) =>
     </>
 	)
 }
-
-// form with two inputs are email and password
-// button to submit
 
 export default AdminLogIn;

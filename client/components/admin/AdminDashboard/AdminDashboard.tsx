@@ -16,7 +16,14 @@ const AdminDashboard: React.FC<Props> = ({ isAdminLoggedIn }) => {
     <div>
       
       <h2>Admin Dashboard</h2>
-      <ul className='admin-dashboard'>
+      {isAdminLoggedIn && (
+      <nav className='admin-dashboard'>
+        <Link to="/currentPayPeriod">Current Pay Period</Link>
+        <Link to="/previousPayPeriods">Previous Pay Periods</Link>
+        <Link to="/list">Employee List</Link>
+      </nav>
+      )}
+      {/* <ul className='admin-dashboard'>
       {isAdminLoggedIn && (
         <Fragment>
           <li>
@@ -33,7 +40,7 @@ const AdminDashboard: React.FC<Props> = ({ isAdminLoggedIn }) => {
           </li>
         </Fragment>
         )}
-      </ul>
+      </ul> */}
     </div>
   )
 }

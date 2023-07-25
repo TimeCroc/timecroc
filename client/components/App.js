@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import Clock from './Clock';
 import PinPad from './pinpad/PinPad/PinPad';
-import EmployeeList from './admin/EmployeeList';
+import EmployeeList from './admin/EmployeeList/EmployeeList';
 import AddEmployee from './admin/AddEmployee/AddEmployee';
 import AdminDashboard from './admin/AdminDashboard/AdminDashboard';
 import EmployeePortal from './EmployeePortal';
@@ -21,6 +21,8 @@ import logo from '../Rectangle Logo.png';
 
 // when we refactor App.js, we should clean up imports
 import AdminLogIn from './admin/AdminLogIn/AdminLogIn';
+import PreviousPayPeriod from './admin/PreviousPayPeriod/PreviousPayPeriod';
+import CurrentPayPeriod from './admin/CurrentPayPeriod/CurrentPayPeriod';
 
 const App = () => {
   //------------state for each new employee session
@@ -57,9 +59,6 @@ const App = () => {
     setEndTime(string);
   };
 
-  // useLocation hook to get the current pathname
-  const location = useLocation();
-  const isAdminPage = location.pathname.startsWith('/admin');
   const nav = useNavigate();
 
   const adminLogOut = (event) => {
@@ -92,7 +91,7 @@ const App = () => {
       {/* NOTE FOR MARK, CLARE, OR KAT -if currentEmployee is true don't render the admin buttons */}
       <div className='app-display'>
         {/* Render login button only if not on an admin page */}
-        {!isAdminPage && !currentEmployee && (
+        {!isAdminLoggedIn && !currentEmployee && (
           <Link to='admin/login'>
             <button className='login-btn'>Admin Log in</button>
           </Link>
@@ -132,7 +131,9 @@ const App = () => {
           <Route
             path='admin'
             element={<AdminDashboard isAdminLoggedIn={isAdminLoggedIn} />}
-          />
+          >
+           
+          </Route>
         ) : null}
         {/* conditional render statement
                 // if the admin is logged in,
@@ -148,10 +149,9 @@ const App = () => {
             />
           }
         />
-        <Route path='admin/currentPayPeriod' element={<AddEmployee />} />
-        <Route path='admin/previousPayPeriods' element={<EmployeeList />} />
-        <Route path='admin/add' element={<AddEmployee />} />
-        <Route path='admin/list' element={<EmployeeList />} />
+        <Route path='currentPayPeriod' element={<CurrentPayPeriod isAdminLoggedIn={isAdminLoggedIn} />} />
+        <Route path='/previousPayPeriods' element={<PreviousPayPeriod isAdminLoggedIn={isAdminLoggedIn}/>} />
+        <Route path='/list' element={<EmployeeList isAdminLoggedIn={isAdminLoggedIn}/>} />
 
         <Route
           path='employeeportal'
