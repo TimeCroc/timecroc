@@ -10,7 +10,6 @@ import {
 import Clock from './Clock';
 import PinPad from './pinpad/PinPad/PinPad';
 import EmployeeList from './admin/EmployeeList/EmployeeList';
-import AddEmployee from './admin/AddEmployee/AddEmployee';
 import AdminDashboard from './admin/AdminDashboard/AdminDashboard';
 import EmployeePortal from './EmployeePortal';
 import Timesheet from './Timesheet';
@@ -88,9 +87,7 @@ const App = () => {
 
   return (
     <div className='body'>
-      {/* NOTE FOR MARK, CLARE, OR KAT -if currentEmployee is true don't render the admin buttons */}
       <div className='app-display'>
-        {/* Render login button only if not on an admin page */}
         {!isAdminLoggedIn && !currentEmployee && (
           <Link to='admin/login'>
             <button className='login-btn'>Admin Log in</button>
@@ -104,8 +101,8 @@ const App = () => {
             </button>
           </Link>
         ) : null}
+
         <img src={logo} />
-        
         <Clock />
       </div>
 
@@ -131,15 +128,8 @@ const App = () => {
           <Route
             path='admin'
             element={<AdminDashboard isAdminLoggedIn={isAdminLoggedIn} />}
-          >
-           
-          </Route>
+          />
         ) : null}
-        {/* conditional render statement
-                // if the admin is logged in,
-                  // check if the route path is /admin, if so, render the dashboard and sign out button
-                  // if the route path is NOT /admin (e.g. /), 
-               */}
         <Route
           path='admin/login'
           element={

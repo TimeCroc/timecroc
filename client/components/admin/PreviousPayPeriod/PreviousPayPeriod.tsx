@@ -5,11 +5,9 @@ import AdminDashboard from '../AdminDashboard/AdminDashboard'
 type PreviousPayPeriodProps = {
     employeeList: [],
     isAdminLoggedIn: boolean
-
 };
 
 const PreviousPayPeriod = (props: PreviousPayPeriodProps) => {
-    console.log('entered PreviousPayPeriod')
 
   return (
       <div className="page-container">
@@ -22,7 +20,6 @@ const PreviousPayPeriod = (props: PreviousPayPeriodProps) => {
         </div>
     </div>
   )
-
 };
 
 export default PreviousPayPeriod;

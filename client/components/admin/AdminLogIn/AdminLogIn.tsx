@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-
 import { useNavigate, Link } from 'react-router-dom';
 import './AdminLogIn.css';
-// .png is commented out right now to avoid errors
-// import TimeCroc from '../../TimeCroc.png';
-// import { PNG } from 'pngjs';
 
 type Props = {
   isAdminLoggedIn: boolean
@@ -47,38 +43,36 @@ const AdminLogIn: React.FC<Props> = ({ isAdminLoggedIn, setIsAdminLoggedIn }) =>
 
 	return (
     <>
-    <div> 
-      <hr  style={{
-    color: '#000000',
-    backgroundColor: '#000000',
-    height: .5,
-    borderColor : '#000000'
-}}/>
-  </div>
-  {/* below is the styles for the .png (which is commented out) */}
-  {/* <div className='form-container' style={{backgroundImage: `url(${TimeCroc})`}}> */}
-    
-    <div className='form-container'>
-      <div className='form'>
-        <form onSubmit={handleSubmit}>
-          <div className='form-group'>
-            <h2>Administrator Log In</h2>
-            <label>
-              Email:
-            <input className='form-control' type='text' value={email} placeholder='Email' onChange={(e) => setEmail(e.target.value)} required />
-            </label>
-            <label>
-              Password:
-            <input className='form-control' type='password' value={admin_password} placeholder='Password' onChange={(e) => setPassword(e.target.value)} required/>
-            </label>
-          </div>
-          <div>
-            <button className='button-style' type='submit'><Link to='/'>Cancel</Link></button>
-            <button className='button-style' type='submit'>Log in</button>
-          </div>
-        </form>
+    {/* To-do: abstract this styling to a className */}
+      <div> 
+        <hr  style={{
+      color: '#000000',
+      backgroundColor: '#000000',
+      height: .5,
+      borderColor : '#000000'
+      }}/>
+      </div> 
+      <div className='form-container'>
+        <div className='form'>
+          <form onSubmit={handleSubmit}>
+            <div className='form-group'>
+              <h2>Administrator Log In</h2>
+              <label>
+                Email:
+              <input className='form-control' type='text' value={email} placeholder='Email' onChange={(e) => setEmail(e.target.value)} required />
+              </label>
+              <label>
+                Password:
+              <input className='form-control' type='password' value={admin_password} placeholder='Password' onChange={(e) => setPassword(e.target.value)} required/>
+              </label>
+            </div>
+            <div>
+              <button className='button-style' type='submit'><Link to='/'>Cancel</Link></button>
+              <button className='button-style' type='submit'>Log in</button>
+            </div>
+          </form>
+        </div>
       </div>
-		</div>
     </>
 	)
 }
