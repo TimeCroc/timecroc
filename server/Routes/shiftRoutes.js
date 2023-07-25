@@ -4,7 +4,7 @@ const shiftController = require('../Controllers/shiftController');
 const employeeController = require('../Controllers/employeeController');
 
 //get route displays shift info
-shiftRouter.get('/timesheet/:pin', employeeController.getOneEmployee, shiftController.getAllshifts, (req, res) => {
+shiftRouter.get('/timesheet/:pin', employeeController.getOneEmployee, shiftController.getAllShifts, (req, res) => {
   return res.status(200).json(res.locals.shifts);
 });
 

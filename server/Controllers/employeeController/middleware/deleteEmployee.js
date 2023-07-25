@@ -24,6 +24,7 @@ const deleteEmployee = async (req, res, next) => {
    }
     const deleted = await db.query(employeeQuery, input);
     res.locals.deleted = deleted.rows[0];
+    console.log('Successfully deleted employee', res.locals.deleted)
     return next();
   }
   catch(err){

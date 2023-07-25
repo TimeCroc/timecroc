@@ -4,7 +4,7 @@
  * @module employeeController
  *
  * @description
- * What employeeController does...
+ * Middleware for managing employee data.
  *
  * **************************************************
  */

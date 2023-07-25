@@ -4,7 +4,7 @@
  * @module sessionController
  *
  * @description
- * What sessionController does...
+ * Middleware for handling admin authentication/sessions.
  *
  * **************************************************
  */

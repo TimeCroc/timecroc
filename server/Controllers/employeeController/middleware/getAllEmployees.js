@@ -17,6 +17,7 @@ const getAllEmployees =  async (req, res, next) => {
   try {
     const employees = await db.query('SELECT * FROM employee');
     res.locals.employees = employees.rows;
+    console.log('Successfully retrieved all employee data');
     return next();
   }
   catch(err){

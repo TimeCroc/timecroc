@@ -24,6 +24,7 @@ const getOneEmployee = async (req, res, next) => {
     }
     const target = await db.query(employeeQuery, input)
     res.locals.targetEmployee = target.rows[0];
+    console.log('Successfully retrieved target employee', res.locals.targetEmployee);
     
     //not sure why this doesn't throw and error automatically?
     if (res.locals.targetEmployee === undefined) {

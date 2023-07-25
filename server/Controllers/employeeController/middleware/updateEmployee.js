@@ -26,6 +26,7 @@ const updateEmployee = async (req, res, next) => {
     }
     const updated = await db.query(employeeQuery, input);
     res.locals.updatedEmployee = updated.rows[0];
+    console.log('Successfully updated employee', res.locals.updatedEmployee);
     return next();
   }
   catch(err) {

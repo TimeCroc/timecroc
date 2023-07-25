@@ -27,6 +27,7 @@ const createEmployee = async (req, res, next) => {
           RETURNING * ';
     const newEmployee = await db.query(newEmployeeQuery, input);
     res.locals.newEmployee = newEmployee.rows[0];
+    console.log('Created new employee', res.locals.newEmployee);
     return next();
   }
   catch(err){

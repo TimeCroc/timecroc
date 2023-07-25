@@ -4,7 +4,7 @@
  * @module adminController
  *
  * @description
- * What adminController does...
+ * Middleware for managing admin data.
  *
  * **************************************************
  */
