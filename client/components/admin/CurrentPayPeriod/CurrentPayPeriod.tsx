@@ -13,10 +13,9 @@ const CurrentPayPeriod = (props: PreviousPayPeriodProps) => {
       <div className="page-container">
         <AdminDashboard isAdminLoggedIn={props.isAdminLoggedIn}/>
         <div className="previous-pay-period-container">
-            <h1>Current Pay Period Page!</h1>
-            <button>Replace with Select component</button>
-            <button>Replace with Edit component</button>
-            <h2 style={{border: 'solid 1px red'}}>Replace with PayPeriodDisplay component</h2>
+          <h1>Current Pay Period Page!</h1>
+          <button>Open EditShift component</button>
+          <h2 style={{border: 'solid 1px red'}}>Replace with PayPeriodDisplay component</h2>
         </div>
     </div>
   )

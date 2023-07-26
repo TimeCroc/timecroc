@@ -1,7 +1,22 @@
 .admin-dashboard {
   border: 3px solid rgb(7, 67, 7);
   width: 200px;
-  height: 100vh;
+  height: 40vh;
   display: flex;
   flex-direction: column;
+}
+
+.admin-dashboard a { 
+  text-decoration: none;
+  color: black;
+}
+
+.admin-dashboard button {
+  border-radius: 5px;
+  border: 3px solid purple;
+  margin-top: 15px;
+  background-color: white;
+}
+.admin-dashboard button:hover {
+  background-color: rgb(165, 250, 165);
 }

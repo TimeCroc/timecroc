@@ -35,7 +35,7 @@ const EmployeeList = (props: EmployeeListProps) => {
 
   const display = employees.map(list => {
     return <li key={list._id}> 
-        Employee: {list.first_name} {list.last_name}
+      Employee: {list.first_name} {list.last_name}
         <UpdateEmployee list={list} />
         <DeleteEmployee list={list} />
       </li>
@@ -47,7 +47,7 @@ return (
     <br></br>
     <button className='add-employee-btn'onClick={()=> setAddEmployee(true)}>Add Employee</button>
     {addEmployee && (
-      <AddEmployee />
+      <AddEmployee setAddEmployee={setAddEmployee}/>
     )}
     <h2>Employee List: </h2>
     <ul>

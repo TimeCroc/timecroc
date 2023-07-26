@@ -12,7 +12,7 @@ type Props = {
 
 const DeleteEmployee: React.FC<Props> = ({ list }) => {
 
-  const [clicked, updateClicked] = useState<boolean>(false);
+  const [clicked, setClicked] = useState<boolean>(false);
   const [validated, setValidated] = useState<boolean>(false);
 
   // const pin = props.list.pin;
@@ -43,7 +43,7 @@ const DeleteEmployee: React.FC<Props> = ({ list }) => {
   if(!clicked){
     return (
       <div>
-        <Button variant="danger" onClick={() => updateClicked(true)}>Delete {first_name} </Button> 
+        <Button variant="danger" onClick={() => setClicked(true)}>Delete {first_name} </Button> 
       </div>
     )
   }
@@ -52,6 +52,7 @@ const DeleteEmployee: React.FC<Props> = ({ list }) => {
       <div>
         <h4>Are you sure you want to delete {first_name}?</h4>
         <Button variant="danger" onClick={() => handleClick()}>Delete {first_name} </Button> 
+        <Button variant="warning" onClick={() => setClicked(false)}>Cancel</Button> 
       </div>
     )
   }

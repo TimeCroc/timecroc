@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import './AddEmployee.css';
 
 //need to add better validation
 
@@ -16,8 +16,11 @@ interface Body {
   email: string
   hourly_rate: number
 }
+type AddEmployeeProps ={
+  setAddEmployee: (boolean) => void;
+}
 
-const AddEmployee: React.FC = () => {
+const AddEmployee = (props: AddEmployeeProps) => {
   const [ pin, setPin ] = useState<number>(0);
   const [ first_name, setFirstName ] = useState<string>('');
   const [last_name, setLastName ] = useState<string>('');
@@ -25,6 +28,8 @@ const AddEmployee: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [hourly_rate, setHourlyRate] = useState<number>(0);
   const [validated, setValidated] = useState<boolean>(false);
+
+  const { setAddEmployee } = props;
 
   const body: Body = {
     pin: pin,
@@ -59,7 +64,10 @@ const AddEmployee: React.FC = () => {
     })
     .then(res => res.json())
     .then(data => console.log('data:', data))
-    .catch(err => console.log('error:', err));
+    .catch(err => {
+      console.log('error:', err)
+      setValidated(false)
+    });
 
     setValidated(true);
   }
@@ -67,8 +75,8 @@ const AddEmployee: React.FC = () => {
   if(validated){
     return (
       <div>
-        <h3> {first_name} added! </h3>
-        <Link to='/admin'>Back</Link>
+        <h3 style={{color: 'green'}}> {first_name} added! </h3>
+        <button onClick={()=> setAddEmployee(false)}><Link to='/list'>Back</Link></button>
       </div>
     )
   }
@@ -132,8 +140,8 @@ const AddEmployee: React.FC = () => {
             </Form.Group>
           </Row>
         <Button type="submit">Add</Button>
+        <button style={{backgroundColor: 'pink'}} onClick={()=> setAddEmployee(false)}><Link to='/list'>Cancel</Link></button>
       </Form>
-      <Link to='/admin'>Back</Link>
     </div>
   )
 }

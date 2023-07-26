@@ -14,7 +14,7 @@ interface EmployeeProps {
     phone: string
     email: string
     hourly_rate: string
-  }
+  },
 }
 
 const UpdateEmployee: React.FC<EmployeeProps> = ({ list }: EmployeeProps) => {
@@ -138,7 +138,7 @@ const UpdateEmployee: React.FC<EmployeeProps> = ({ list }: EmployeeProps) => {
           </Row>
         <Button type="submit">Update</Button>
       </Form>
-      <Link to='/admin'>Back</Link>
+      <button style={{backgroundColor: 'pink'}} onClick={() => setClicked(false)}><Link to='/list'>Cancel</Link></button>
     </div>
     )
   }
