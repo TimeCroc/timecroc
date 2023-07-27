@@ -1,16 +1,15 @@
-.card {
+.clockin-card {
   display: flex;
   flex-direction: column;
   height: 90%;
   justify-content: center;
   align-items: center;
   height: 400px;
-  /* filter: drop-shadow(0 0 12px #08622778); */
   box-shadow: 0 0 6px rgb(47, 112, 47);
   border-radius: 10px;
   margin: 0 auto;
   border: 2px solid rgba(7, 67, 7, 0.497);
-  width: 65vh;
+  width: 100%;
   padding-top: 50px;
 }
 
@@ -27,7 +26,7 @@
 .card-text {
   margin-bottom: 1rem;
   padding-bottom: 50px;
-  font-size: 20px;;
+  font-size: 20px;
 }
 
 .card-buttons {
@@ -46,31 +45,34 @@
 .btn-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
+  /* flex-wrap: wrap; */
+  white-space: nowrap;
+
   margin-top: 18%;
-  padding: 20px 0
-} 
+  padding: 20px 0;
+}
 
 /* Font Awesome Icon color */
-  /* In order to create a different color fill with React you have to 
+/* In order to create a different color fill with React you have to 
     target the button then use the classname followed by the keyword "path" */
-.button .icon-white path {  
-  fill: white; 
+.button .icon-white path {
+  color: white;
 }
 
 .clock {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  width: 42%;
+  width: 100%;
   padding-bottom: 20px;
   margin: auto;
-  object-fit: contain;
+  object-fit: scale-down;
 }
 
 .clock__date,
 .clock__time {
-  font-size: 30px;
+  font-size: 28px;
   display: inline-block;
   margin: 0;
   text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 0 5px rgba(29, 163, 60, 0.1),
@@ -82,17 +84,3 @@
   color: transparent;
   text-shadow: rgba(255, 255, 255, 0.5) 0px 3px 3px;
 }
-
-/* .clock_in_portal {
-  margin-top: 1%;
-  display: flex;
-  grid-template-rows: 1fr;
-  justify-content: space-around;
-}
-
-.clock_out_portal {
-  margin-top: 1%;
-  display: flex;
-  grid-template-rows: 1fr;
-  justify-content: space-around;
-} */

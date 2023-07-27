@@ -62,14 +62,21 @@ const NumberPad = (props) => {
 
   return (
     <div className='pinpad_container2'>
-      <div className='pinpad_info'>
-        <div>Update {displayView}:</div>
-        <div className='pinpad_info'>
-          <PinDisplay2 val={inputPin} className='pin-display2' />
+      {/* <div className='container'> */}
+      <div className='row gx-2'>
+        <div className='col-12 col-sm-6 column'>
+          <div className='pinpad_info'>
+            <div className='column'>Update {displayView}:</div>
+            <PinDisplay2 val={inputPin} className='pin-display2' />
+          </div>
+          <div className='pinpad_header'></div>
         </div>
-        <div className='pinpad_info'>
-          <div>{displayView} Entered:</div>
-          <PinDisplay2 val={number} className='pin-display2' />
+        {/* </div> */}
+        <div className='col-12 col-sm-6 column'>
+          <div className='pinpad_info'>
+            <div className='column'>{displayView} Entered:</div>
+            <PinDisplay2 val={number} className='pin-display2' />
+          </div>
         </div>
       </div>
 
@@ -139,7 +146,6 @@ const NumberPad = (props) => {
             navigate('/employeeportal/addreimbursements');
           }}
         >
-
           <FontAwesomeIcon
             icon={faMoneyCheckDollar}
             className='icon-white'
