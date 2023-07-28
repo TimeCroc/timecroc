@@ -3,6 +3,7 @@ const request = require('supertest');
 
 const db = require('../../../models/adminModel');
 
+// unit under test
 const getAllAdmins = require('./getAllAdmins');
 
 jest.mock('dotenv');

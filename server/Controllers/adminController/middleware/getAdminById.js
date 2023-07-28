@@ -20,7 +20,7 @@ const getAdminById = async (req, res, next) => {
     const input = [];
     let adminQuery = 'SELECT * FROM admin';
     if(_id){
-      adminQuery += `WHERE _id = $1`;
+      adminQuery += ` WHERE _id = $1`;
       input.push(_id);
     }
     const target = await db.query(adminQuery, input)
