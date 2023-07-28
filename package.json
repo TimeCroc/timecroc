@@ -6,7 +6,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node server/server.js",
     "build": "webpack",
-    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open"
+    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open",
+    "test": "jest"
   },
   "nodemonConfig": {
     "ignore": [
