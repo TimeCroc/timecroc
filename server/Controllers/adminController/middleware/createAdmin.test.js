@@ -1,10 +1,3 @@
-
-// need mock query
-// need to test that newAdmin is created
-// need to test that next() is called
-// need to test that error is thrown if db query fails
-// need to delete dummy data from db after test
-
 const request = require('supertest');
 
 const db = require('../../../models/adminModel');

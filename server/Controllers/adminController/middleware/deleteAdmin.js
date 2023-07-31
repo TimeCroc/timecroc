@@ -17,7 +17,7 @@ const deleteAdmin= async (req, res, next) => {
   const { id: _id } = req.params;
   try {
     const input = [];
-    let adminQuery = 'DELETE FROM admin ';
+    let adminQuery = 'DELETE FROM admin';
    if(_id){
      adminQuery += ` WHERE _id = $1 RETURNING * `;
      input.push(_id);

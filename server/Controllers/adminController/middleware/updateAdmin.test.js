@@ -75,7 +75,7 @@ describe('updateAdmin middleware', () => {
     // mock Jest function for error
     const next = jest.fn();
 
-    // call createAdmin middleware
+    // call updateAdmin middleware
     await updateAdmin(req, res, next);
 
     expect(next).toHaveBeenCalledWith({log: 'adminController.updateAdmin: ERROR', message: {err: 'Error occurred in adminController.updateAdmin'} } );
