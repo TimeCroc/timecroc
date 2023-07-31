@@ -9,8 +9,7 @@ import {
 } from 'react-router-dom';
 import Clock from './Clock';
 import PinPad from './pinpad/PinPad/PinPad';
-import EmployeeList from './admin/EmployeeList';
-import AddEmployee from './admin/AddEmployee/AddEmployee';
+import EmployeeList from './admin/EmployeeList/EmployeeList';
 import AdminDashboard from './admin/AdminDashboard/AdminDashboard';
 import EmployeePortal from './EmployeePortal';
 import Timesheet from './Timesheet';
@@ -21,6 +20,8 @@ import logo from '../Rectangle Logo.png';
 
 // when we refactor App.js, we should clean up imports
 import AdminLogIn from './admin/AdminLogIn/AdminLogIn';
+import PreviousPayPeriod from './admin/PreviousPayPeriod/PreviousPayPeriod';
+import CurrentPayPeriod from './admin/CurrentPayPeriod/CurrentPayPeriod';
 
 const App = () => {
   //------------state for each new employee session
@@ -57,9 +58,6 @@ const App = () => {
     setEndTime(string);
   };
 
-  // useLocation hook to get the current pathname
-  const location = useLocation();
-  const isAdminPage = location.pathname.startsWith('/admin');
   const nav = useNavigate();
 
   const adminLogOut = (event) => {
@@ -71,6 +69,7 @@ const App = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        //TODO- this shouldn't be hardcoded????
         email: 'markyencheske@gmail.com',
         password: 'password',
       }),
@@ -89,10 +88,8 @@ const App = () => {
 
   return (
     <div className='body'>
-      {/* NOTE FOR MARK, CLARE, OR KAT -if currentEmployee is true don't render the admin buttons */}
       <div className='app-display'>
-        {/* Render login button only if not on an admin page */}
-        {!isAdminPage && !currentEmployee && (
+        {!isAdminLoggedIn && !currentEmployee && (
           <Link to='admin/login'>
             <button className='login-btn'>Admin Log in</button>
           </Link>
@@ -105,8 +102,8 @@ const App = () => {
             </button>
           </Link>
         ) : null}
+
         <img src={logo} />
-        
         <Clock />
       </div>
 
@@ -134,11 +131,6 @@ const App = () => {
             element={<AdminDashboard isAdminLoggedIn={isAdminLoggedIn} />}
           />
         ) : null}
-        {/* conditional render statement
-                // if the admin is logged in,
-                  // check if the route path is /admin, if so, render the dashboard and sign out button
-                  // if the route path is NOT /admin (e.g. /), 
-               */}
         <Route
           path='admin/login'
           element={
@@ -148,10 +140,9 @@ const App = () => {
             />
           }
         />
-        <Route path='admin/currentPayPeriod' element={<AddEmployee />} />
-        <Route path='admin/previousPayPeriods' element={<EmployeeList />} />
-        <Route path='admin/add' element={<AddEmployee />} />
-        <Route path='admin/list' element={<EmployeeList />} />
+        <Route path='currentPayPeriod' element={<CurrentPayPeriod isAdminLoggedIn={isAdminLoggedIn} />} />
+        <Route path='/previousPayPeriods' element={<PreviousPayPeriod isAdminLoggedIn={isAdminLoggedIn}/>} />
+        <Route path='/list' element={<EmployeeList isAdminLoggedIn={isAdminLoggedIn}/>} />
 
         <Route
           path='employeeportal'
