@@ -20,7 +20,7 @@ adminRouter.post('/login', sessionController.createSession, sessionController.ve
 
 adminRouter.post('/logout', sessionController.endSession, (req, res) => { return res.status(200).json({authenticated: false}); });
 
-adminRouter.put('/:id', adminController.updateAdmin, (req, res) => { return res.status(200).json(res.locals.updatedAdmin); });
+adminRouter.put('/:id', sessionController.createSession, sessionController.verifySession, adminController.updateAdmin, (req, res) => { return res.status(200).json(res.locals.updatedAdmin); });
 
 adminRouter.delete('/:id', sessionController.createSession, sessionController.verifySession, adminController.deleteAdmin, (req, res) => { return res.status(200).json(res.locals.deletedAdmin); });
 

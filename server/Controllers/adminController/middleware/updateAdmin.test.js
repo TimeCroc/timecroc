@@ -52,4 +52,32 @@ describe('updateAdmin middleware', () => {
     expect(next).toHaveBeenCalledTimes(1);
   });
 
-})
+  it('should call next() with an error message if the database query fails', async () => {
+    // mock the db query to throw an error
+    const mockError = new Error('Database connection error');
+    db.query.mockRejectedValue(mockError);
+
+    const req = {
+      params: {
+        id: '1'
+      },
+      body: {
+        first_name: 'Polar',
+        last_name: 'Seltzer',
+        email: 'lemon@polar.com',
+        admin_password: 'password123',
+      }
+    };
+    const res = {
+      locals: {}
+    };
+
+    // mock Jest function for error
+    const next = jest.fn();
+
+    // call createAdmin middleware
+    await updateAdmin(req, res, next);
+
+    expect(next).toHaveBeenCalledWith({log: 'adminController.updateAdmin: ERROR', message: {err: 'Error occurred in adminController.updateAdmin'} } );
+  });
+});
