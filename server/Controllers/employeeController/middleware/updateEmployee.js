@@ -19,8 +19,7 @@ const updateEmployee = async (req, res, next) => {
 
   try {
     const input = [_id, pin, first_name, last_name, phone, email, hourly_rate];
-    let employeeQuery = 'UPDATE employee SET \
-     pin = $2, first_name = $3, last_name = $4, phone = $5, email = $6, hourly_rate = $7 ';
+    let employeeQuery = 'UPDATE employee SET pin = $2, first_name = $3, last_name = $4, phone = $5, email = $6, hourly_rate = $7 ';
     if(_id){
       employeeQuery += `WHERE _id = $1 RETURNING * `;
     }
