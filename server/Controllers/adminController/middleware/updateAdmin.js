@@ -22,10 +22,9 @@ const updateAdmin = async (req, res, next) => {
     const input = [_id, first_name, last_name, email, admin_password];
 		console.log('input', input)
 	
-    let adminQuery = 'UPDATE admin SET \
-     email = $2, admin_password = $3, first_name = $4, last_name = $5';
+    let adminQuery = 'UPDATE admin SET first_name = $2, last_name = $3, email = $4, admin_password = $5';
     if(_id){
-      adminQuery += `WHERE _id = $1 RETURNING * `;
+      adminQuery += ` WHERE _id = $1 RETURNING * `;
     }
     const updated = await db.query(adminQuery, input);
     res.locals.updatedAdmin = updated.rows[0];
