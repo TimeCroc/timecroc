@@ -44,10 +44,11 @@ const ScrollPayPeriods = (props: ScrollPayPeriodProps) => {
     return dateArray;
   }
   const scrollList = twoWeekLoop(appStartDate, appEndDate);
-  console.log(scrollList);
+  //console.log(scrollList);
   const display = scrollList.map(item => {
     return <li key={item.displayStartDate}> 
         {item.displayStartDate} - {item.displayEndDate}
+        <button>select</button>
       </li>
     });
 
