@@ -59,7 +59,7 @@ describe('createSession middleware', () => {
     bcrypt.compare = jest.fn().mockResolvedValue(true);
 
     // mock jwt sign function
-    jwt.sign = jest.fn().mockResolvedValue('validToken');
+    jwt.sign = jest.fn().mockReturnValue('validToken');
 
     // call createSession middleware
     await createSession(req, res, next);
@@ -81,6 +81,8 @@ describe('createSession middleware', () => {
 
   // it should handle invalid email
   it('should handle invalid email', async () => {
+    jest.clearAllMocks();
+
     // mock the database query
     const mockAdminData = {
       rows: []
@@ -110,54 +112,45 @@ describe('createSession middleware', () => {
     expect(next).not.toHaveBeenCalled();
 });
 
-// it should handle invalid password
-it('should handle invalid password', async () => {
-  const mockAdminData = {
-    rows: [
-      { id: 1, email: 'bluerazz@hemp.com', admin_password: 'hashedPassword' }
-    ]
-  };
+  // it should handle invalid password
+  it('should handle invalid password', async () => {
+    jest.clearAllMocks();
+    
+    const mockAdminData = {
+      rows: [
+        { id: 1, email: 'bluerazz@hemp.com', admin_password: 'hashedPassword' }
+      ]
+    };
 
-  const req = { body: { email: 'bluerazz@hemp.com', admin_password: 'salty123' } };
-  const res = { 
-    // status jest function returns res
-    status: jest.fn(() => res),
-    cookie: jest.fn(),
-    json: jest.fn() 
-  };
-const next = jest.fn();
+    const req = { body: { email: 'bluerazz@hemp.com', admin_password: 'salty123' } };
+    const res = { 
+      // status jest function returns res
+      status: jest.fn(() => res),
+      cookie: jest.fn(),
+      json: jest.fn() 
+    };
+    const next = jest.fn();
 
-  db.query.mockResolvedValue(mockAdminData);
+    db.query.mockResolvedValue(mockAdminData);
 
-  let hashedPassword = '1b2a3f4e5d6c7b8a9b0a';
+    // mock bcrypt hash and compare functions
+    bcrypt.compare = jest.fn().mockResolvedValue(false);
 
-  // let mockUpdatedAdminData = {
-  //   rows: [
-  //     { id: 1, email: 'bluerazz@hemp.com', admin_password: '2b2a1bc21dfa12' }
-  //   ]
-  // };
+    // call the createSession middleware
+    await createSession(req, res, next);
 
-  // db.query.mockResolvedValue(mockUpdatedAdminData);
-
-  // mock bcrypt hash and compare functions
-  // bcrypt.hash = jest.fn().mockResolvedValue(hashedPassword);
-  bcrypt.compare = jest.fn().mockResolvedValue(false);
-
-  // call the createSession middleware
-  await createSession(req, res, next);
-
-  // expect db.query to have been called with the correct arguments
-  expect(db.query).toHaveBeenCalledWith('SELECT * FROM admin WHERE email = $1', ['bluerazz@hemp.com']);
-  // expect bcrypt.compare to evaluate to false
-  expect(bcrypt.compare).toHaveBeenCalledWith('salty123', 'hashedPassword');
-  // expect jwt.sign to not have been called
-  // expect(jwt.sign).not.toHaveBeenCalled();
-  // expect res.status to have been called with 401
-  expect(res.status).toHaveBeenCalledWith(401);
-  // expect res.json to have been called with the message 'Invalid password'
-  expect(res.json).toHaveBeenCalledWith({ message: 'Invalid password' });
-  // expect next to not have been called
-  expect(next).not.toHaveBeenCalled();
-});
+    // expect db.query to have been called with the correct arguments
+    expect(db.query).toHaveBeenCalledWith('SELECT * FROM admin WHERE email = $1', ['bluerazz@hemp.com']);
+    // expect bcrypt.compare to evaluate to false
+    expect(bcrypt.compare).toHaveBeenCalledWith('salty123', 'hashedPassword');
+    // expect jwt.sign to not have been called
+    expect(jwt.sign).not.toHaveBeenCalled();
+    // expect res.status to have been called with 401
+    expect(res.status).toHaveBeenCalledWith(401);
+    // expect res.json to have been called with the message 'Invalid password'
+    expect(res.json).toHaveBeenCalledWith({ message: 'Invalid password' });
+    // expect next to not have been called
+    expect(next).not.toHaveBeenCalled();
+  });
 });
 
