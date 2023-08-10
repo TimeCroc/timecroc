@@ -19,24 +19,21 @@ jest.mock('../../../models/adminModel', () => ({
 }));
 
 describe('verifySession middleware', () => {
-    let req;
     let res;
     let next;
     
     beforeEach(() => {
         jest.clearAllMocks();
 
-        req = {
-            body: { email: 'mocha@chai.com', admin_password: 'starbucksneedsaunion' },
-            validToken: 'mockValidToken'
-        };
-
         res = {
             status: jest.fn(() => res),
             json: jest.fn()
         };
+
         next = jest.fn();
     });
+
+    // it should allow an admin access when credentials are valid
     it('should allow an admin access when credentials are valid', async () => {
         const mockAdminData = { id: 1, email: 'mocha@chai.com', admin_password: 'starbucksneedsaunion' };
         const mockValidToken = 'mockValidToken';
@@ -54,6 +51,11 @@ describe('verifySession middleware', () => {
         //mock jwt verify to return decoded data
         jwt.verify.mockReturnValue(mockDecode);
 
+        const req = {
+            body: { email: 'mocha@chai.com', admin_password: 'starbucksneedsaunion' },
+            validToken: 'mockValidToken'
+        };
+
         await verifySession(req, res, next);
 
         expect(db.query).toHaveBeenCalledTimes(2);
@@ -64,4 +66,33 @@ describe('verifySession middleware', () => {
         expect(res.status).not.toHaveBeenCalled();
         expect(res.json).not.toHaveBeenCalled();
     })
+
+  // test for when token is undefined
+  it('should return a 401 status code when token is undefined', async () => {
+    const mockAdminData = { id: 1, email: 'email@gmail.com', admin_password: 'spaghetti' };
+    const mockValidToken = undefined;
+
+    // mock database query results
+    db.query.mockResolvedValue({ rows: [mockAdminData] });
+
+    const req = {
+      body: {
+        email: 'email@gmail.com',
+        admin_password: 'spaghetti'
+      },
+      validToken: mockValidToken
+    };
+
+    await verifySession(req, res, next);
+
+    expect(db.query).toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Token not valid' });
+    expect(next).not.toHaveBeenCalled();
+  });
+  
+  // test for when passwordMatch is falsy - involves mocking bcrypt.compare
+  // test for when token is invalid/undefined - involves mocking jwt.verify
+  // test for when admin is invalid/undefined
+  // test for when there is a server error
 })
