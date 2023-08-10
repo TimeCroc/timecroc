@@ -29,6 +29,23 @@ jest.mock('jsonwebtoken', () => ({
 }));
 
 describe('createSession middleware', () => {
+  let req;
+  let res;
+  let next;
+  
+  // use beforeEach to reset mocks before each test
+  beforeEach(() => {
+    jest.clearAllMocks();
+    req = { body: { email: 'bluerazz@hemp.com', admin_password: 'salty123' } };
+    res = { 
+      // status jest function returns res
+      status: jest.fn(() => res),
+      cookie: jest.fn(),
+      json: jest.fn() 
+    };
+    next = jest.fn();
+  });
+
   // it created session successfully, updated hashed password and called next
   it('should create session successfully, update hashed password and call next', async () => {
     // mock the database query
@@ -37,10 +54,6 @@ describe('createSession middleware', () => {
         { id: 1, email: 'bluerazz@hemp.com', admin_password: 'salty123' }
       ]
     };
-
-    const req = { body: { email: 'bluerazz@hemp.com', admin_password: 'salty123' } };
-    const res = { cookie: jest.fn() };
-    const next = jest.fn();
 
     db.query.mockResolvedValue(mockAdminData);
 
@@ -81,21 +94,10 @@ describe('createSession middleware', () => {
 
   // it should handle invalid email
   it('should handle invalid email', async () => {
-    jest.clearAllMocks();
-
     // mock the database query
     const mockAdminData = {
       rows: []
     }
-
-    const req = { body: { email: 'bluerazz@hemp.com', admin_password: 'salty123' } };
-    const res = { 
-      // status jest function returns res
-      status: jest.fn(() => res),
-      cookie: jest.fn(),
-      json: jest.fn() 
-    };
-    const next = jest.fn();
 
     db.query.mockResolvedValue(mockAdminData);
 
@@ -114,22 +116,11 @@ describe('createSession middleware', () => {
 
   // it should handle invalid password
   it('should handle invalid password', async () => {
-    jest.clearAllMocks();
-    
     const mockAdminData = {
       rows: [
         { id: 1, email: 'bluerazz@hemp.com', admin_password: 'hashedPassword' }
       ]
     };
-
-    const req = { body: { email: 'bluerazz@hemp.com', admin_password: 'salty123' } };
-    const res = { 
-      // status jest function returns res
-      status: jest.fn(() => res),
-      cookie: jest.fn(),
-      json: jest.fn() 
-    };
-    const next = jest.fn();
 
     db.query.mockResolvedValue(mockAdminData);
 
