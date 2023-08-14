@@ -91,8 +91,32 @@ describe('verifySession middleware', () => {
     expect(next).not.toHaveBeenCalled();
   });
   
-  // test for when passwordMatch is falsy - involves mocking bcrypt.compare
+  // test for when passwordMatch evaluates to false
+  it ('should return a 401 status code when passwordMatch is falsy', async () => {
+    const mockAdminData = { id: 1, email: 'ladybug@catmail.com', admin_password: 'catnip' };
+
+    bcrypt.compare.mockResolvedValue(false);
+
+    //mock the database
+    db.query.mockResolvedValue({ rows: [mockAdminData] });
+
+    const req = {
+      body: {
+        email: 'ladybug@catmail.com',
+        admin_password: 'catfood'
+      },
+    };
+
+    await verifySession(req, res, next);
+
+    expect(db.query).toHaveBeenCalled();
+    expect(bcrypt.compare).toHaveBeenCalledWith('catfood', mockAdminData.admin_password);
+    expect(jwt.verify).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Invalid credentials' });
+    expect(next).not.toHaveBeenCalled();
+})
   // test for when token is invalid/undefined - involves mocking jwt.verify
   // test for when admin is invalid/undefined
   // test for when there is a server error
-})
+});
