@@ -19,6 +19,8 @@ const verifySession = async (req, res, next) => {
   const { email, admin_password } = req.body;
   const { validToken } = req;
 
+  console.log('inside verifySession');
+
   try {
     const result = await db.query('SELECT admin_password FROM admin WHERE email = $1', [email]);
     const adminData = result.rows[0];
@@ -34,7 +36,7 @@ const verifySession = async (req, res, next) => {
 
     if (!passwordMatch) {
       console.log("Access denied!");
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid password" });
     }
 
     const token = validToken;

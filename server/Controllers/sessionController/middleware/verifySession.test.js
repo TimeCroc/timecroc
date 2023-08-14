@@ -65,34 +65,10 @@ describe('verifySession middleware', () => {
         expect(next).toHaveBeenCalled();
         expect(res.status).not.toHaveBeenCalled();
         expect(res.json).not.toHaveBeenCalled();
-    })
-
-  // test for when token is undefined
-  it('should return a 401 status code when token is undefined', async () => {
-    const mockAdminData = { id: 1, email: 'email@gmail.com', admin_password: 'spaghetti' };
-    const mockValidToken = undefined;
-
-    // mock database query results
-    db.query.mockResolvedValue({ rows: [mockAdminData] });
-
-    const req = {
-      body: {
-        email: 'email@gmail.com',
-        admin_password: 'spaghetti'
-      },
-      validToken: mockValidToken
-    };
-
-    await verifySession(req, res, next);
-
-    expect(db.query).toHaveBeenCalled();
-    expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Token undefined' });
-    expect(next).not.toHaveBeenCalled();
-  });
-  
+    });
+   
   // test for when passwordMatch evaluates to false
-  it ('should return a 401 status code when passwordMatch is falsy', async () => {
+  it('should return a 401 status code when passwordMatch is falsy', async () => {
     const mockAdminData = { id: 1, email: 'ladybug@catmail.com', admin_password: 'catnip' };
 
     bcrypt.compare.mockResolvedValue(false);
@@ -114,9 +90,38 @@ describe('verifySession middleware', () => {
     expect(bcrypt.compare).toHaveBeenCalledWith('catfood', mockAdminData.admin_password);
     expect(jwt.verify).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Invalid credentials' });
+    expect(res.json).toHaveBeenCalledWith({ message: 'Invalid password' });
     expect(next).not.toHaveBeenCalled();
 })
+
+// test for when token is undefined
+it('should return a 401 status code when token is undefined', async () => {
+  const mockAdminData = { id: 1, email: 'email@gmail.com', admin_password: 'spaghetti' };
+  const mockValidToken = undefined;
+
+  // mock database query results
+  db.query.mockResolvedValue({ rows: [mockAdminData] });
+
+  // mock bcrypt compare to return true
+  bcrypt.compare.mockResolvedValue(true);
+
+  const req = {
+    body: {
+      email: 'email@gmail.com',
+      admin_password: 'spaghetti'
+    },
+    validToken: mockValidToken
+  };
+
+  await verifySession(req, res, next);
+
+  expect(db.query).toHaveBeenCalled();
+  expect(bcrypt.compare).toHaveBeenCalledWith('spaghetti', mockAdminData.admin_password);
+  expect(res.status).toHaveBeenCalledWith(401);
+  expect(res.json).toHaveBeenCalledWith({ message: 'Token undefined' });
+  expect(next).not.toHaveBeenCalled();
+});
+
   // test for when token is invalid
   it('should return a 401 status code when token is defined but invalid', async () => {
     const mockAdminData = { id: 1, email: 'ladybug@catmail.com', admin_password: 'catnip' };
