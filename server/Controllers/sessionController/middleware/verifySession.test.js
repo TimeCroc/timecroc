@@ -87,7 +87,7 @@ describe('verifySession middleware', () => {
 
     expect(db.query).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Token not valid' });
+    expect(res.json).toHaveBeenCalledWith({ message: 'Token undefined' });
     expect(next).not.toHaveBeenCalled();
   });
   
@@ -103,6 +103,7 @@ describe('verifySession middleware', () => {
     const req = {
       body: {
         email: 'ladybug@catmail.com',
+        // password is incorrect
         admin_password: 'catfood'
       },
     };
@@ -116,7 +117,43 @@ describe('verifySession middleware', () => {
     expect(res.json).toHaveBeenCalledWith({ message: 'Invalid credentials' });
     expect(next).not.toHaveBeenCalled();
 })
-  // test for when token is invalid/undefined - involves mocking jwt.verify
+  // test for when token is invalid
+  it('should return a 401 status code when token is defined but invalid', async () => {
+    const mockAdminData = { id: 1, email: 'ladybug@catmail.com', admin_password: 'catnip' };
+
+    // mock database query results
+    db.query.mockResolvedValue({ rows: [mockAdminData] });
+
+    // mock bcrypt compare to return true
+    bcrypt.compare.mockResolvedValue(true);
+
+    // mock jwt verify to return decoded data
+    jwt.verify.mockImplementation(() => {
+      const error = new Error('Invalid token');
+      error.name = 'JsonWebTokenError'; // Set the error type
+      throw error;
+    });
+
+    const req = {
+      body: {
+        email: 'ladybug@catmail.com',
+        admin_password: 'catnip'
+      },
+
+      // token is defined but invalid
+      validToken: 'invalidToken'
+    };
+
+    await verifySession(req, res, next);
+
+    expect(db.query).toHaveBeenCalled();
+    expect(bcrypt.compare).toHaveBeenCalledWith('catnip', mockAdminData.admin_password);
+    expect(jwt.verify).toHaveBeenCalledWith('invalidToken', process.env.JWT_SECRET);
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Invalid token' });
+    expect(next).not.toHaveBeenCalled();
+
+  });
   // test for when admin is invalid/undefined
   // test for when there is a server error
 });

@@ -40,10 +40,22 @@ const verifySession = async (req, res, next) => {
     const token = validToken;
 
     if (!token) {
-      return res.status(401).json({ message: "Token not valid" });
+      return res.status(401).json({ message: "Token undefined" });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    let decoded;
+
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (jwtError) {
+      if (jwtError.name === "JsonWebTokenError") {
+        return res.status(401).json({ message: "Invalid token" });
+      } else {
+        throw jwtError;
+      }
+    }    
+    
     const adminResult = await db.query("SELECT * FROM admin WHERE email = $1", [decoded.email]);
     const admin = adminResult.rows[0];
 
@@ -56,7 +68,8 @@ const verifySession = async (req, res, next) => {
     
     console.log("Access granted!");
     next();
-  } catch (err) {
+  } 
+  catch (err) {
     console.log("Error:", err);
     return res.status(500).json({ message: "Internal server error" });
   }
