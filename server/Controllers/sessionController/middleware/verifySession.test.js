@@ -7,12 +7,12 @@ const verifySession = require('./verifySession');
 
 jest.mock('bcrypt', () => ({  
     compare: jest.fn()
-    }));
+}));
 
 // add method inside of here for jwt.verify?
 jest.mock('jsonwebtoken', () => ({
     verify: jest.fn()
-    }));
+}));
 
 jest.mock('../../../models/adminModel', () => ({
     query: jest.fn()
@@ -38,12 +38,10 @@ describe('verifySession middleware', () => {
         const mockAdminData = { id: 1, email: 'mocha@chai.com', admin_password: 'starbucksneedsaunion' };
         const mockValidToken = 'mockValidToken';
         const mockDecode = { email: 'mocha@chai.com' };
-        const mockAdmin = { email: 'mocha@chai.com' };
 
         // mock database query results
         db.query.mockResolvedValue({ rows: [mockAdminData] });
         db.query.mockResolvedValueOnce({ rows: [mockAdminData] });
-        db.query.mockResolvedValueOnce({ rows: [mockAdmin] });
 
         // mock bcrypt compare to return true
         bcrypt.compare.mockResolvedValue(true);
@@ -58,10 +56,9 @@ describe('verifySession middleware', () => {
 
         await verifySession(req, res, next);
 
-        expect(db.query).toHaveBeenCalledTimes(2);
+        expect(db.query).toHaveBeenCalled();
         expect(bcrypt.compare).toHaveBeenCalledWith('starbucksneedsaunion', mockAdminData.admin_password);
         expect(jwt.verify).toHaveBeenCalledWith(mockValidToken, process.env.JWT_SECRET);
-        expect(req.admin).toEqual(mockAdmin);
         expect(next).toHaveBeenCalled();
         expect(res.status).not.toHaveBeenCalled();
         expect(res.json).not.toHaveBeenCalled();
@@ -159,6 +156,25 @@ it('should return a 401 status code when token is undefined', async () => {
     expect(next).not.toHaveBeenCalled();
 
   });
-  // test for when admin is invalid/undefined
+
   // test for when there is a server error
+  it('should return a 500 status code when there is a server error', async () => {
+    // Mock database query to throw an error
+    db.query.mockRejectedValue(new Error('Database error'));
+    
+    const req = {
+      body: {
+        email: 'original@vintage.com',
+        admin_password: 'seltzer'
+      },
+      validToken: 'mockValidToken'
+    }
+
+    await verifySession(req, res, next);
+
+    expect(db.query).toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({ message: "Internal server error" });
+    expect(next).not.toHaveBeenCalled();
+  })
 });

@@ -58,15 +58,7 @@ const verifySession = async (req, res, next) => {
       }
     }    
     
-    const adminResult = await db.query("SELECT * FROM admin WHERE email = $1", [decoded.email]);
-    const admin = adminResult.rows[0];
-
-    if (!admin) {
-      return res.status(401).json({ message: "Invalid admin" });
-    }
-
-    req.admin = admin;
-    console.log('req.admin:', req.admin);
+    //removed old lines 61-70 bc determined to be unnecessary 
     
     console.log("Access granted!");
     next();
