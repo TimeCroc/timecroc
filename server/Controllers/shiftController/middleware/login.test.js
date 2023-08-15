@@ -53,6 +53,33 @@ describe('login middleware', () => {
     expect(next).toHaveBeenCalled();
     expect(expectedDateFormatted).toEqual(expect.any(String));
   })
-  // it should call next() with an error if the database insertion fails
   
+  // it should call next() with an error if the database insertion fails
+  it('should call next() with an error if the database insertion fails', async () => {
+    const mockParams = { pin: '1234' };
+    const mockError = new Error('Database connection error');
+
+    db.query.mockRejectedValue(mockError);
+
+    const req = { params: mockParams };
+    const res = { locals: { targetEmployee: { _id: '1'} } };
+    const next = jest.fn();
+
+    let mockShiftQuery = 
+      ' INSERT INTO shift (\
+        employee_id, shift_date, start_time\
+      ) VALUES ($1, $2, $3)\
+        RETURNING * ';
+
+    await login(req, res, next);
+
+    expect(db.query).toHaveBeenCalledWith(
+      mockShiftQuery,
+      expect.arrayContaining(['1', expect.any(String), expect.any(Number)])
+    );
+    expect(next).toHaveBeenCalledWith({
+      log: 'shiftController.login: ERROR',
+      message: {err: 'Error occurred in shiftController.login'}
+    });
+  });
 });
