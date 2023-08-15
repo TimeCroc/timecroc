@@ -8,7 +8,7 @@ jest.mock('../../../models/employeeModel', () => ({
   query: jest.fn(),
 }));
 
-describe('getAllShifts', () => {
+describe('getAllShifts middleware', () => {
   it('should return all shift data, calling next() with the data in res.locals', async () => {
     // mock the target employee
     const mockTargetEmployee = {
@@ -62,7 +62,7 @@ describe('getAllShifts', () => {
     expect(res.locals.shifts).toEqual(mockShiftData.rows);
     expect(next).toHaveBeenCalled();
   });
-  
+
   it('should call next() with an error message if database query fails', async () => {
     const mockParams = { pin: '1234' };
     
