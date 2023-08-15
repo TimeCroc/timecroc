@@ -18,6 +18,7 @@ const login = async (req, res, next) => {
   let today = new Date().toDateString();
   const currentTime = Date.now();
   const input = [_id, today, currentTime];
+  console.log('input', input)
   try {
     let shiftQuery = 
       ' INSERT INTO shift (\
