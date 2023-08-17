@@ -19,49 +19,54 @@ const verifySession = async (req, res, next) => {
   const { email, admin_password } = req.body;
   const { validToken } = req;
 
-  db.query('SELECT admin_password FROM admin WHERE email = $1', [email], function(err, rez) {
-    if (err) {
-      console.log("error in db query of admin's password", err);
-      throw err;
-    }
-    else {
-      let hash = rez.rows[0].admin_password;
-      //compare hash and password
-      bcrypt.compare(admin_password, hash, async function(err, result) {
-        if (result) {
-          // assigning the token from the cookie to the variable validToken
-          const token = validToken;
-          console.log("verifySession token", token)
-          
-          if (!token) {
-            return res.status(401).json({ message: "Token not valid" });
-          }
-          
-          try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            // could this next line be returning an array, instead of one admin?
-            const admin = await db.query("SELECT * FROM admin WHERE email = $1", [
-              decoded.email,
-            ]);
-            console.log("Access granted!")
-            if (!admin.rows[0]) {
-              return res.status(401).json({ message: "Invalid admin" });
-            }
+  console.log('inside verifySession');
 
-            req.admin = admin;
-            
-            next();
-          } catch (err) {
-            return res.status(401).json({ message: "Unexpected error" });
-          }
-        }
-        else {
-          console.log("Access denied!")
-          return res.status(401).json({ message: "Invalid credentials" });
-        }
-      })
+  try {
+    const result = await db.query('SELECT admin_password FROM admin WHERE email = $1', [email]);
+    const adminData = result.rows[0];
+    console.log('adminData:', adminData)
+
+    if (!adminData) {
+      console.log("No admin found with the provided email");
+      return res.status(401).json({ message: "Invalid credentials" });
     }
-  });
+
+    const hash = adminData.admin_password;
+    const passwordMatch = await bcrypt.compare(admin_password, hash);
+
+    if (!passwordMatch) {
+      console.log("Access denied!");
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    const token = validToken;
+
+    if (!token) {
+      return res.status(401).json({ message: "Token undefined" });
+    }
+
+    // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    let decoded;
+
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (jwtError) {
+      if (jwtError.name === "JsonWebTokenError") {
+        return res.status(401).json({ message: "Invalid token" });
+      } else {
+        throw jwtError;
+      }
+    }    
+    
+    //removed old lines 61-70 bc determined to be unnecessary 
+    
+    console.log("Access granted!");
+    next();
+  } 
+  catch (err) {
+    console.log("Error:", err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 module.exports = verifySession;
