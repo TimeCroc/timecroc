@@ -25,41 +25,39 @@ const createSession = async (req, res, next) => {
   if (!admin.rows[0]) {
     return res.status(401).json({ message: "Invalid email" });
   }
-    // check password
-    // note: bcrypt.compare returns a promise, and it requires three arguments, the third of which is a callback function that will be called when the promise is resolved
-    // hash the password
-    const hashedPassword = await bcrypt.hash(admin_password, saltRounds);
+  // check password
+  // note: bcrypt.compare returns a promise, and it requires three arguments, the third of which is a callback function that will be called when the promise is resolved
+  
+  // added functionality for checking password, making sure we do so before we create the session
+  const passwordMatch = await bcrypt.compare(admin_password, admin.rows[0].admin_password);
+  console.log(passwordMatch, 'passwordMatch')
+  
+  if (!passwordMatch) {
+    return res.status(401).json({ message: "Invalid password" });
+  }
 
-    // added functionality for checking password, making sure we do so before we create the session
-    const passwordMatch = await bcrypt.compare(admin_password, admin.rows[0].admin_password);
-    console.log(passwordMatch, 'passwordMatch')
-    
-    let validToken = '';
-    
-    if (passwordMatch) {
-      // assign the token here
-      validToken = jwt.sign(
-        { email: admin.rows[0].email },
-        process.env.JWT_SECRET
-      );
-      console.log('createSession token', validToken)
-    }
-    // set the token as a property on req
-    req.validToken = validToken;
-    if (!passwordMatch) {
-      return res.status(401).json({ message: "Invalid password" });
-    }
+  // hash the password
+  const hashedPassword = await bcrypt.hash(admin_password, saltRounds);
+  
+  const validToken = jwt.sign(
+    { email: admin.rows[0].email },
+    process.env.JWT_SECRET
+  );
+  console.log('createSession token', validToken);
+  
+  // set the token as a property on req
+  req.validToken = validToken;
 
-    // update the password in the database
-    const statement = 'UPDATE admin SET admin_password = $1 WHERE email = $2';
-    const values = [hashedPassword, email];
-    try {
-      await db.query(statement, values);
-      console.log("hashed password updated!");
-    } catch (err) {
-      console.log("error in updating password", err);
-      throw err;
-    }
+  // update the password in the database
+  const statement = 'UPDATE admin SET admin_password = $1 WHERE email = $2';
+  const values = [hashedPassword, email];
+  try {
+    await db.query(statement, values);
+    console.log("hashed password updated!");
+  } catch (err) {
+    console.log("error in updating password", err);
+    throw err;
+  }
 
   // specify cookie options for production versus development
   const cookieOptions = {
