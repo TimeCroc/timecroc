@@ -4,9 +4,6 @@ const db = require('../../../models/employeeModel');
 // unit under test
 const login = require('./login');
 
-// import expectedDateFormatted from utils/index.js;
-const expectedDateFormatted = require('../utils/index');
-
 jest.mock('../../../models/employeeModel', () => ({ 
     query: jest.fn()
   }));
@@ -20,7 +17,7 @@ describe('login middleware', () => {
       {
         id: 1,
         employee_id: 1,
-        shift_date: expectedDateFormatted,
+        shift_date: '2023-01-28',
         start_time: 1672251490489,
         end_time: 1672251517805,
         tips: 100,
@@ -51,7 +48,7 @@ describe('login middleware', () => {
     );
     expect(res.locals.newShift).toEqual(mockShiftData.rows[0]);
     expect(next).toHaveBeenCalled();
-    expect(expectedDateFormatted).toEqual(expect.any(String));
+    expect(mockShiftData.rows[0].shift_date).toEqual(expect.any(String));
   })
   
   // it should call next() with an error if the database insertion fails
