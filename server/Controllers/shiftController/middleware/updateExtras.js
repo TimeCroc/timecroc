@@ -18,8 +18,7 @@ const updateExtras = async (req, res, next) => {
   const input = [shift_id, tips, reimbursements, tours, doc];
   try{
     let shiftQuery = 
-      ' UPDATE shift SET\
-        tips = $2, reimbursements = $3, tours = $4, doc = $5'
+      'UPDATE shift SET tips = $2, reimbursements = $3, tours = $4, doc = $5 '
         if(shift_id){
           shiftQuery += `WHERE _id = $1 RETURNING * `;
         }
