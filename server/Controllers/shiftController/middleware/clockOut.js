@@ -20,8 +20,7 @@ const clockOut = async (req, res, next) => {
   const input = [shift_id, currentTime];
   try {
     let shiftQuery = 
-      ' UPDATE shift SET\
-        end_time = $2 '
+      'UPDATE shift SET end_time = $2 '
         if(shift_id){
           shiftQuery += `WHERE _id = $1 RETURNING * `;
         }

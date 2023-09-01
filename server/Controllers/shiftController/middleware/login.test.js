@@ -19,11 +19,6 @@ describe('login middleware', () => {
         employee_id: 1,
         shift_date: '2023-01-28',
         start_time: 1672251490489,
-        end_time: 1672251517805,
-        tips: 100,
-        reimbursements: 0,
-        tours: 5,
-        doc: 0
       }
     ]};
 
