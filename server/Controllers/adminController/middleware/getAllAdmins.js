@@ -22,7 +22,7 @@ const getAllAdmins =  async (req, res, next) => {
     return next();
   }
   catch(err){
-    return next('Error in adminController.getAllAdmins:' + JSON.stringify(err));
+    return next('Error in getAllAdmins middleware:' + JSON.stringify(err));
   };
 };
 

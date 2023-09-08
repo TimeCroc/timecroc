@@ -9,7 +9,6 @@
  * **************************************************
  */
 
-require('dotenv').config();
 const path = require('path');
 const db = require(path.resolve(__dirname, '../../../models/employeeModel'));
 
@@ -18,9 +17,9 @@ const findShift = async (req, res, next) => {
   const input = [];
   try {
      let shiftQuery = 
-       ' SELECT * FROM shift ';
+       'SELECT * FROM shift ';
      if(_id){
-       shiftQuery += `WHERE employee_id = $1 ORDER BY _id ASC `;
+       shiftQuery += `WHERE employee_id = $1 ORDER BY _id ASC`;
        input.push(_id);
      }
      const shift = await db.query(shiftQuery, input);
