@@ -9,8 +9,8 @@ type PreviousPayPeriodProps = {
 };
 
 const PreviousPayPeriod = (props: PreviousPayPeriodProps) => {
-  const [payPeriodStart, setPayPeriodStart] = useState('');
-  const [payPeriodEnd, setPayPeriodEnd] = useState('');
+  const [payPeriodStart, setPayPeriodStart] = useState('start');
+  const [payPeriodEnd, setPayPeriodEnd] = useState('end');
   const [displayScroll, setDisplayScroll] = useState(false);
 
   return (
@@ -18,11 +18,12 @@ const PreviousPayPeriod = (props: PreviousPayPeriodProps) => {
         <AdminDashboard isAdminLoggedIn={props.isAdminLoggedIn}/>
         <div className="previous-pay-period-container">
           <h1>Previous Pay Periods Page!</h1>
-          <button onClick={()=> setDisplayScroll(true)}>Open ScrollPayPeriods component</button>
-          {displayScroll && (<ScrollPayPeriods setDisplayScroll={setDisplayScroll}/> )}
+          <button onClick={()=> setDisplayScroll(true)}>Select Pay Period</button>
+          {displayScroll && (<ScrollPayPeriods setDisplayScroll={setDisplayScroll} setPayPeriodStart={setPayPeriodStart} setPayPeriodEnd={setPayPeriodEnd}/> )}
           <button>Open EditShift component</button>
           <div className='pay-period-display-placeholder'>
-            <h2>Replace with PayPeriodDisplay component</h2>
+            <h2>PayPeriodDisplay component should display data for:</h2>
+            {payPeriodStart} - {payPeriodEnd}
           </div>
         </div>
       </div>

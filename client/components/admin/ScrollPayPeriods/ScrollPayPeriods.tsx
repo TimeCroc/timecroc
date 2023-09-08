@@ -4,7 +4,9 @@ import './ScrollPayPeriods.css'
 
 type ScrollPayPeriodProps = {
   displayScroll?: boolean;
-  setDisplayScroll: Dispatch<SetStateAction<boolean>>
+  setDisplayScroll: Dispatch<SetStateAction<boolean>>;
+  setPayPeriodStart: Dispatch<SetStateAction<string>>;
+  setPayPeriodEnd: Dispatch<SetStateAction<string>>
 }
 
 type DateObject = {
@@ -20,7 +22,7 @@ type DateObject = {
 const ScrollPayPeriods = (props: ScrollPayPeriodProps) => {
 
   //reused from Timesheet.js 
-  //TODO - move logic to backend
+  //TODO - move twoWeekLoop to backend
 
   const appStartDate = new Date('2022-12-04T04:00:00');
   const appEndDate = new Date();
@@ -47,18 +49,24 @@ const ScrollPayPeriods = (props: ScrollPayPeriodProps) => {
   //console.log(scrollList);
   const display = scrollList.map(item => {
     return <li key={item.displayStartDate}> 
-        {item.displayStartDate} - {item.displayEndDate}
-        <button>select</button>
+        {/* {item.displayStartDate} - {item.displayEndDate} */}
+        <button onClick={() => {
+          props.setPayPeriodStart(item.displayStartDate);
+          props.setPayPeriodEnd(item.displayEndDate);
+          props.setDisplayScroll(false);
+          }
+        }>{item.displayStartDate} - {item.displayEndDate}</button>
       </li>
     });
 
   return(
     <div className='scroll'>
+      <button onClick={()=>{props.setDisplayScroll(false)}}>close</button>
       <ul>
        {display}
       </ul>
  
-      <button onClick={()=>{props.setDisplayScroll(false)}}>close</button>
+
     </div>
   )
 };
