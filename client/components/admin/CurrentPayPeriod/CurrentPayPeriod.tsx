@@ -1,6 +1,7 @@
 import React from "react";
 import './CurrentPayPeriod.css'
 import AdminDashboard from '../AdminDashboard/AdminDashboard'
+import PayPeriodDisplay from '../PayPeriodDisplay/PayPeriodDisplay';
 
 type PreviousPayPeriodProps = {
     employeeList: [],
@@ -15,7 +16,7 @@ const CurrentPayPeriod = (props: PreviousPayPeriodProps) => {
         <div className="previous-pay-period-container">
           <h1>Current Pay Period Page!</h1>
           <button>Open EditShift component</button>
-          <h2 style={{border: 'solid 1px red'}}>Replace with PayPeriodDisplay component</h2>
+          <PayPeriodDisplay start_date={'today'} end_date={'tomorrow'} />
         </div>
     </div>
   )
