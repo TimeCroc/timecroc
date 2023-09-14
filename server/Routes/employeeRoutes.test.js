@@ -49,10 +49,10 @@ describe('Employee Routes', () => {
           .expect(200)
           .expect('Content-Type', /application\/json/)
    
-          // Verify the response
-          expect(response.status).toBe(200);
-          expect(response.headers['content-type']).toMatch(/application\/json/);
-          expect(response.body).toEqual(mockEmployeesData);
+        // Verify the response
+        expect(response.status).toBe(200);
+        expect(response.headers['content-type']).toMatch(/application\/json/);
+        expect(response.body).toEqual(mockEmployeesData);
 
         });
       });
@@ -62,19 +62,23 @@ describe('Employee Routes', () => {
   describe('/api/employees/:pin', () => {
     describe('GET', () => {
       it('responds with a 200 status and returns one employee', async () => {
+        // Define mock data for the database query
         const mockEmployeePin = 1234;
         const mockEmployeeData = { id: 1, pin: '1234', first_name: 'Ladybug', last_name: 'Critter', phone: '1235555555', email: 'ladybugisawesome@gmail.com', hourly_rate: 99};
 
+        // Mock the behavior of db.query when getting one employee
         db.query.mockResolvedValue({ rows: [mockEmployeeData] });
       
+        // Send a GET request to get one employee
         const response = await request(app)
           .get(`/api/employees/${mockEmployeePin}`)
           .expect(200)
           .expect('Content-Type', /application\/json/)
 
-          expect(response.status).toBe(200);
-          expect(response.headers['content-type']).toMatch(/application\/json/);
-          expect(response.body).toEqual(mockEmployeeData);
+        // Verify the response
+        expect(response.status).toBe(200);
+        expect(response.headers['content-type']).toMatch(/application\/json/);
+        expect(response.body).toEqual(mockEmployeeData);
       });
     });
   });
@@ -124,6 +128,7 @@ describe('Employee Routes', () => {
   describe('/api/employees/:pin', () => {
     describe('PUT', () => {
       it('responds with a 200 status and updates employee', async () => {
+        // Define mock data for the database query
         const mockEmployeePin = 9805;
         const mockUpdatedEmployeeData = {
           // id: 123,
@@ -135,8 +140,10 @@ describe('Employee Routes', () => {
           hourly_rate: 20
         };
 
+        // Mock the behavior of db.query when updating an employee
         db.query.mockResolvedValue({ rows: [mockUpdatedEmployeeData] });
 
+        // Send a PUT request to update an employee
         const response = await request(app)
           .put(`/api/employees/${mockEmployeePin}`)
           .send({
@@ -150,11 +157,43 @@ describe('Employee Routes', () => {
           .expect('Content-Type', /application\/json/)
           .expect(200);
 
+          // Verify the response
           expect(response.status).toBe(200);
           expect(response.headers['content-type']).toMatch(/application\/json/);
           expect(response.body).toEqual(mockUpdatedEmployeeData);
           })
         })
       })
+
+  // Testing route to delete employee
+  describe('/api/employees/:pin', () => {
+    describe('DELETE', () => {
+      it('responds with a 200 status and deletes employee', async () => {
+        const mockEmployeePin = 1234;
+        const mockDeletedEmployeeData = {
+          // id: 123,
+          pin: '9805',
+          first_name: 'Winnifredson',
+          last_name: 'ThePooooooh',
+          phone: '9876543210',
+          email: 'poohisawesome@gmail.com',
+          hourly_rate: 20
+        };
+
+        // Mock the behavior of db.query when deleting an employee
+        db.query.mockResolvedValue({ rows: [mockDeletedEmployeeData] });
+
+        // Send a DELETE request to delete an employee
+        const response = await request(app)
+          .delete(`/api/employees/${mockEmployeePin}`)
+          .expect('Content-Type', /application\/json/)
+          .expect(200);
+
+          // Verify the response
+          expect(response.status).toBe(200);
+          expect(response.headers['content-type']).toMatch(/application\/json/);
+          expect(response.body).toEqual(mockDeletedEmployeeData);
+          })
+        })
+      })
     })
-// });
