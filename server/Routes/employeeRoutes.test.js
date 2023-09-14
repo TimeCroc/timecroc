@@ -61,4 +61,32 @@ describe('Employee Routes', () => {
     });
   });
 
+  // Testing route to create new employee
+  describe('/api/employees', () => {
+    describe('POST', () => {
+      it('responds with a 200 status and creates new employee', (done) => {
+        request(app)
+          .post('/api/employees')
+          .send({
+            pin: '9090',
+            first_name: 'Winnie',
+            last_name: 'ThePooh',
+            phone: '2345555555',
+            email: 'poohbear@gmail.com',
+            hourly_rate: 15
+          })
+          .expect('Content-Type', /application\/json/)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err);
+
+            expect(res.status).toBe(200);
+            expect(res.headers['content-type']).toMatch(/application\/json/);
+
+            done();
+          })
+      })
+    })
+  })
+  
 });
