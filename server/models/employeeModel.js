@@ -20,15 +20,18 @@ const pool = new Pool({
 // NEW SYNTAX FOR THE MODEL THAT PREVENTS LEAKS
 module.exports = {
   query: async (text, params, callback) => {
-    const client = await pool.connect(); // Acquire a connection
+    // Acquire a connection
+    const client = await pool.connect(); 
     try {
       const result = await client.query(text, params, callback);
       return result;
     } catch (e) {
       console.error('Error from employeeModel.js', e);
-      throw e; // Re-throw the error to be caught by the middleware
+      // Re-throw the error to be caught by the middleware
+      throw e; 
     } finally {
-      client.end(); // Close the client and release the connection back to the pool
+      // Close the client and release the connection back to the pool
+      client.end(); 
     }
   },
 };

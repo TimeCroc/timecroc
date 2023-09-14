@@ -11,12 +11,15 @@ app.use(express.json());
 app.use('/api/employees', employeeRouter);
 
 describe('Employee Routes', () => {
-  afterAll((done) => {
+
+  afterEach((done) => {
     console.log('after the test');
     server.close(() => {
       done();
     });
   })
+
+  // Testing route to get all employees
   describe('/api/employees', () => {
     describe('GET', () => {
       it('responds with a 200 status and return all employees', (done) => {
@@ -35,4 +38,27 @@ describe('Employee Routes', () => {
       });
     });
   });
+
+  // Testing route to get one employee
+  describe('/api/employees/:pin', () => {
+    describe('GET', () => {
+      it('responds with a 200 status and returns one employee', (done) => {
+        const mockEmployeePin = 1234;
+      
+        request(app)
+          .get(`/api/employees/${mockEmployeePin}`)
+          .expect(200)
+          .expect('Content-Type', /application\/json/)
+          .end((err, res) => {
+            if(err) return done(err);
+
+            expect(res.status).toBe(200);
+            expect(res.headers['content-type']).toMatch(/application\/json/);
+            
+            done();
+          });
+      });
+    });
+  });
+
 });
