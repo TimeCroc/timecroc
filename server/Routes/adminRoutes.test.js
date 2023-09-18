@@ -59,4 +59,20 @@ describe('Admin Routes', () => {
         });
       });
     });
+
+    // Testing route to logout as admin
+    describe('/api/admin/logout', () => {
+        describe('POST', () => {
+            it('responds with a 200 status and returns authenticated: false', async () => {
+                const response = await request(app)
+                    .post('/api/admin/logout')
+                    .expect(200)
+                    .expect('Content-Type', /application\/json/)
+
+                expect(response.status).toBe(200);
+                expect(response.headers['content-type']).toMatch(/application\/json/);
+                expect(response.body).toEqual({authenticated: false});
+            })
+        })
+    })
 });
