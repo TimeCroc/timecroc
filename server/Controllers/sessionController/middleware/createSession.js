@@ -30,6 +30,7 @@ const createSession = async (req, res, next) => {
   
   // added functionality for checking password, making sure we do so before we create the session
   const passwordMatch = await bcrypt.compare(admin_password, admin.rows[0].admin_password);
+  console.log(email, 'email', admin_password, 'admin_password')
   console.log(passwordMatch, 'passwordMatch')
   
   if (!passwordMatch) {

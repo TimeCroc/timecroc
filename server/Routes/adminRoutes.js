@@ -9,14 +9,11 @@ adminRouter.get('/', sessionController.createSession, sessionController.verifySe
 
 adminRouter.get('/:id', sessionController.createSession, sessionController.verifySession, adminController.getAdminById, (req, res) => { return res.status(200).json(res.locals.targetAdmin); });
 
-// remove .verifySession here?
-adminRouter.get('/login', sessionController.createSession, sessionController.verifySession, (req, res) => { return res.status(200).json({authenticated: true}); });
-
-adminRouter.post('/', sessionController.createSession, sessionController.verifySession, adminController.createAdmin, (req, res) => { return res.status(200).json(res.locals.newAdmin); });
+// route for adding admin - currently not a feature that is implemented
+// adminRouter.post('/', sessionController.createSession, sessionController.verifySession, adminController.createAdmin, (req, res) => { return res.status(200).json(res.locals.newAdmin); });
 
 // router functionality to handle going from successfully logging in (or not) to the admin page 
 adminRouter.post('/login', sessionController.createSession, sessionController.verifySession, (req, res) => { return res.status(200).json({authenticated: true}); })
-
 
 adminRouter.post('/logout', sessionController.endSession, (req, res) => { return res.status(200).json({authenticated: false}); });
 
