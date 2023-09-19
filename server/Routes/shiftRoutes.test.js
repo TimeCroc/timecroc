@@ -142,7 +142,37 @@ describe('Shift Routes', () => {
         })
       })
     })
+    
   // Testing route to end a shift (update)
-  
+  describe('/api/shifts/:pin', () => {
+    describe('PUT', () => {
+        it('responds with a 200 status and updates a shift', async () => {
+            const mockEmployeePin = 9090;
+            const mockUpdateShiftData = { 
+              _id: 500, 
+              end_time: 1672251500000 
+            };
+
+            shiftController.clockOut.mockImplementation((req, res, next) => {
+                res.locals.updatedShift = mockUpdateShiftData;
+                return next();
+            });
+
+            const response = await request(app)
+                .put(`/api/shifts/${mockEmployeePin}`)
+                .expect(200)
+                .expect('Content-Type', /application\/json/)
+
+            console.log('response.body', response.body);
+
+            expect(response.status).toBe(200);
+            expect(response.headers['content-type']).toMatch(/application\/json/);
+            expect(response.body).toEqual(mockUpdateShiftData);
+
+        })
+      })
+    })
+
+
   // Testing route to update extras
 });
