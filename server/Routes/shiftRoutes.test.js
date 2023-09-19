@@ -47,6 +47,7 @@ describe('Shift Routes', () => {
               { _id: 456, employee_id: 1, shift_date: '2020-01-02', start_time: 1577932800000, end_time: 1577965200000, tips: 108, reimbursements: 100, tours: 2, doc: 2}
             ];
 
+            // Mock the behavior of employeeController.getOneEmployee and shiftController.getAllShifts
             employeeController.getOneEmployee.mockImplementation((req, res, next) => {
                 res.locals.targetEmployee = mockEmployeeData;
                 return next();
@@ -163,8 +164,6 @@ describe('Shift Routes', () => {
                 .expect(200)
                 .expect('Content-Type', /application\/json/)
 
-            console.log('response.body', response.body);
-
             expect(response.status).toBe(200);
             expect(response.headers['content-type']).toMatch(/application\/json/);
             expect(response.body).toEqual(mockUpdateShiftData);
@@ -175,4 +174,32 @@ describe('Shift Routes', () => {
 
 
   // Testing route to update extras
+  describe('/api/shifts/extras/:pin', () => {
+    describe('PUT', () => {
+      it('responds with a 200 status and updates extras', async () => {
+        const mockEmployeePin = 7777;
+        const mockUpdatedExtras = {
+          shift_id: 253,
+          tips: 100,
+          reimbursements: 0,
+          tours: 5,
+          doc: 0
+        };
+
+        shiftController.updateExtras.mockImplementation((req, res, next) => {
+          res.locals.updatedExtras = mockUpdatedExtras;
+          return next();
+        });
+
+        const response = await request(app)
+                .put(`/api/shifts/extras/${mockEmployeePin}`)
+                .expect(200)
+                .expect('Content-Type', /application\/json/)
+       
+        expect(response.status).toBe(200);
+        expect(response.headers['content-type']).toMatch(/application\/json/);
+        expect(response.body).toEqual(mockUpdatedExtras);
+      })
+    })
+  })
 });
