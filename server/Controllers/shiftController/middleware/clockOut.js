@@ -17,7 +17,14 @@ const clockOut = async (req, res, next) => {
   
   const currentTime = Date.now();
   const input = [shift_id, currentTime];
+  
+  
   try {
+    // check to see if currentTime is 3:59am or after Central Time or before 11am Central Time
+      if (currentTime % 86400000 >= 14340000 || currentTime % 86400000 <= 39600000) {
+        input[1] = currentTime - (currentTime % 86400000) + 14400000;
+      }
+      // we are expecting that any employee who clocks out after 3:59am Central Time will have their end_time set to 3:59am Central Time
     let shiftQuery = 
       'UPDATE shift SET end_time = $2 '
         if(shift_id){
