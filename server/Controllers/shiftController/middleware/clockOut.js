@@ -15,15 +15,16 @@ const db = require(path.resolve(__dirname, '../../../models/employeeModel'));
 const clockOut = async (req, res, next) => {
   const { shift_id } = req.body;
   
-  const currentTime = Date.now();
+  let currentTime = Date.now();
   const input = [shift_id, currentTime];
-  
+
   
   try {
     // check to see if currentTime is 3:59am or after Central Time or before 11am Central Time
-      if (currentTime % 86400000 >= 14340000 || currentTime % 86400000 <= 39600000) {
+      if (currentTime % 86400000 >= 14340000 && currentTime % 86400000 <= 39600000) {
         input[1] = currentTime - (currentTime % 86400000) + 14400000;
       }
+      console.log('shiftController.clockOut: input', input)
       // we are expecting that any employee who clocks out after 3:59am Central Time will have their end_time set to 3:59am Central Time
     let shiftQuery = 
       'UPDATE shift SET end_time = $2 '
