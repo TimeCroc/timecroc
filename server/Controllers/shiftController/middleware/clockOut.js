@@ -10,38 +10,63 @@
  */
 
 const path = require('path');
+const cron = require('node-cron');
 const db = require(path.resolve(__dirname, '../../../models/employeeModel'));
 
-const clockOut = async (req, res, next) => {
-  const { shift_id } = req.body;
-  
+const performClockOut = async (shift_id) => {
   let currentTime = Date.now();
   const input = [shift_id, currentTime];
 
-  
   try {
-    // check to see if currentTime is 3:59am or after Central Time or before 11am Central Time
-      if (currentTime % 86400000 >= 14340000 && currentTime % 86400000 <= 39600000) {
-        input[1] = currentTime - (currentTime % 86400000) + 14400000;
-      }
-      console.log('shiftController.clockOut: input', input)
-      // we are expecting that any employee who clocks out after 3:59am Central Time will have their end_time set to 3:59am Central Time
-    let shiftQuery = 
-      'UPDATE shift SET end_time = $2 '
-        if(shift_id){
-          shiftQuery += `WHERE _id = $1 RETURNING * `;
-        }
+    // Check to see if currentTime is 3:59am Central Time
+    if (currentTime % 86400000 === 14340000) {
+      input[1] = currentTime - (currentTime % 86400000) + 14340000;
+    }
+
+    let shiftQuery = 'UPDATE shift SET end_time = $2 ';
+    if (shift_id) {
+      shiftQuery += 'WHERE _id = $1 RETURNING * ';
+    }
+
     const updatedShift = await db.query(shiftQuery, input);
-    res.locals.updatedShift = updatedShift.rows[0];
-    console.log('shiftController.clockOut: Success', res.locals.updatedShift);
-    return next();
+    console.log('Automatic Clockout Success', updatedShift.rows[0]);
+    return updatedShift.rows[0];
+  } catch (err) {
+    console.log('shiftController.clockOut: ERROR', err);
+    throw err;
   }
-  catch(err) {
+};
+
+const clockOut = async (req, res, next) => {
+  const { shift_id } = req.body;
+
+  if (!shift_id) {
     return next({
       log: 'shiftController.clockOut: ERROR',
-      message: {err: 'Error occurred in shiftController.clockOut'}
+      message: { err: 'Missing shift_id in request body' },
     });
   }
-}
 
-module.exports = clockOut;
+  try {
+    const updatedShift = await performClockOut(shift_id);
+    res.locals.updatedShift = updatedShift;
+    return next();
+  } catch (err) {
+    return next({
+      log: 'shiftController.clockOut: ERROR',
+      message: { err: 'Error occurred in clockOut middleware' },
+    });
+  }
+};
+
+// Schedule the middleware to run every day at 3:59 am Central Time
+cron.schedule('59 3 * * *', async (shift_id) => {
+  console.log('Running automatic clock-out of shift at 3:59 AM Central Time');
+  // Call the performClockOut function here
+  await performClockOut(shift_id);
+}, {
+  scheduled: true,
+  timezone: 'America/Chicago',
+});
+
+module.exports = { clockOut, performClockOut };

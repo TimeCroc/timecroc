@@ -29,6 +29,7 @@
     "express": "^4.12.3",
     "html-webpack-plugin": "^5.5.0",
     "jsonwebtoken": "^9.0.0",
+    "node-cron": "^3.0.2",
     "node-fetch": "^3.3.0",
     "pg": "^8.8.0",
     "pngjs": "^7.0.0",
