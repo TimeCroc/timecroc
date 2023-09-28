@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './AddEmployee.css';
-import { LibraryTemplatePlugin } from 'webpack';
 
 //need to add better validation
 
@@ -21,6 +20,7 @@ type AddEmployeeProps ={
   setAddEmployee: (boolean) => void;
 }
 
+// function to ensure phone number is in valid format
 function cleanPhoneNumber(phone: string): string | null {
     // Step 1: Remove non-numeric characters
     let cleanedNumber = phone.replace(/\D/g, '');
@@ -39,7 +39,7 @@ function cleanPhoneNumber(phone: string): string | null {
       return null; // Numbers starting with '0' are not accepted, return null
       // cleanedNumber = null;
     }
-    // Valid phone number
+    // return the cleaned phone number
     return cleanedNumber;
   }
 
@@ -72,9 +72,7 @@ const AddEmployee = (props: AddEmployeeProps) => {
   //   }
 
   // Update the cleaned phone state when the input value changes
-  // const handlePhoneChange = (value: string) => {
     const handlePhoneChange = (value: string) => {
-    // const numericValue = value.replace(/\D/g, '');
     const cleaned = cleanPhoneNumber(value);
     setPhone(value);
     setCleanedPhone(cleaned);
