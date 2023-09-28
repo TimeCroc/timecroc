@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './AddEmployee.css';
+import { LibraryTemplatePlugin } from 'webpack';
 
 import cleanPhoneNumber from '../../../utils/index'
 
@@ -21,6 +22,28 @@ interface Body {
 type AddEmployeeProps ={
   setAddEmployee: (boolean) => void;
 }
+
+function cleanPhoneNumber(phone: string): string | null {
+    // Step 1: Remove non-numeric characters
+    let cleanedNumber = phone.replace(/\D/g, '');
+    // Step 2: Check the length
+    if (cleanedNumber.length < 10 || cleanedNumber.length > 11) {
+      return null; // Invalid length, return null
+      // cleanedNumber = null;
+    }
+    // Step 3: Remove an initial '1' from an 11-digit number
+    if (cleanedNumber.length === 11 && cleanedNumber[0] === '1') {
+      return cleanedNumber.substring(1);
+      // cleanedNumber = cleanedNumber.substring(1);
+    }
+    // Step 4: Don't accept numbers that start with '0'
+    if (cleanedNumber[0] === '0' || cleanedNumber[0] === '1') {
+      return null; // Numbers starting with '0' are not accepted, return null
+      // cleanedNumber = null;
+    }
+    // Valid phone number
+    return cleanedNumber;
+  }
 
 const AddEmployee = (props: AddEmployeeProps) => {
   const [ pin, setPin ] = useState<number>(0);
@@ -54,10 +77,12 @@ const AddEmployee = (props: AddEmployeeProps) => {
   // Update the cleaned phone state when the input value changes
   // const handlePhoneChange = (value: string) => {
     const handlePhoneChange = (value: string) => {
-    const numericValue = value.replace(/\D/g, '');
-    setCleanedPhone(numericValue);
+    // const numericValue = value.replace(/\D/g, '');
+    const cleaned = cleanPhoneNumber(value);
+    setPhone(value);
+    setCleanedPhone(cleaned);
+    console.log('cleaned:', cleaned)
   };
-
 
     // This syntax, replacing the above, prevented an error from occurring in employeeController middleware.  
     const handleSubmit2 = (event: React.FormEvent<HTMLFormElement>) => {
