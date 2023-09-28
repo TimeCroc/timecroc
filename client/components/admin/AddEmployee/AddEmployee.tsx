@@ -12,7 +12,7 @@ interface Body {
   pin: number
   first_name: string
   last_name: string
-  phone: number
+  phone: string
   email: string
   hourly_rate: number
 }
@@ -24,7 +24,8 @@ const AddEmployee = (props: AddEmployeeProps) => {
   const [ pin, setPin ] = useState<number>(0);
   const [ first_name, setFirstName ] = useState<string>('');
   const [last_name, setLastName ] = useState<string>('');
-  const [phone, setPhone ] = useState<number>(0);
+  const [phone, setPhone ] = useState<string>('');
+  const [cleanedPhone, setCleanedPhone] = useState<string>(''); //cleaned phone number
   const [email, setEmail] = useState<string>('');
   const [hourly_rate, setHourlyRate] = useState<number>(0);
   const [validated, setValidated] = useState<boolean>(false);
@@ -35,7 +36,7 @@ const AddEmployee = (props: AddEmployeeProps) => {
     pin: pin,
     first_name: first_name,
     last_name: last_name,
-    phone: phone,
+    phone: cleanedPhone,
     email: email,
     hourly_rate: hourly_rate
   };
@@ -46,6 +47,14 @@ const AddEmployee = (props: AddEmployeeProps) => {
   //     event.preventDefault();
   //     event.stopPropagation();
   //   }
+
+  // Update the cleaned phone state when the input value changes
+  // const handlePhoneChange = (value: string) => {
+    const handlePhoneChange = (value: string) => {
+    const numericValue = value.replace(/\D/g, '');
+    setCleanedPhone(numericValue);
+  };
+
 
     // This syntax, replacing the above, prevented an error from occurring in employeeController middleware.  
     const handleSubmit2 = (event: React.FormEvent<HTMLFormElement>) => {
@@ -119,7 +128,7 @@ const AddEmployee = (props: AddEmployeeProps) => {
           <Row className="mb-3">
             <Form.Group as={Col} md="6" controlId="validationCustom03">
               <Form.Label>Phone</Form.Label>
-              <Form.Control type="text" placeholder="Phone" required onChange={e => setPhone(Number(e.target.value))}/>
+              <Form.Control type="text" placeholder="Phone" required onChange={e => handlePhoneChange(e.target.value)} value={cleanedPhone}/>
               <Form.Control.Feedback type="invalid">
                 Please provide a valid phone.
               </Form.Control.Feedback>
