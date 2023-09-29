@@ -64,14 +64,7 @@ const AddEmployee = (props: AddEmployeeProps) => {
     hourly_rate: hourly_rate
   };
 
-  // const handleSubmit2 = (event: React.FormEvent<HTMLFormElement>) => {
-  //   const form = event.currentTarget;
-  //   if (form.checkValidity() === false) {
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //   }
-
-  // Update the cleaned phone state when the input value changes
+   // Update the cleaned phone state when the input value changes
     const handlePhoneChange = (value: string) => {
     const cleaned = cleanPhoneNumber(value);
     setPhone(value);
@@ -85,23 +78,39 @@ const AddEmployee = (props: AddEmployeeProps) => {
       event.stopPropagation();
     
       const form = event.currentTarget;
-      if (form.checkValidity() === false) {
+      // console.log('form.checkValidity():', form.checkValidity()) // expect true
+      // if (form.checkValidity() === false) {
+      //   if (cleanedPhone === null) {
+      //     window.alert('you entered the wrong number, dummy!')
+      //   }
+      //   return;
+      // }
+
+      // send a window.alert() if the phone number is invalid
+      if (cleanedPhone === null) {
+        window.alert('you entered the wrong number, dummy!');
+        console.log('form.checkValidity():', form.checkValidity()) // expect false
+        setValidated(false);
+        console.log(validated, 'validated');
+        // setPhone('');
+        // setCleanedPhone('');
         return;
+      } else {
+        // put the fetch inside an else statement?
+        fetch('/api/employees', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        })
+        .then(res => res.json())
+        .then(data => console.log('data:', data))
+        .catch(err => {
+          console.log('error:', err)
+          setValidated(false)
+        });
+  
+        setValidated(true);
       }
-
-    fetch('/api/employees', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    })
-    .then(res => res.json())
-    .then(data => console.log('data:', data))
-    .catch(err => {
-      console.log('error:', err)
-      setValidated(false)
-    });
-
-    setValidated(true);
   }
 
   if(validated){
