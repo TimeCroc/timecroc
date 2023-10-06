@@ -29,6 +29,7 @@ function cleanPhoneNumber(phone: string): string | null {
     // Step 2: Check the length
     if (cleanedNumber.length < 10 || cleanedNumber.length > 11) {
       return null; // Invalid length, return null
+      //break?
       // cleanedNumber = null;
     }
     // Step 3: Remove an initial '1' from an 11-digit number
@@ -39,6 +40,7 @@ function cleanPhoneNumber(phone: string): string | null {
     // Step 4: Don't accept numbers that start with '0'
     if (cleanedNumber[0] === '0' || cleanedNumber[0] === '1') {
       return null; // Numbers starting with '0' are not accepted, return null
+      //break?
       // cleanedNumber = null;
     }
     // return the cleaned phone number
