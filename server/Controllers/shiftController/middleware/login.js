@@ -11,6 +11,9 @@
 
 const path = require('path');
 const db = require(path.resolve(__dirname, '../../../models/employeeModel'));
+// require employeeManager
+// const employeeManager = require('./modules/employeeManager')
+
 
 const login = async (req, res, next) => {
   const { _id } = res.locals.targetEmployee;
@@ -27,6 +30,23 @@ const login = async (req, res, next) => {
     const newShift = await db.query(shiftQuery, input);
     res.locals.newShift = newShift.rows[0];
     console.log('shiftController.login: Success', res.locals.newShift);
+    
+    // need to destructure desired propertires from res.locals.newShift
+    const currentEmployeeData = {
+      pin: res.locals.targetEmployee.pin,
+      firstName: res.locals.targetEmployee.first_name,
+      lastName: res.locals.targetEmployee.last_name,
+      shiftId: res.locals.newShift._id,
+    };
+
+    console.log(currentEmployeeData, 'currentEmployeeData');
+
+    // IDEA: add currentEmployeeData to sessionManager and store in the array as an object
+    // sessionManager.addSession(currentEmployeeData);
+
+    // call employeeManager to update employee's status to 'clocked in'
+    // const addedEmployee = await employeeManager()
+
     return next();
   }
   catch(err) {
