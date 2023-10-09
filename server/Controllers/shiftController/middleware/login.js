@@ -12,7 +12,7 @@
 const path = require('path');
 const db = require(path.resolve(__dirname, '../../../models/employeeModel'));
 // require employeeManager
-// const employeeManager = require('./modules/employeeManager')
+const employeeManager = require('../../modules/employeeManager');
 
 
 const login = async (req, res, next) => {
@@ -42,10 +42,7 @@ const login = async (req, res, next) => {
     console.log(currentEmployeeData, 'currentEmployeeData');
 
     // IDEA: add currentEmployeeData to sessionManager and store in the array as an object
-    // sessionManager.addSession(currentEmployeeData);
-
-    // call employeeManager to update employee's status to 'clocked in'
-    // const addedEmployee = await employeeManager()
+    employeeManager.addActiveEmployee(currentEmployeeData);
 
     return next();
   }

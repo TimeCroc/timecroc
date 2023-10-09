@@ -13,12 +13,13 @@ class EmployeeManager extends EventEmitter {
   //   this.emit('employeeAdded', employeeData);
   // }
 
-  async addSession(employeeData) {
+  async addActiveEmployee(employeeData) {
     return new Promise((resolve, reject) => {
       // Your asynchronous logic here
       // Resolve or reject the promise based on the result
       this.activeEmployees.push(employeeData);
       this.emit('employeeAdded', employeeData);
+      console.log('employeeManager.addSession: Success', employeeData);
       resolve(); // Example: Resolve without any value if successful
     });
   }
@@ -31,7 +32,7 @@ class EmployeeManager extends EventEmitter {
   //   }
   // }
 
-  async removeSession(pin) {
+  async removeActiveEmployee(pin) {
     return new Promise((resolve, reject) => {
       // Your asynchronous logic here
       // Resolve or reject the promise based on the result
