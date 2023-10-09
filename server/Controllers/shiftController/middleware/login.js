@@ -11,6 +11,7 @@
 
 const path = require('path');
 const db = require(path.resolve(__dirname, '../../../models/employeeModel'));
+
 // require employeeManager
 const employeeManager = require('../../modules/employeeManager');
 
@@ -31,17 +32,14 @@ const login = async (req, res, next) => {
     res.locals.newShift = newShift.rows[0];
     console.log('shiftController.login: Success', res.locals.newShift);
     
-    // need to destructure desired propertires from res.locals.newShift
+    // assign shiftId key the value from res.locals.newShift
     const currentEmployeeData = {
-      pin: res.locals.targetEmployee.pin,
-      firstName: res.locals.targetEmployee.first_name,
-      lastName: res.locals.targetEmployee.last_name,
       shiftId: res.locals.newShift._id,
     };
 
     console.log(currentEmployeeData, 'currentEmployeeData');
 
-    // IDEA: add currentEmployeeData to sessionManager and store in the array as an object
+    // add currentEmployeeData to sessionManager and store in the array as an object
     employeeManager.addActiveEmployee(currentEmployeeData);
 
     return next();

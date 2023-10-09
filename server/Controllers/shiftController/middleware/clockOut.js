@@ -12,6 +12,9 @@
 const path = require('path');
 const db = require(path.resolve(__dirname, '../../../models/employeeModel'));
 
+// require employeeManager
+const employeeManager = require('../../modules/employeeManager');
+
 const clockOut = async (req, res, next) => {
   const { shift_id } = req.body;
   
@@ -26,6 +29,19 @@ const clockOut = async (req, res, next) => {
     const updatedShift = await db.query(shiftQuery, input);
     res.locals.updatedShift = updatedShift.rows[0];
     console.log('shiftController.clockOut: Success', res.locals.updatedShift);
+
+    // assign shiftId key the value from res.locals.updatedShift
+    const currentEmployeeData = {
+      shiftId: res.locals.updatedShift._id,
+    };
+
+    console.log(currentEmployeeData, 'currentEmployeeData in clockOut');
+    console.log('current contents of activeEmployees array', employeeManager.activeEmployees);
+
+    // remove currentEmployeeData from sessionManager and remove from the array
+    employeeManager.removeActiveEmployee(currentEmployeeData);
+    console.log('contents of activeEmployees array after calling .removeActiveEmployee', employeeManager.activeEmployees, 'expecting empty array');
+
     return next();
   }
   catch(err) {
