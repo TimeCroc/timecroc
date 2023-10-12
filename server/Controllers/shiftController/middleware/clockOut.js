@@ -21,6 +21,7 @@ const clockOut = async (req, res, next) => {
   const currentTime = Date.now();
   const input = [shift_id, currentTime];
   try {
+    console.log('inside the try block of clockOut.js')
     let shiftQuery = 
       'UPDATE shift SET end_time = $2 '
         if(shift_id){
@@ -40,7 +41,10 @@ const clockOut = async (req, res, next) => {
 
     // remove currentEmployeeData from sessionManager and remove from the array
     employeeManager.removeActiveEmployee(currentEmployeeData);
-    console.log('contents of activeEmployees array after calling .removeActiveEmployee', employeeManager.activeEmployees, 'expecting empty array');
+    
+    const employees = await employeeManager.getActiveEmployees();
+    console.log('contents of activeEmployees array after calling .removeActiveEmployee', employees);
+
 
     return next();
   }

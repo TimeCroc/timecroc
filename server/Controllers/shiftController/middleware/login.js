@@ -23,6 +23,7 @@ const login = async (req, res, next) => {
   const input = [_id, today, currentTime];
   console.log('input', input)
   try {
+    console.log('inside the try block of login.js')
     let shiftQuery = 
       ' INSERT INTO shift (\
         employee_id, shift_date, start_time\
@@ -41,6 +42,10 @@ const login = async (req, res, next) => {
 
     // add currentEmployeeData to sessionManager and store in the array as an object
     employeeManager.addActiveEmployee(currentEmployeeData);
+
+    const employees = await employeeManager.getActiveEmployees();
+
+    console.log('contents of activeEmployees array after calling .addActiveEmployee', employees, 'expecting array of objects with shiftId key');
 
     return next();
   }

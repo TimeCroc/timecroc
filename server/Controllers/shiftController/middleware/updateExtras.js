@@ -16,6 +16,7 @@ const updateExtras = async (req, res, next) => {
   const { shift_id, tips, tours, reimbursements, doc } = req.body;
   const input = [shift_id, tips, reimbursements, tours, doc];
   try{
+    console.log('inside the try block of updateExtras.js')
     let shiftQuery = 
       'UPDATE shift SET tips = $2, reimbursements = $3, tours = $4, doc = $5 '
         if(shift_id){

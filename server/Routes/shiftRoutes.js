@@ -9,9 +9,12 @@ shiftRouter.get('/timesheet/:pin', employeeController.getOneEmployee, shiftContr
 });
 
 //gets current shift info/status from PinPad component 
-shiftRouter.get('/:pin', employeeController.getOneEmployee, shiftController.findShift, (req, res) => {
-  return res.status(200).json(res.locals);
-});
+shiftRouter.get('/:pin', 
+  employeeController.getOneEmployee, 
+  shiftController.findShift, 
+  (req, res) => {
+    return res.status(200).json(res.locals);
+  });
 
 // POST route starts a new shift
 shiftRouter.post('/:pin', employeeController.getOneEmployee, shiftController.login, (req, res) => {
