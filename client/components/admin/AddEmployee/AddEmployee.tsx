@@ -88,11 +88,11 @@ const AddEmployee = (props: AddEmployeeProps) => {
         // console.log('form.checkValidity():', form.checkValidity()) // expect false
         setValidated(false);
         console.log(validated, 'validated');
+        // We changed the logic of resetting the value back to '' in order to enhance UX
         // setPhone('');
         // setCleanedPhone('');
         return;
       } else {
-        // put the fetch inside an else statement?
         fetch('/api/employees', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

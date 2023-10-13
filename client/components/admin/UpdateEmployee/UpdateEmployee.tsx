@@ -17,6 +17,32 @@ interface EmployeeProps {
   },
 }
 
+// function to ensure phone number is in valid format
+function cleanPhoneNumber(phone: string): string | null {
+  // Step 1: Remove non-numeric characters
+  let cleanedNumber = phone.replace(/\D/g, '');
+
+  let isValidPhoneNumber = true;
+  // Step 2: Check the length
+  if (cleanedNumber.length < 10 || cleanedNumber.length > 11) {
+    isValidPhoneNumber = false;
+  }
+  // Step 3: Remove an initial '1' from an 11-digit number
+  if (cleanedNumber.length === 11 && cleanedNumber[0] === '1') {
+    cleanedNumber = cleanedNumber.substring(1);
+  }
+  // Step 4: Check for an 11-digit number where the first digit is not '1'
+  if (cleanedNumber.length === 11 && cleanedNumber[0] !== '1') {
+    isValidPhoneNumber = false;
+  }
+  // Step 5: Don't accept numbers that start with '0'
+  if (cleanedNumber[0] === '0' || cleanedNumber[0] === '1') {
+    isValidPhoneNumber = false;
+  }
+  // return the cleaned phone number
+  return isValidPhoneNumber ? cleanedNumber : null;
+}
+
 const UpdateEmployee: React.FC<EmployeeProps> = ({ list }: EmployeeProps) => {
   const { pin, first_name, last_name, phone, email, hourly_rate } = list;
 
@@ -24,6 +50,7 @@ const UpdateEmployee: React.FC<EmployeeProps> = ({ list }: EmployeeProps) => {
   const [firstName, setFirstName] = useState<string>(first_name);
   const [lastName, setLastName] = useState<string>(last_name);
   const [updatedPhone, setPhone] = useState<string>(phone);
+  const [updatedCleanedPhone, setCleanedPhone] = useState<string | null>(''); // This is the cleaned phone number
   const [updatedEmail, setUpdatedEmail] = useState<string>(email);
   const [hourlyRate, setHourlyRate] = useState<string>(hourly_rate);
   const [clicked, setClicked] = useState<boolean>(false);
@@ -33,29 +60,52 @@ const UpdateEmployee: React.FC<EmployeeProps> = ({ list }: EmployeeProps) => {
     pin: updatedPin,
     first_name: firstName,
     last_name: lastName,
-    phone: updatedPhone,
+    phone: updatedCleanedPhone,
     email: updatedEmail,
     hourly_rate: hourlyRate
   };
 
-  function handleSubmit (){
-    fetch(`/api/employees/${pin}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    })
-    .then(res => res.json())
-    .then(data => {
-      //console.log(data);
-    })
-    .catch(err => console.log('error:', err));
+     // Update the cleaned phone state when the input value changes
+     const handlePhoneChange = (value: string) => {
+      const cleaned = cleanPhoneNumber(value);
+      setPhone(value);
+      setCleanedPhone(cleaned);
+      console.log('cleaned:', cleaned)
+    };
 
-    setValidated(true);
-  }
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-  function handleClick(){
-    setClicked(true);
+    const form = event.currentTarget;
+
+    // send a window.alert() if the phone number is invalid
+    if (updatedCleanedPhone === null) {
+      window.alert('Please enter a valid phone number');
+      setValidated(false);
+      console.log(validated, 'validated');
+      return;
+    } else {
+      fetch(`/api/employees/${pin}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      .then(res => res.json())
+      .then(data => console.log('data:', data))
+      .catch(err => {
+        console.log('error:', err)
+        setValidated(false)
+      });
+
+      setValidated(true);
+    }
   }
+    
+    function handleClick(){
+      setClicked(true);
+    }
+    
 
   if(validated){
     return (
@@ -116,7 +166,7 @@ const UpdateEmployee: React.FC<EmployeeProps> = ({ list }: EmployeeProps) => {
           <Row className="mb-3">
             <Form.Group as={Col} md="6" controlId="validationCustom03">
               <Form.Label>Phone</Form.Label>
-              <Form.Control type="text" placeholder={phone} value={updatedPhone} required onChange={e => setPhone(e.target.value)}/>
+              <Form.Control type="text" placeholder={phone}  required onChange={e => handlePhoneChange(e.target.value)} value={updatedPhone}/>
               <Form.Control.Feedback type="invalid">
                 Please provide a valid phone.
               </Form.Control.Feedback>
