@@ -5,6 +5,7 @@ const pool = new Pool({
 });
 
 // updated syntax for employeeModel to prevent leaks, and fixing the server crash
+
 module.exports = {
   query: async (text, params, callback) => {
     try {  
