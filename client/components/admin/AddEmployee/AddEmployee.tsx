@@ -51,6 +51,14 @@ const AddEmployee = (props: AddEmployeeProps) => {
     console.log('cleaned:', cleaned)
   };
 
+  // Update the cleaned phone state when the input value changes
+  // const handlePhoneChange = (value: string) => {
+    const handlePhoneChange = (value: string) => {
+    const numericValue = value.replace(/\D/g, '');
+    setCleanedPhone(numericValue);
+  };
+
+
     // This syntax, replacing the above, prevented an error from occurring in employeeController middleware.  
     const handleSubmit2 = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
