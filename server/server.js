@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const employeeRouter = require('./Routes/employeeRoutes');
 const shiftRouter = require('./Routes/shiftRoutes');
 const adminRouter = require('./Routes/adminRoutes');
+const { autoClockOut } = require('./Controllers/shiftController');
 
 const PORT = process.env.PORT || 3000;
 
@@ -59,5 +60,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, ()=> {console.log(`Listening on port ${PORT}...`);});
+
+autoClockOut();
 
 module.exports = app;
