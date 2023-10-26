@@ -60,7 +60,7 @@ const AddEmployee = (props: AddEmployeeProps) => {
   
       // send a window.alert() if the phone number is invalid
       if (cleanedPhone === null) {
-        window.alert('you entered the wrong number, dummy!');
+        window.alert('You have entered an invalid phone number: please check your input and try again.');
         // console.log('form.checkValidity():', form.checkValidity()) // expect false
         setValidated(false);
         console.log(validated, 'validated');
