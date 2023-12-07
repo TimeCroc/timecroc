@@ -31,6 +31,7 @@ const AddEmployee = (props: AddEmployeeProps) => {
   const [email, setEmail] = useState<string>('');
   const [hourly_rate, setHourlyRate] = useState<number>(0);
   const [validated, setValidated] = useState<boolean>(false);
+  const [phoneError, setPhoneError] = useState<string>('');
 
   const { setAddEmployee } = props;
 
@@ -49,6 +50,15 @@ const AddEmployee = (props: AddEmployeeProps) => {
     setPhone(value);
     setCleanedPhone(cleaned);
     console.log('cleaned:', cleaned)
+
+    // check if cleaned === null, if so, setPhoneError to 'message'
+    if (cleaned === null) {
+      setPhoneError('You have entered an invalid phone number: please check your input and try again.');
+    }
+    // else setPhoneError to ''
+    else {
+      setPhoneError('');
+    }
   };
 
    // This syntax, replacing the above, prevented an error from occurring in employeeController middleware.  
@@ -59,14 +69,9 @@ const AddEmployee = (props: AddEmployeeProps) => {
       const form = event.currentTarget;
   
       // send a window.alert() if the phone number is invalid
-      if (cleanedPhone === null) {
-        window.alert('You have entered an invalid phone number: please check your input and try again.');
-        // console.log('form.checkValidity():', form.checkValidity()) // expect false
+      if (phoneError) {
+        // if phoneError is truthy, then the phone number is invalid.  Prevent form submission.
         setValidated(false);
-        console.log(validated, 'validated');
-        // We changed the logic of resetting the value back to '' in order to enhance UX
-        // setPhone('');
-        // setCleanedPhone('');
         return;
       } else {
         fetch('/api/employees', {
@@ -132,7 +137,7 @@ const AddEmployee = (props: AddEmployeeProps) => {
           <Row className="mb-3">
             <Form.Group as={Col} md="6" controlId="validationCustom03">
               <Form.Label>Phone</Form.Label>
-              <Form.Control type="text" placeholder="Phone" required onChange={e => handlePhoneChange(e.target.value)} value={phone}/>
+              <Form.Control type="text" placeholder="Phone" required onChange={e => handlePhoneChange(e.target.value)} value={phone} isInvalid={!!phoneError}/>
               <Form.Control.Feedback type="invalid">
                 Please provide a valid phone.
               </Form.Control.Feedback>
