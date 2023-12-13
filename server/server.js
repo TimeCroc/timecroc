@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const employeeRouter = require('./Routes/employeeRoutes');
 const shiftRouter = require('./Routes/shiftRoutes');
 const adminRouter = require('./Routes/adminRoutes');
+const payPeriodRouter = require('./Routes/payPeriodRoutes');
 const { autoClockOut } = require('./Controllers/shiftController');
 
 const PORT = process.env.PORT || 3000;
@@ -43,6 +44,8 @@ app.use('/api/employees', employeeRouter);
 app.use('/api/shifts', shiftRouter);
 
 app.use('/api/admin', adminRouter);
+
+app.use('/api/payPeriod', payPeriodRouter);
 
 app.use('*', (req, res) => {
  return res.status(404).send('Page Not Found');

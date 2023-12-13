@@ -34,6 +34,8 @@ const App = () => {
   const [endTime, setEndTime] = useState(null);
   const [startTime, setStartTime] = useState('');
 
+  const [payPeriod, setPayPeriod] = useState(null);
+
   //state for clockout
   const [extrasView, setExtrasView] = useState('unset');
   const [tips, setTips] = useState(currentShift.tips);
@@ -85,6 +87,27 @@ const App = () => {
       });
     setIsAdminLoggedIn(false);
   };
+
+  useEffect(() => {
+    // Fetch and calculate payPeriod
+    const fetchPayPeriod = async () => {
+      try {
+        const response = await fetch('/api/payPeriod');
+        const data = await response.json();
+        // Ensure that the response has the expected structure
+        if (data && data.calculatePayPeriod) {
+          setPayPeriod(data.calculatePayPeriod);
+          console.log('data.calculatePayPeriod', data.calculatePayPeriod)
+        } else {
+          console.log('Unexpected payPeriod response:', data);
+        }
+      } catch (error) {
+        console.log('Error fetching payPeriod:', error);
+      }
+    };
+  
+    fetchPayPeriod();
+  }, []);
 
   return (
     <div className='body'>
@@ -179,6 +202,7 @@ const App = () => {
             <Timesheet
               timesheet={timesheet}
               currentEmployee={currentEmployee}
+              payPeriod={payPeriod}
             />
           }
         />
