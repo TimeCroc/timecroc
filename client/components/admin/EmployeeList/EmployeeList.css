@@ -2,3 +2,8 @@
   height: 60px;
   margin: 20px;
 }
+
+.employee-list-container{
+  width: 80%;
+  margin-right: 40px;
+}
