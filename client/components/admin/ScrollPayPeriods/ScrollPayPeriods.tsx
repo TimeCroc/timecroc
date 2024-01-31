@@ -57,7 +57,7 @@ const ScrollPayPeriods = (props: ScrollPayPeriodProps) => {
           }
         }>{item.displayStartDate} - {item.displayEndDate}</button>
       </li>
-    });
+    }).reverse();
 
   return(
     <div className='scroll'>
