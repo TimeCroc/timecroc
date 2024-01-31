@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import './PreviousPayPeriod.css'
 import AdminDashboard from '../AdminDashboard/AdminDashboard'
 import ScrollPayPeriods from '../ScrollPayPeriods/ScrollPayPeriods';
+import PayPeriodDisplay from "../PayPeriodDisplay/PayPeriodDisplay";
 
 type PreviousPayPeriodProps = {
     employeeList: [],
@@ -21,10 +22,9 @@ const PreviousPayPeriod = (props: PreviousPayPeriodProps) => {
           <button onClick={()=> setDisplayScroll(true)}>Select Pay Period</button>
           {displayScroll && (<ScrollPayPeriods setDisplayScroll={setDisplayScroll} setPayPeriodStart={setPayPeriodStart} setPayPeriodEnd={setPayPeriodEnd}/> )}
           <button>Open EditShift component</button>
-          <div className='pay-period-display-placeholder'>
-            <h2>PayPeriodDisplay component should display data for:</h2>
-            {payPeriodStart} - {payPeriodEnd}
-          </div>
+
+          <PayPeriodDisplay payPeriodEnd={payPeriodEnd} payPeriodStart={payPeriodStart} />
+
         </div>
       </div>
   )

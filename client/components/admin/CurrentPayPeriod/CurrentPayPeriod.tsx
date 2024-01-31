@@ -1,13 +1,20 @@
 import React from "react";
-import './CurrentPayPeriod.css'
-import AdminDashboard from '../AdminDashboard/AdminDashboard'
+import './CurrentPayPeriod.css';
+import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import PayPeriodDisplay from '../PayPeriodDisplay/PayPeriodDisplay';
 
 type PreviousPayPeriodProps = {
     employeeList: [],
-    isAdminLoggedIn: boolean
+    isAdminLoggedIn: boolean,
+    payPeriodStart: string,
+    payPeriodEnd: string
 };
 
 const CurrentPayPeriod = (props: PreviousPayPeriodProps) => {
+
+  //logic to determine which date today is
+  //make call to new backend endpoint
+    //getCurrentPayPeriod will accept a date and return the two week date range it falls into. 
 
   return (
       <div className="page-container">
@@ -15,7 +22,7 @@ const CurrentPayPeriod = (props: PreviousPayPeriodProps) => {
         <div className="previous-pay-period-container">
           <h1>Current Pay Period Page!</h1>
           <button>Open EditShift component</button>
-          <h2 style={{border: 'solid 1px red'}}>Replace with PayPeriodDisplay component</h2>
+          <PayPeriodDisplay payPeriodStart={'Replace Start'} payPeriodEnd={'Replace End'} />
         </div>
     </div>
   )
