@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Table from 'react-bootstrap/Table';
+import EditShift from '../EditShift/EditShift';
+import Button from 'react-bootstrap/Button';
 
 interface PayPeriodDisplayProps {
   payPeriodStart: string,
@@ -18,6 +20,7 @@ interface Employee {
 
 const PayPeriodDisplay = (props: PayPeriodDisplayProps) => {
   const [employees, setEmployees] = useState<Employee[]>([])
+  const [editshift, setEditShift] = useState(false);
   const { payPeriodStart, payPeriodEnd } = props;
 
   useEffect(() => {
@@ -39,6 +42,10 @@ const PayPeriodDisplay = (props: PayPeriodDisplayProps) => {
       <td>doc</td>
       <td>extra</td>
       <td>hours</td>
+      <td>
+      <Button onClick={()=> setEditShift(true)}>Edit Shift</Button>
+          {editshift && <EditShift setEditShift={setEditShift}/>}
+      </td>
       </tr>
     });
 

@@ -4,7 +4,8 @@ import UpdateEmployee from '../UpdateEmployee/UpdateEmployee';
 import AddEmployee from '../AddEmployee/AddEmployee';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import './EmployeeList.css'
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
+
 
 interface Employee {
   _id: string;
@@ -51,7 +52,7 @@ return (
 
     <div className='employee-list-container'>
     <div>
-      <button className='add-employee-btn'onClick={()=> setAddEmployee(true)}>Add Employee</button>
+      <Button className='add-employee-btn'onClick={()=> setAddEmployee(true)}>Add Employee</Button>
         {addEmployee && (
           <AddEmployee setAddEmployee={setAddEmployee}/>
         )}

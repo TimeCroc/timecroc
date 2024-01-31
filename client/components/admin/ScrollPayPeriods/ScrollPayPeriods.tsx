@@ -1,6 +1,6 @@
 import react, {Dispatch, SetStateAction} from 'react';
 import './ScrollPayPeriods.css'
-
+import Button from 'react-bootstrap/Button';
 
 type ScrollPayPeriodProps = {
   displayScroll?: boolean;
@@ -61,7 +61,7 @@ const ScrollPayPeriods = (props: ScrollPayPeriodProps) => {
 
   return(
     <div className='scroll'>
-      <button onClick={()=>{props.setDisplayScroll(false)}}>close</button>
+      <Button variant="danger" onClick={()=>{props.setDisplayScroll(false)}}>close</Button>
       <ul>
        {display}
       </ul>
