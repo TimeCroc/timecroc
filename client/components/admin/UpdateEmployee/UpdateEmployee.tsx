@@ -6,6 +6,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './UpdateEmployee.css';
 
+import cleanPhoneNumber from '../../../utils/index'
+
 interface EmployeeProps {
   list: {
     pin: string
@@ -24,38 +26,72 @@ const UpdateEmployee: React.FC<EmployeeProps> = ({ list }: EmployeeProps) => {
   const [firstName, setFirstName] = useState<string>(first_name);
   const [lastName, setLastName] = useState<string>(last_name);
   const [updatedPhone, setPhone] = useState<string>(phone);
+  const [updatedCleanedPhone, setCleanedPhone] = useState<string | null>(''); // This is the cleaned phone number
   const [updatedEmail, setUpdatedEmail] = useState<string>(email);
   const [hourlyRate, setHourlyRate] = useState<string>(hourly_rate);
   const [clicked, setClicked] = useState<boolean>(false);
   const [validated, setValidated] = useState<boolean>(false);
+  const [phoneError, setPhoneError] = useState<string>('');
 
   const body = {
     pin: updatedPin,
     first_name: firstName,
     last_name: lastName,
-    phone: updatedPhone,
+    phone: updatedCleanedPhone,
     email: updatedEmail,
     hourly_rate: hourlyRate
   };
 
-  function handleSubmit (){
-    fetch(`/api/employees/${pin}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    })
-    .then(res => res.json())
-    .then(data => {
-      //console.log(data);
-    })
-    .catch(err => console.log('error:', err));
+     // Update the cleaned phone state when the input value changes
+     const handlePhoneChange = (value: string) => {
+      const cleaned = cleanPhoneNumber(value);
+      setPhone(value);
+      setCleanedPhone(cleaned);
+      console.log('cleaned:', cleaned)
+      // check if cleaned === null, if so, setPhoneError to 'message'
+      if (cleaned === null) {
+        setPhoneError('You have entered an invalid phone number: please check your input and try again.');
+      }
+      // else setPhoneError to ''
+      else {
+        setPhoneError('');
+      }
+    };
 
-    setValidated(true);
-  }
 
-  function handleClick(){
-    setClicked(true);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const form = event.currentTarget;
+
+    // send a window.alert() if the phone number is invalid
+    // send a window.alert() if the phone number is invalid
+    if (phoneError) {
+      // if phoneError is truthy, then the phone number is invalid.  Prevent form submission.
+      setValidated(false);
+      return;
+    } else {
+      fetch(`/api/employees/${pin}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      .then(res => res.json())
+      .then(data => console.log('data:', data))
+      .catch(err => {
+        console.log('error:', err)
+        setValidated(false)
+      });
+
+      setValidated(true);
+    }
   }
+    
+    function handleClick(){
+      setClicked(true);
+    }
+    
 
   if(validated){
     return (
@@ -116,7 +152,7 @@ const UpdateEmployee: React.FC<EmployeeProps> = ({ list }: EmployeeProps) => {
           <Row className="mb-3">
             <Form.Group as={Col} md="6" controlId="validationCustom03">
               <Form.Label>Phone</Form.Label>
-              <Form.Control type="text" placeholder={phone} value={updatedPhone} required onChange={e => setPhone(e.target.value)}/>
+              <Form.Control type="text" placeholder={phone}  required onChange={e => handlePhoneChange(e.target.value)} value={updatedPhone} isInvalid={!!phoneError}/>
               <Form.Control.Feedback type="invalid">
                 Please provide a valid phone.
               </Form.Control.Feedback>

@@ -16,6 +16,7 @@ const login = require('./middleware/login');
 const updateExtras = require('./middleware/updateExtras');
 const clockOut = require('./middleware/clockOut');
 const deleteShift = require('./middleware/deleteShift');
+const autoClockOut = require('./middleware/autoClockOut');
 
 module.exports = {
   getAllShifts,
@@ -23,5 +24,6 @@ module.exports = {
   login,
   updateExtras,
   clockOut,
-  deleteShift
+  deleteShift,
+  autoClockOut
 };

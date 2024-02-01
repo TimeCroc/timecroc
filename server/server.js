@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const employeeRouter = require('./Routes/employeeRoutes');
 const shiftRouter = require('./Routes/shiftRoutes');
 const adminRouter = require('./Routes/adminRoutes');
+const { autoClockOut } = require('./Controllers/shiftController');
 
 const PORT = process.env.PORT || 3000;
 
@@ -50,7 +51,8 @@ app.use('*', (req, res) => {
 app.use((err, req, res, next) => {
  const defaultError = {
    log: 'Error handler caught unknown middleware error',
-   status: 400,
+  //  changed status to 500 to reflect server error
+   status: 500,
    message: {err: 'An error occured'}
  }
  const errorObj = Object.assign({}, defaultError, err);
@@ -59,28 +61,6 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, ()=> {console.log(`Listening on port ${PORT}...`);});
 
+autoClockOut();
+
 module.exports = app;
-
-
-
-
-
-
-
-
-
-
-// const express = require('express'),
-//       path    = require('path'),
-//       route   = require('./route.js'),
-//       app     = express(),
-//       port    = process.env.PORT || 3000;
-      
-// app.use(express.static(path.resolve(__dirname, '../client/build')));
-
-// route(app);
-
-// app.listen(port);
-
-// console.log(`API server is listening on port:${port}`);
-

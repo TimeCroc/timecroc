@@ -4,10 +4,13 @@ const pool = new Pool({
   connectionString: PG_URI,
 });
 
+// updated syntax for adminModel to prevent leaks, and fixing the server crash
 module.exports = {
   query: async (text, params, callback) => {
-    try{  
+    try {  
+      const client = await pool.connect();
       const result = await pool.query(text, params, callback);
+      client.release();
       return result;
     }
     catch(e){
