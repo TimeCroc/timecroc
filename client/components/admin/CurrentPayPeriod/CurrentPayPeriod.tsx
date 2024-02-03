@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import './CurrentPayPeriod.css';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import PayPeriodDisplay from '../PayPeriodDisplay/PayPeriodDisplay';
-import EditShift from '../EditShift/EditShift';
 
 type PreviousPayPeriodProps = {
     employeeList: [],

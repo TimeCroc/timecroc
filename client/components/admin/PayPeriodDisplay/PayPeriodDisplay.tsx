@@ -43,8 +43,8 @@ const PayPeriodDisplay = (props: PayPeriodDisplayProps) => {
       <td>extra</td>
       <td>hours</td>
       <td>
-      <Button onClick={()=> setEditShift(true)}>Edit Shift</Button>
-          {editshift && <EditShift setEditShift={setEditShift}/>}
+      <EditShift setEditShift={setEditShift} list={list}/>
+          
       </td>
       </tr>
     });

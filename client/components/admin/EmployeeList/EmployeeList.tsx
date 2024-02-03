@@ -36,11 +36,11 @@ const EmployeeList = (props: EmployeeListProps) => {
   }, []);
 
   const display = employees.map(list => {
-    return <tr>
+    return <tr key={list._id}>
       <td>{list.first_name} {list.last_name}</td>
       <td>{list.email}</td>
       <td>{list.phone}</td>
-      <td><UpdateEmployee list={list} /></td>
+      <td><UpdateEmployee list={list}/></td>
       <td><DeleteEmployee list={list}/></td>
     </tr>
 
