@@ -4,6 +4,8 @@ import UpdateEmployee from '../UpdateEmployee/UpdateEmployee';
 import AddEmployee from '../AddEmployee/AddEmployee';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import './EmployeeList.css'
+import { Table, Button } from 'react-bootstrap';
+
 
 interface Employee {
   _id: string;
@@ -34,25 +36,45 @@ const EmployeeList = (props: EmployeeListProps) => {
   }, []);
 
   const display = employees.map(list => {
-    return <li key={list._id}> 
-      Employee: {list.first_name} {list.last_name}
-        <UpdateEmployee list={list} />
-        <DeleteEmployee list={list} />
-      </li>
+    return <tr key={list._id}>
+      <td>{list.first_name} {list.last_name}</td>
+      <td>{list.email}</td>
+      <td>{list.phone}</td>
+      <td><UpdateEmployee list={list}/></td>
+      <td><DeleteEmployee list={list}/></td>
+    </tr>
+
     });
 
 return (
   <div className="page-container">
     <AdminDashboard isAdminLoggedIn={props.isAdminLoggedIn}/>
-    <br></br>
-    <button className='add-employee-btn'onClick={()=> setAddEmployee(true)}>Add Employee</button>
-    {addEmployee && (
-      <AddEmployee setAddEmployee={setAddEmployee}/>
-    )}
-    <h2>Employee List: </h2>
-    <ul>
-      {display}
-    </ul>
+
+    <div className='employee-list-container'>
+    <div>
+      <Button className='add-employee-btn'onClick={()=> setAddEmployee(true)}>Add Employee</Button>
+        {addEmployee && (
+          <AddEmployee setAddEmployee={setAddEmployee}/>
+        )}
+    </div>
+      <h2>Employee List: </h2>
+      <div>
+        <Table striped bordered hover>
+          <thead>
+          <tr>
+              <th>Employee Name</th> 
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>{display}</tbody>
+
+        </Table>
+      </div>
+    </div>
+
   </div>
 )
 };

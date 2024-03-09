@@ -1,0 +1,25 @@
+/* style me */
+
+.scroll {
+  border: 1px solid green;
+  height: 30%;
+  position: absolute;
+  background-color: rgb(160, 255, 153);
+  border-radius: 10px;
+  width: 25%;
+  overflow-y: scroll;
+}
+.scroll button {
+  background-color: rgb(255, 119, 119);
+}
+
+.scroll ul {
+  list-style-type: none;
+}
+
+.scroll ul button {
+  background-color: rgb(77, 159, 63);
+}
+.scroll ul button:hover {
+  background-color: rgb(140, 250, 250);
+}
