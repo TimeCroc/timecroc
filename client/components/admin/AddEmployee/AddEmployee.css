@@ -3,21 +3,42 @@
   border: 3px solid black;
   margin: 5px;
   width: 400px;
-  height: 550px;
+  min-width: 300px;
+  height: 500px;
   border-radius: 50px;
   /* border: 1px solid orange; */
 }
 
 .add_employee_inner {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: grid;
   justify-content: center;
   align-items: center;
   /* width: 200px; */
 }
 
-.form-control {
+.add_employee_form_control {
   border: 3px solid black;
   border-radius: 10px;
   width: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.add_employee_submit_btn {
+  /* border: 3px solid black;
+  border-radius: 10px;
+  margin-bottom: 10px; */
+  border-radius: 5px;
+  background: rgb(42, 142, 44);
+  border: 1px solid rgb(142, 231, 163);
+  box-shadow: 0 1px 2px 0 rgba(22, 135, 24, 0.109);
+  color: black;
+  padding: 10px 20px;
+}
+
+.cancel_button {
+  background-color: pink;
+  border: 3px solid black;
+  border-radius: 5px;
 }
