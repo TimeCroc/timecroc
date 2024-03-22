@@ -26,9 +26,9 @@
 }
 
 .add_employee_submit_btn {
-  /* border: 3px solid black;
-  border-radius: 10px;
-  margin-bottom: 10px; */
+  /* border: 3px solid black; */
+  /* border-radius: 10px; */
+  margin-bottom: 10px;
   border-radius: 5px;
   background: rgb(42, 142, 44);
   border: 1px solid rgb(142, 231, 163);
