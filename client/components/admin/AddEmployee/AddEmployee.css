@@ -1,9 +1,23 @@
 .add_employee {
   display: block;
-  border: 1px solid black;
+  border: 3px solid black;
   margin: 5px;
-  width: 40%;
-  height: 30vh;
+  width: 400px;
+  height: 550px;
+  border-radius: 50px;
+  /* border: 1px solid orange; */
+}
+
+.add_employee_inner {
+  border: 1px solid red;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  /* width: 200px; */
+}
+
+.form-control {
+  border: 3px solid black;
   border-radius: 10px;
-  border: 1px solid orange;
+  width: 200px;
 }
